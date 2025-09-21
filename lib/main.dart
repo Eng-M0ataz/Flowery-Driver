@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flowery_tracking/core/config/routing/app_routes.dart';
 import 'package:flowery_tracking/core/config/routing/route_generator.dart';
 import 'package:flowery_tracking/core/config/theme/app_theme.dart';
 import 'package:flowery_tracking/core/di/di.dart';
@@ -41,25 +40,24 @@ class FloweryDirver extends StatelessWidget {
       create: (context) => getIt<AppConfigCubit>()..loadSavedLocale(),
       child: BlocBuilder<AppConfigCubit, Locale>(
         builder: (context, localeState) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            localizationsDelegates: context.localizationDelegates,
-            supportedLocales: context.supportedLocales,
-            locale: localeState,
-            builder: (context, child) => ResponsiveBreakpoints.builder(
-              child: ResponsiveScaledBox(
+          return ResponsiveBreakpoints.builder(
+            breakpoints: AppSizes.appBreakPoints,
+            breakpointsLandscape: AppSizes.appLandscapeBreakPoints,
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              localizationsDelegates: context.localizationDelegates,
+              supportedLocales: context.supportedLocales,
+              locale: localeState,
+              theme: AppThemeLight.lightTheme,
+              onGenerateRoute: RouteGenerator.getRoute,
+              builder: (context, child) => ResponsiveScaledBox(
                 width: ResponsiveValue<double>(
                   context,
                   conditionalValues: AppSizes.conditionalValues,
                 ).value,
                 child: child!,
               ),
-              breakpoints: AppSizes.appBreakPoints,
-              breakpointsLandscape: AppSizes.appLandscapeBreakPoints,
             ),
-            theme: AppThemeLight.lightTheme,
-            onGenerateRoute: RouteGenerator.getRoute,
-            initialRoute: AppRoutes.mainLayoutRoute,
           );
         },
       ),
