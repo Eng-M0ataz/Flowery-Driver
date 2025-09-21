@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1034210985533",
+    "project_id": "flowery-rider-93523",
+    "storage_bucket": "flowery-rider-93523.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1034210985533:android:e3ec22ad16db4569e58c54",
+        "android_client_info": {
+          "package_name": "com.example.flowery_tracking"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGyvCR5Yz_sEiNEkRXsydNMwTFL71coDY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

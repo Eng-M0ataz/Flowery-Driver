@@ -1,0 +1,32 @@
+name: Validate Branch Name
+
+on:
+  pull_request:
+    branches:
+      - "**"
+
+jobs:
+  check-branch-name:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check branch name
+        run: |
+          echo "Branch name is $GITHUB_REF_NAME"
+
+          # allow exceptions
+          if [[ "$GITHUB_REF_NAME" =~ ^(main|dev|development|release)$ ]]; then
+            echo "✅ Branch name '$GITHUB_REF_NAME' is allowed (exception)"
+            exit 0
+          fi
+          if [[ "$GITHUB_REF_NAME" =~ ^[0-9]+/merge$ ]]; then
+            echo "ℹ Ignoring merge branch $GITHUB_REF_NAME"
+            exit 0
+           fi
+          # enforce regex rules
+          if [[ ! "$GITHUB_REF_NAME" =~ ^(Feature|Hotfix|Release|Build|Test)/[a-zA-Z0-9_-]+/[A-Z]+-[0-9]+$ ]]; then
+            echo "❌ Invalid branch name: $GITHUB_REF_NAME"
+            echo "👉 Expected format: Feature/Home/FECA-13"
+            exit 1
+          fi
+
+          echo "✅ Branch name is valid!"

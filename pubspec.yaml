@@ -1,0 +1,114 @@
+name: flowery_tracking
+description: "A new Flutter project."
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+# In Windows, build-name is used as the major, minor, and patch parts
+# of the product and file versions while build-number is used as the build suffix.
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.9.2
+
+# Dependencies specify other packages that your package needs in order to work.
+# To automatically upgrade your package dependencies to the latest versions
+# consider running `flutter pub upgrade --major-versions`. Alternatively,
+# dependencies can be manually updated by changing the version numbers below to
+# the latest version available on pub.dev. To see which dependencies have newer
+# versions available, run `flutter pub outdated`.
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_secure_storage: ^9.2.4
+  cached_network_image: ^3.4.1
+  dio: ^5.9.0
+  flutter_bloc: ^9.1.1
+  bloc: ^9.0.0
+  flutter_svg: ^2.0.10+1
+  flutter_timer_countdown: ^1.0.7
+  get_it: ^8.2.0
+  injectable: ^2.5.1
+  json_annotation: ^4.9.0
+  pretty_dio_logger: ^1.4.0
+  retrofit: ^4.4.0
+  responsive_framework: ^1.5.1
+  easy_localization: ^3.0.8
+  image_picker: ^1.2.0
+  shimmer_animation: ^2.2.2
+  flutter_image_slideshow: ^0.1.6
+  geolocator: ^14.0.2
+  google_maps_flutter: ^2.13.1
+  geocoding: ^2.1.1
+  firebase_core: ^4.1.0
+  firebase_messaging: ^16.0.1
+  pinput: ^5.0.1
+  bloc_test: ^10.0.0
+  equatable: ^2.0.7
+  cupertino_icons: ^1.0.8
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  build_runner: ^2.7.0
+  test: ^1.25.15
+  json_serializable: ^6.10.0
+  retrofit_generator: ^10.0.4
+  injectable_generator: ^2.8.1
+  mockito: ^5.5.0
+
+  
+flutter:
+   uses-material-design: true
+   generate: true
+
+   assets:
+    - assets/images/
+    - assets/translations/
+   fonts:
+     - family: Inter
+       fonts:
+         - asset: assets/fonts/Inter_18pt-Black.ttf
+           weight: 900
+         - asset: assets/fonts/Inter_18pt-Bold.ttf
+           weight: 700
+         - asset: assets/fonts/Inter_18pt-ExtraBold.ttf
+           weight: 800
+         - asset: assets/fonts/Inter_18pt-Medium.ttf
+           weight: 500
+         - asset: assets/fonts/Inter_18pt-Regular.ttf
+           weight: 400
+         - asset: assets/fonts/Inter_18pt-SemiBold.ttf
+           weight: 600
+     - family: Roboto
+       fonts:
+         - asset: assets/fonts/Roboto-Black.ttf
+           weight: 900
+         - asset: assets/fonts/Roboto-Bold.ttf
+           weight: 700
+         - asset: assets/fonts/Roboto-ExtraBold.ttf
+           weight: 800
+         - asset: assets/fonts/Roboto-Medium.ttf
+           weight: 500
+         - asset: assets/fonts/Roboto-Regular.ttf
+           weight: 400
+         - asset: assets/fonts/Roboto-SemiBold.ttf
+           weight: 600
+flutter_assets:
+  assets_path: assets/images/
+  output_path: lib\core\utils\Constants\
+  filename: app_assets.dart
+
+ 

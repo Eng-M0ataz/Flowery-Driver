@@ -1,0 +1,27 @@
+name: Validate PR Title
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+jobs:
+  validate-pr-title:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate PR title format
+        run: |
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          echo ":mag_right: Checking PR title: $PR_TITLE"
+          # Regex explanation:
+          # ^(fix|release|feat|hotfix|build|test) → allowed types
+          # / → must have slash
+          # [A-Z]+-[0-9]+ → JIRA ticket (e.g., FECA-123)
+          # ( .+)? → description/branch name after a space
+          #
+          if [[ ! "$PR_TITLE" =~ ^(fix|release|feat|hotfix|build|test)/[A-Z]+-[0-9]+(\ .+)?$ ]]; then
+            echo ":x: Invalid PR title!"
+            echo ":point_right: Expected format: type/TICKET-NUMBER Description"
+            echo ":white_check_mark: Examples:"
+            echo "   feat/FECA-27 Initialize project"
+            echo "   fix/FECA-101 Fix checkout bug"
+            exit 1
+          fi
+          echo ":white_check_mark: PR title is valid!"

@@ -1,0 +1,60 @@
+name: Flutter Unit Testing Action
+
+on:
+  pull_request:
+
+jobs:
+  testing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+     
+      - name: Delete pubspec.lock
+        run: |
+          if [ -f pubspec.lock ]; then
+            echo "Deleting pubspec.lock..."
+            rm pubspec.lock
+          else
+            echo "pubspec.lock not found, skipping"
+          fi
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Check Flutter version
+        run: flutter --version
+
+      - name: Install dependencies
+        run: flutter pub get
+    
+      - name: Generate localization files
+        run: |
+          flutter pub run easy_localization:generate -S assets/translations -O lib/core/localization
+          flutter pub run easy_localization:generate -S assets/translations -O lib/core/localization -f keys -o locale_keys.g.dart
+
+      - name: Generate code (json_serializable, retrofit, mockito)
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+
+      - name: Check if tests exist
+        id: check_tests
+        run: |
+          if [ -d "test" ] && [ "$(find test -name "*.dart" -type f | wc -l)" -gt 0 ]; then
+            echo "Tests found, proceeding with test execution"
+            echo "has_tests=true" >> $GITHUB_OUTPUT
+          else
+            echo "No tests found, skipping test execution"
+            echo "has_tests=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run tests
+        if: steps.check_tests.outputs.has_tests == 'true'
+        run: flutter test --coverage
+
+      - name: Upload coverage reports
+        if: steps.check_tests.outputs.has_tests == 'true'
+        uses: codecov/codecov-action@v4
+        with:
+          file: coverage/lcov.info
+          fail_ci_if_error: false

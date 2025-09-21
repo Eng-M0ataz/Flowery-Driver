@@ -1,0 +1,20 @@
+include: package:flutter_lints/flutter.yaml
+analyzer:
+  errors:
+    # أخطاء تبقى warning مش error
+    use_build_context_synchronously: ignore
+    non_constant_identifier_names: ignore
+linter:
+  rules:
+    # :white_check_mark: قواعد مفيدة
+    always_use_package_imports: true    # استخدم package imports بدل relative imports
+    prefer_const_constructors: true     # استخدم const لما ينفع
+    prefer_final_locals: true           # خلي المتغيرات final لما مش هتتغير
+    unnecessary_this: true              # لو this مش ضروري، شيله
+    # :x: تخفيف شوية
+    avoid_print: true                  # مسموح تستخدم print وقت التطوير
+    prefer_single_quotes: true         # تستخدم " أو ' براحتك
+    require_trailing_commas: true      # مش لازم كل list/map ينتهي بـ ,
+    # :mag: ممكن تضيف قواعد بتساعدك في المشاريع الكبيرة
+    sort_constructors_first: true       # خلي الـ constructor فوق
+    avoid_unused_constructor_parameters: true
