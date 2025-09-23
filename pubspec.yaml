@@ -58,6 +58,7 @@ dependencies:
   cupertino_icons: ^1.0.8
 
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -68,6 +69,7 @@ dev_dependencies:
   retrofit_generator: ^10.0.4
   injectable_generator: ^2.8.1
   mockito: ^5.5.0
+
 
   
 flutter:
