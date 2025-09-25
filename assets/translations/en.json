@@ -1,3 +1,25 @@
 {
-  "login": "Login"
+  "login": "Login",
+  "error": "Error",
+  "ok": "Ok",
+  "success": "Success",
+  "operationCompleted": "Operation completed successfully!",
+  "unexpectedError": "Unexpected error occurred",
+  "password": "Password",
+  "forgetPassword": "Forget password",
+  "enterEmailInstruction": "Please enter your email associated to your account",
+  "email": "Email",
+  "enterEmail": "Enter your email",
+  "confirm": "Confirm",
+  "invalidEmail": "This email is not valid",
+  "emailVerification": "Email verification",
+  "enterCodeInstruction": "Please enter your code that was sent to your email address",
+  "didNotReceiveCode": "Didn't receive code?",
+  "resend": "Resend",
+  "passwordValidation": "Password must not be empty and must contain 6 characters with an uppercase letter and one number at least",
+  "newPassword": "New password",
+  "enterPassword": "Enter your password",
+  "confirmPassword": "Confirm password",
+  "invalidCode": "Invalid code",
+  "resetPassword": "Reset password"
 }
