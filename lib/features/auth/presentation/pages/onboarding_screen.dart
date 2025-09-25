@@ -8,6 +8,7 @@ import 'package:flowery_tracking/core/utils/constants/sizes.dart';
 import 'package:flowery_tracking/core/widgets/custom_button.dart';
 import 'package:flowery_tracking/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 
 class OnboardingScreen extends StatelessWidget {
@@ -23,7 +24,7 @@ class OnboardingScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Image.asset(Assets.assetsImagesGroup),
+              SvgPicture.asset(Assets.assetsImagesGroup, fit: BoxFit.scaleDown,),
               const SizedBox(height: AppSizes.sizedBoxHeight_9,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: AppSizes.paddingSm_8),

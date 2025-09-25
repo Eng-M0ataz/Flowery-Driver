@@ -1,4 +1,5 @@
 import 'package:flowery_tracking/core/config/routing/app_routes.dart';
+import 'package:flowery_tracking/features/auth/presentation/pages/login_screen.dart';
 import 'package:flowery_tracking/features/auth/presentation/pages/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +8,8 @@ class RouteGenerator {
     switch (settings.name) {
       case AppRoutes.onboardingRoute:
         return MaterialPageRoute(builder: (_) => const OnboardingScreen());
+      case AppRoutes.signInRoute:
+        return MaterialPageRoute(builder: (_) => const LoginScreen());
       default:
         return unDefinedRoute();
     }
