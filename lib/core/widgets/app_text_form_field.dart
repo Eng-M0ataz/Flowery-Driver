@@ -3,6 +3,23 @@ import 'package:flowery_tracking/core/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 
 class AppTextFormField extends StatefulWidget {
+
+  const AppTextFormField({
+    super.key,
+    this.contentPadding,
+    this.focusedBorder,
+    this.enabledBorder,
+    this.inputTextStyle,
+    this.hintStyle,
+    this.labelStyle,
+    this.labelText,
+    required this.isPassword,
+    required this.hintText,
+    this.suffixIcon,
+    this.backgroundColor,
+    this.controller,
+    this.validator,
+  });
   final EdgeInsetsGeometry? contentPadding;
   final InputBorder? focusedBorder;
   final InputBorder? enabledBorder;
@@ -16,31 +33,14 @@ class AppTextFormField extends StatefulWidget {
   final bool isPassword;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
-  bool isObscureText;
-
-  AppTextFormField({
-    super.key,
-    this.contentPadding,
-    this.focusedBorder,
-    this.enabledBorder,
-    this.inputTextStyle,
-    this.hintStyle,
-    this.labelStyle,
-    this.labelText,
-    required this.isPassword,
-    required this.hintText,
-    this.isObscureText = true,
-    this.suffixIcon,
-    this.backgroundColor,
-    this.controller,
-    this.validator,
-  });
 
   @override
   State<AppTextFormField> createState() => _AppTextFormFieldState();
 }
 
 class _AppTextFormFieldState extends State<AppTextFormField> {
+  bool isObscureText = true;
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -78,11 +78,11 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
         suffixIcon: widget.isPassword
             ? IconButton(
           onPressed: () {
-            widget.isObscureText = !widget.isObscureText;
+            isObscureText = !isObscureText;
             setState(() {});
           },
           icon: Icon(
-            widget.isObscureText ? Icons.visibility_off : Icons.visibility,
+            isObscureText ? Icons.visibility_off : Icons.visibility,
             color: AppColorsLight.grey,
           ),
         )
@@ -90,7 +90,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
         fillColor: widget.backgroundColor,
         filled: true,
       ),
-      obscureText: widget.isPassword ? widget.isObscureText : false,
+      obscureText: widget.isPassword ? isObscureText : false,
       style: const TextStyle(fontSize: AppSizes.smFont_14),
       validator: widget.validator,
     );

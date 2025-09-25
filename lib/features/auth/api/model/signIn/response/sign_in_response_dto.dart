@@ -4,10 +4,6 @@ part 'sign_in_response_dto.g.dart';
 
 @JsonSerializable()
 class SignInResponseDto {
-  @JsonKey(name: "message")
-  final String? message;
-  @JsonKey(name: "token")
-  final String? token;
 
   SignInResponseDto ({
     this.message,
@@ -17,6 +13,10 @@ class SignInResponseDto {
   factory SignInResponseDto.fromJson(Map<String, dynamic> json) {
     return _$SignInResponseDtoFromJson(json);
   }
+  @JsonKey(name: 'message')
+  final String? message;
+  @JsonKey(name: 'token')
+  final String? token;
 
   Map<String, dynamic> toJson() {
     return _$SignInResponseDtoToJson(this);

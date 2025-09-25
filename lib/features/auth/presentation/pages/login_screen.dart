@@ -7,7 +7,6 @@ import 'package:flowery_tracking/core/helpers/routing_extensions.dart';
 import 'package:flowery_tracking/core/utils/constants/sizes.dart';
 import 'package:flowery_tracking/core/widgets/app_text_form_field.dart';
 import 'package:flowery_tracking/core/widgets/custom_button.dart';
-import 'package:flowery_tracking/features/auth/domain/entity/signIn/sign_in_response_entity.dart';
 import 'package:flowery_tracking/features/auth/presentation/viewModel/signin/sign_in_states.dart';
 import 'package:flowery_tracking/features/auth/presentation/viewModel/signin/sign_in_view_model.dart';
 import 'package:flowery_tracking/generated/locale_keys.g.dart';
