@@ -48,3 +48,4 @@ app.*.map.json
 *.config.dart
 *.mocks
 lib/core/di/di.config.dart
+lib/generated/locale_keys.g.dart
