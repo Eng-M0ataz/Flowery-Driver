@@ -1,3 +1,5 @@
 {
-  "login": "Login"
+  "login": "Login",
+  "app_approved_title": "Your application has been\nsubmitted!",
+  "app_approved_desc": "Thank you for providing your application\nwe will review your application and will\nget back to you soon."
 }

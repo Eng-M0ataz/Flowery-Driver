@@ -85,7 +85,7 @@ abstract class AppSizes {
   static const double borderRadiusXl_20 = 20.0;
   static const double borderRadiusXxl_24 = 24.0;
   static const double borderRadiusXxxl_32 = 32.0;
-  static const double borderRadiusXxxl_40 = 32.0;
+  static const double borderRadiusXxxl_40 = 40.0;
   static const double borderRadiusFull = 100.0;
 
   //Border Width
@@ -108,6 +108,11 @@ abstract class AppSizes {
   static const double sizedBoxHeight_8 = 8.0;
   static const double sizedBoxHeight_16 = 16.0;
   static const double sizedBoxHeight_30 = 30.0;
+
+  //images size
+  static const double imageHeight_160=160.0;
+  static const double imageWidth_160=160.0;
+
 
   // break points
 
