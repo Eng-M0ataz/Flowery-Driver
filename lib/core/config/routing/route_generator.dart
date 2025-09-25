@@ -1,4 +1,6 @@
 import 'package:flowery_tracking/core/config/routing/app_routes.dart';
+import 'package:flowery_tracking/features/auth/presentation/pages/forget_password_screen.dart';
+import 'package:flowery_tracking/core/config/routing/app_routes.dart';
 import 'package:flowery_tracking/features/auth/presentation/widgets/apply_success_screen.dart';
 import 'package:flowery_tracking/features/mainLayout/main_layout.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/presentation/pages/home_screen.dart';
@@ -9,6 +11,8 @@ import 'package:flutter/material.dart';
 class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
     switch (settings.name) {
+      case AppRoutes.forgetPasswordRoute:
+        return MaterialPageRoute(builder: (_) => const ForgetPasswordScreen());
       case AppRoutes.mainLayoutRoute:
         return MaterialPageRoute(builder: (_) => const MainLayout());
       case AppRoutes.homeRoute:
