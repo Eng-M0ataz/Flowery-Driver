@@ -127,4 +127,11 @@ abstract class AppSizes {
     Condition.between(start: 451, end: 768, value: 600),
     Condition.between(start: 769, end: 1024, value: 1024),
   ];
+
+  //pin code
+  static const int pinCodeLength_6 = 6;
+  static const double pinCodeHeight_74 = 74;
+  static const double pinCodeWidth_68 = 68;
+  static const int pinCodeSpace = 16;
+  static const double pinCodeBorderWidth_2=2;
 }
