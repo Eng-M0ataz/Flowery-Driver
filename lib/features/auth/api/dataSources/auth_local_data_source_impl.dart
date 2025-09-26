@@ -6,5 +6,6 @@ import 'package:injectable/injectable.dart';
 @Injectable(as: AuthLocalDataSource)
 class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   AuthLocalDataSourceImpl(@Named(AppConstants.secureStorage) this._storage);
+  // ignore: unused_field
   final Storage _storage;
 }

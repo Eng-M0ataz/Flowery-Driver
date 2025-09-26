@@ -14,6 +14,7 @@ import 'package:injectable/injectable.dart';
 class AuthRepoImpl implements AuthRepo {
   AuthRepoImpl(this._authRemoteDataSource, this._authLocalDataSource);
   final AuthRemoteDataSource _authRemoteDataSource;
+  // ignore: unused_field
   final AuthLocalDataSource _authLocalDataSource;
   @override
   Future<ApiResult<ForgetPasswordResponseEntity>> forgetPassword(
