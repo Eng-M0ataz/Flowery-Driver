@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flowery_tracking/core/errors/api_results.dart';
 import 'package:flowery_tracking/core/errors/failure.dart';
+import 'package:flowery_tracking/core/functions/execute_api.dart';
 import 'package:flowery_tracking/features/auth/api/client/auth_api_service.dart';
 import 'package:flowery_tracking/features/auth/api/mapper/signIn/sigin_in_dto_mapper.dart';
 import 'package:flowery_tracking/features/auth/api/model/signIn/request/sign_in_request_dto.dart';
@@ -16,6 +17,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
   @override
   Future<ApiResult<SignInResponseEntity>> signIn({required SignInRequestEntity requestEntity}) async {
+    // return executeApi<SignInRequestDto, SignInResponseEntity>(request: () => _apiServices.signIn(requestDto: SignInRequestDto(email: requestEntity.email, password: requestEntity.password)),);
     try{
       final response = await _apiServices.signIn(requestDto: SignInRequestDto(email: requestEntity.email, password: requestEntity.password));
       return ApiSuccessResult<SignInResponseEntity>(data: response.toEntity());
