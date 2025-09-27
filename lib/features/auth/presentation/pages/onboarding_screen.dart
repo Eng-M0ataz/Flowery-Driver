@@ -16,7 +16,6 @@ class OnboardingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = AppThemeLight.lightTheme;
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -25,7 +24,7 @@ class OnboardingScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               SvgPicture.asset(Assets.assetsImagesGroup, fit: BoxFit.scaleDown,),
-              const SizedBox(height: AppSizes.sizedBoxHeight_9,),
+              const SizedBox(height: AppSizes.spaceBetweenItems_8,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: AppSizes.paddingSm_8),
                 child: Column(
@@ -33,7 +32,7 @@ class OnboardingScreen extends StatelessWidget {
                   children: [
                     Text(
                       LocaleKeys.welcome_to_flowery_rider_app.tr(),
-                      style: theme.textTheme.bodySmall,
+                      style: Theme.of(context).textTheme.bodySmall,
                     ),
                     const SizedBox(height: AppSizes.sizedBoxHeight_27,),
                     CustomButton(
@@ -44,10 +43,10 @@ class OnboardingScreen extends StatelessWidget {
                       borderRadius: AppSizes.borderRadiusFull,
                       child: Text(
                         LocaleKeys.login.tr(),
-                        style: theme.textTheme.labelLarge!.copyWith(color: AppColorsLight.white),
+                        style: Theme.of(context).textTheme.labelLarge!.copyWith(color: AppColorsLight.white),
                       ),
                     ),
-                    const SizedBox(height: AppSizes.sizedBoxHeight_16,),
+                    const SizedBox(height: AppSizes.spaceBetweenItems_16,),
                     CustomButton(
                       padding: const EdgeInsets.symmetric(vertical: AppSizes.paddingMd_16),
                       onPressed: () {
@@ -57,14 +56,14 @@ class OnboardingScreen extends StatelessWidget {
                       backgroundColorButton: AppColorsLight.white,
                       borderSide: const BorderSide(width: 1,color: AppColorsLight.black),
                       child: Text(
-                          LocaleKeys.apply_now.tr(), style: theme.textTheme.labelLarge
+                          LocaleKeys.apply_now.tr(), style: Theme.of(context).textTheme.labelLarge
                       ),
                     ),
                   ],
                 ),
               ),
               const Spacer(),
-              Text(LocaleKeys.version, textAlign: TextAlign.center, style: theme.textTheme.bodyLarge,)
+              Text(LocaleKeys.version, textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyLarge,)
             ],
           ),
         ),

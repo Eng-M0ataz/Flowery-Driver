@@ -24,5 +24,8 @@
   "enter_your_password": "ادخل كلمة المرور",
   "remember_me": "تذكرني",
   "forgot_password": "نسيت كلمة المرور؟",
-  "continue_btn": "الاستمرار"
+  "continue_btn": "الاستمرار",
+  "error": "خطاء",
+  "ok": "تم",
+  "success": "نجح"
 }

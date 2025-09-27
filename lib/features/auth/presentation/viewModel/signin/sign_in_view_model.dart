@@ -22,7 +22,7 @@ class SignInViewModel extends Cubit<SignInStates>{
   Future<void> signIn() async {
     if(formKey.currentState!.validate()){
       emit(SignInLoadingState());
-      final result = await _signInUseCase.call(
+      final result = await _signInUseCase.invoke(
         requestEntity: SignInRequestEntity(
           email: emailController.text,
           password: passwordController.text,

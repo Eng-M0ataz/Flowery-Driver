@@ -106,15 +106,12 @@ abstract class AppSizes {
 
   //size box sizes
   static const double sizedBoxWidth_8 = 8.0;
-  static const double sizedBoxWidth_9 = 9.0;
   static const double sizedBoxWidth_16 = 16.0;
   static const double sizedBoxHeight_8 = 8.0;
-  static const double sizedBoxHeight_9 = 9.0;
   static const double sizedBoxHeight_11 = 11.0;
   static const double sizedBoxHeight_16 = 16.0;
   static const double sizedBoxHeight_24 = 24.0;
   static const double sizedBoxHeight_27 = 27.0;
-  static const double sizedBoxHeight_30 = 30.0;
   static const double sizedBoxHeight_32 = 32.0;
 
   // break points

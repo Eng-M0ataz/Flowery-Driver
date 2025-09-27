@@ -6,15 +6,15 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class SignInUseCase {
-  SignInUseCase({required this.authRepo});
+  SignInUseCase({required AuthRepo authRepo}): _authRepo = authRepo;
 
-  AuthRepo authRepo;
+  final AuthRepo _authRepo;
 
-  Future<ApiResult<SignInResponseEntity>> call({
+  Future<ApiResult<SignInResponseEntity>> invoke({
     required SignInRequestEntity requestEntity,
-    bool? rememberMeChecked = false,
+    bool rememberMeChecked = false,
   }) async {
-    return await authRepo.signIn(
+    return await _authRepo.signIn(
       requestEntity: requestEntity,
       rememberMeChecked: rememberMeChecked,
     );

@@ -24,5 +24,8 @@
   "enter_your_password": "Enter your password",
   "remember_me": "Remember me",
   "forgot_password": "Forgot password?",
-  "continue_btn": "Continue"
+  "continue_btn": "Continue",
+  "error": "Error",
+  "ok": "Ok",
+  "success": "Success"
 }

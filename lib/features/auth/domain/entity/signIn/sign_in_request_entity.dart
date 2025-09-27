@@ -1,7 +1,7 @@
 class SignInRequestEntity {
-  SignInRequestEntity({this.email, this.password});
+  SignInRequestEntity({required this.email,required this.password});
 
-  final String? email;
+  final String email;
 
-  final String? password;
+  final String password;
 }

@@ -6,6 +6,7 @@ import 'package:flowery_tracking/core/helpers/dialogue_utils.dart';
 import 'package:flowery_tracking/core/helpers/routing_extensions.dart';
 import 'package:flowery_tracking/core/utils/constants/sizes.dart';
 import 'package:flowery_tracking/core/widgets/app_text_form_field.dart';
+import 'package:flowery_tracking/core/widgets/custom_app_bar.dart';
 import 'package:flowery_tracking/core/widgets/custom_button.dart';
 import 'package:flowery_tracking/features/auth/presentation/viewModel/signin/sign_in_states.dart';
 import 'package:flowery_tracking/features/auth/presentation/viewModel/signin/sign_in_view_model.dart';
@@ -21,7 +22,13 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final SignInViewModel _viewModel = getIt<SignInViewModel>();
+  late final SignInViewModel _viewModel;
+
+  @override
+  void initState() {
+    _viewModel = getIt<SignInViewModel>();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,16 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
       bloc: _viewModel,
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(
-            leading: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: IconButton(
-                onPressed: () => context.pop(),
-                icon: const Icon(Icons.arrow_back_ios),
-              ),
-            ),
-            title: Text(LocaleKeys.login.tr()),
-          ),
+          appBar: CustomAppBar(title: LocaleKeys.login.tr(),),
           body: SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(
@@ -48,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 key: _viewModel.formKey,
                 child: ListView(
                   children: [
-                    const SizedBox(height: AppSizes.sizedBoxHeight_24),
+                    const SizedBox(height: AppSizes.spaceBetweenItems_24),
                     AppTextFormField(
                       hintText: LocaleKeys.enter_your_email.tr(),
                       labelText: LocaleKeys.email.tr(),
@@ -56,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: _viewModel.emailController,
                       validator: (value) => Validations.validateEmail(value),
                     ),
-                    const SizedBox(height: AppSizes.sizedBoxHeight_24),
+                    const SizedBox(height: AppSizes.spaceBetweenItems_24),
                     AppTextFormField(
                       controller: _viewModel.passwordController,
                       isPassword: true,
@@ -65,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       suffixIcon: const Icon(Icons.visibility_off),
                       validator: Validations.validatePassword,
                     ),
-                    const SizedBox(height: AppSizes.sizedBoxHeight_11),
+                    const SizedBox(height: AppSizes.spaceBetweenItems_10),
                     Row(
                       children: [
                         Expanded(
@@ -87,12 +85,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: AppSizes.sizedBoxHeight_32),
+                    const SizedBox(height: AppSizes.spaceBetweenItems_32),
                     CustomButton(
                       onPressed: () {
                         _viewModel.signIn();
                       },
-                      borderRadius: 100,
+                      borderRadius: AppSizes.borderRadiusFull,
                       child: Text(LocaleKeys.continue_btn.tr()),
                     ),
                   ],
@@ -106,25 +104,19 @@ class _LoginScreenState extends State<LoginScreen> {
         if (state is SignInErrorState) {
           DialogueUtils.showMessage(
             context: context,
-            title: 'Error',
+            title: LocaleKeys.error.tr(),
             message: state.message,
-            posActionName: 'Ok',
-          );
-        }
-        else if (state is SignInLoadingState) {
-          DialogueUtils.showLoading(
-            context: context,
-            loadingMessage: 'Loading...',
+            posActionName: LocaleKeys.ok.tr(),
           );
         }
         else if (state is SignInSuccessState) {
-          DialogueUtils.hideLoading(context);
           DialogueUtils.showMessage(
             context: context,
-            message: state.signInResponseEntity.message ?? 'Success',
-            posActionName: 'Ok',
-            posAction: (p0) {
-              context.pushReplacementNamed(AppRoutes.mainLayoutRoute);
+            title: LocaleKeys.success.tr(),
+            message: state.signInResponseEntity.message ?? LocaleKeys.success.tr(),
+            posActionName: LocaleKeys.ok.tr(),
+            posAction: () {
+              context.pushNamed(AppRoutes.mainLayoutRoute);
             },
           );
         }
