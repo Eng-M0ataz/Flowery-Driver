@@ -5,9 +5,8 @@ import 'package:flowery_tracking/core/functions/validators.dart';
 import 'package:flowery_tracking/core/helpers/dialogue_utils.dart';
 import 'package:flowery_tracking/core/helpers/routing_extensions.dart';
 import 'package:flowery_tracking/core/utils/constants/sizes.dart';
-import 'package:flowery_tracking/core/widgets/app_text_form_field.dart';
 import 'package:flowery_tracking/core/widgets/custom_app_bar.dart';
-import 'package:flowery_tracking/core/widgets/custom_button.dart';
+import 'package:flowery_tracking/core/widgets/custom_elevated_button.dart';
 import 'package:flowery_tracking/features/auth/presentation/viewModel/signin/sign_in_states.dart';
 import 'package:flowery_tracking/features/auth/presentation/viewModel/signin/sign_in_view_model.dart';
 import 'package:flowery_tracking/generated/locale_keys.g.dart';
@@ -32,10 +31,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer(
-      bloc: _viewModel,
-      builder: (context, state) {
-        return Scaffold(
+    return BlocProvider(
+      create: (context) =>  _viewModel,
+      child:
+         Scaffold(
+
           appBar: CustomAppBar(title: LocaleKeys.login.tr(),),
           body: SafeArea(
             child: Padding(
@@ -47,21 +47,25 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: ListView(
                   children: [
                     const SizedBox(height: AppSizes.spaceBetweenItems_24),
-                    AppTextFormField(
-                      hintText: LocaleKeys.enter_your_email.tr(),
-                      labelText: LocaleKeys.email.tr(),
-                      isPassword: false,
-                      controller: _viewModel.emailController,
+                    TextFormField(
+                      controller:  _viewModel.emailController,
+                      obscureText: false,
                       validator: (value) => Validations.validateEmail(value),
+                      decoration: InputDecoration(
+                        hintText:  LocaleKeys.enter_your_email.tr(),
+                        labelText: LocaleKeys.email.tr(),
+                      ),
                     ),
                     const SizedBox(height: AppSizes.spaceBetweenItems_24),
-                    AppTextFormField(
+                    TextFormField(
                       controller: _viewModel.passwordController,
-                      isPassword: true,
-                      hintText: LocaleKeys.enter_your_password.tr(),
-                      labelText: LocaleKeys.password.tr(),
-                      suffixIcon: const Icon(Icons.visibility_off),
-                      validator: Validations.validatePassword,
+                      obscureText: true,
+                      validator: (value) => Validations.validatePassword(value),
+                      decoration: InputDecoration(
+                        hintText: LocaleKeys.enter_your_password.tr(),
+                        labelText: LocaleKeys.password.tr(),
+                        suffixIcon: IconButton(onPressed: (){}, icon: Icon(_viewModel.obscureText ? Icons.visibility_off : Icons.visibility))
+                      ),
                     ),
                     const SizedBox(height: AppSizes.spaceBetweenItems_10),
                     Row(
@@ -79,48 +83,46 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         TextButton(
                           onPressed: () {
-                            context.pushNamed(AppRoutes.forgetPasswordRoute);
+                            _viewModel.navigateToRouteScreen(context, AppRoutes.forgetPasswordRoute);
                           },
                           child: Text(LocaleKeys.forgot_password.tr()),
                         ),
                       ],
                     ),
                     const SizedBox(height: AppSizes.spaceBetweenItems_32),
-                    CustomButton(
-                      onPressed: () {
-                        _viewModel.signIn();
+                    BlocConsumer<SignInViewModel, SignInState>(
+                      bloc: _viewModel,
+                      listener: (context, state) {
+                        if (state.failure != null) {
+                          DialogueUtils.showMessage(
+                            context: context,
+                            title: LocaleKeys.error.tr(),
+                            message: state.failure?.errorMessage ?? LocaleKeys.error.tr(),
+                            posActionName: LocaleKeys.ok.tr(),
+                          );
+                        }
+                        if (state.response != null) {
+                          context.pushNamedAndRemoveUntil(AppRoutes.mainLayoutRoute,
+                              predicate: (route) => false);
+                        }
                       },
-                      borderRadius: AppSizes.borderRadiusFull,
-                      child: Text(LocaleKeys.continue_btn.tr()),
+                      builder: (context, state) {
+                        final isLoading = state.isLoading;
+                        return CustomElevatedButton(
+                          widget: Text(LocaleKeys.login.tr()),
+                          isLoading: isLoading,
+                          onPressed: () {
+                            _viewModel.signIn();
+                          },
+                        );
+                      },
                     ),
                   ],
                 ),
               ),
             ),
           ),
-        );
-      },
-      listener: (context, state) {
-        if (state is SignInErrorState) {
-          DialogueUtils.showMessage(
-            context: context,
-            title: LocaleKeys.error.tr(),
-            message: state.message,
-            posActionName: LocaleKeys.ok.tr(),
-          );
-        }
-        else if (state is SignInSuccessState) {
-          DialogueUtils.showMessage(
-            context: context,
-            title: LocaleKeys.success.tr(),
-            message: state.signInResponseEntity.message ?? LocaleKeys.success.tr(),
-            posActionName: LocaleKeys.ok.tr(),
-            posAction: () {
-              context.pushNamed(AppRoutes.mainLayoutRoute);
-            },
-          );
-        }
-      },
+        ),
     );
   }
 }
