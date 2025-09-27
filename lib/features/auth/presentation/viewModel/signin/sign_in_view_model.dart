@@ -9,7 +9,9 @@ import 'package:flowery_tracking/features/auth/presentation/viewModel/signin/sig
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+final storage = const FlutterSecureStorage();
 
 @injectable
 class SignInViewModel extends Cubit<SignInState>{
@@ -33,9 +35,12 @@ class SignInViewModel extends Cubit<SignInState>{
         ),
         rememberMeChecked: rememberMe,
       );
+
       switch(result){
         case ApiSuccessResult<SignInResponseEntity>():
+          await storage.write(key: 'token', value: result.data.token);
           emit(state.copyWith(response: result.data, isLoading: false));
+
         case ApiErrorResult<SignInResponseEntity>():
           emit(state.copyWith(failure: Failure(errorMessage: result.failure.errorMessage,), isLoading: false));
       }

@@ -12,8 +12,9 @@ import 'package:flowery_tracking/core/utils/constants/sizes.dart';
 import 'package:flowery_tracking/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-
+final storage = const FlutterSecureStorage();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
@@ -21,19 +22,20 @@ void main() async {
   await configureDependencies();
   final initialRoute = await getInitialRoute();
   Bloc.observer = MyBlocObserver();
-
+  final token = await storage.read(key: 'token');
   runApp(
     EasyLocalization(
       supportedLocales: AppConstants.supportedLocales,
       path: AppConstants.assetsPath,
       fallbackLocale: const Locale(AppConstants.en),
-      child: FloweryDirver(initialRoute: initialRoute),
+      child: FloweryDirver(initialRoute: initialRoute, token: token),
     ),
   );
 }
 
 class FloweryDirver extends StatelessWidget {
-  const FloweryDirver({super.key, required this.initialRoute});
+  const FloweryDirver({super.key, required this.initialRoute, required this.token});
+  final String? token;
   final String initialRoute;
   @override
   Widget build(BuildContext context) {
@@ -58,7 +60,7 @@ class FloweryDirver extends StatelessWidget {
                 ).value,
                 child: child!,
               ),
-              initialRoute: AppRoutes.onboardingRoute,
+              initialRoute: (token != null && token!.isNotEmpty) ? AppRoutes.mainLayoutRoute : AppRoutes.onboardingRoute,
             ),
           );
         },
