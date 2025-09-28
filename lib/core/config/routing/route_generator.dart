@@ -1,8 +1,12 @@
+import 'package:flowery_tracking/core/config/routing/app_routes.dart';
+import 'package:flowery_tracking/features/auth/presentation/pages/forget_password_screen.dart';
 import 'package:flutter/material.dart';
 
 class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
     switch (settings.name) {
+      case AppRoutes.forgetPasswordRoute:
+        return MaterialPageRoute(builder: (_) => ForgetPasswordScreen());
       default:
         return unDefinedRoute();
     }
