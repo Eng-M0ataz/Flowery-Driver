@@ -1,4 +1,3 @@
-import 'package:flowery_tracking/core/config/routing/app_routes.dart';
 import 'package:flowery_tracking/core/errors/api_results.dart';
 import 'package:flowery_tracking/core/errors/failure.dart';
 import 'package:flowery_tracking/core/helpers/routing_extensions.dart';
@@ -17,12 +16,12 @@ final storage = const FlutterSecureStorage();
 class SignInViewModel extends Cubit<SignInState>{
   SignInViewModel(this._signInUseCase) : super(SignInState());
   final SignInUseCase _signInUseCase;
-
-  final formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController(text: 'abdoaswani@gmail.com');
   TextEditingController passwordController = TextEditingController(text: 'Ahmed@123');
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool obscureText = true;
   bool rememberMe = false;
+
   static SignInViewModel get(context) => BlocProvider.of<SignInViewModel>(context);
 
   Future<void> signIn() async {
@@ -33,12 +32,20 @@ class SignInViewModel extends Cubit<SignInState>{
           email: emailController.text,
           password: passwordController.text,
         ),
-        rememberMeChecked: rememberMe,
       );
 
       switch(result){
         case ApiSuccessResult<SignInResponseEntity>():
-          await storage.write(key: 'token', value: result.data.token);
+          if(rememberMe){
+            await storage.write(key: 'email', value: emailController.text);
+            await storage.write(key: 'password', value: passwordController.text);
+            await storage.write(key: 'token', value: result.data.token);
+          }else{
+            await storage.delete(key: 'email');
+            await storage.delete(key: 'password');
+            await storage.delete(key: 'token');
+
+          }
           emit(state.copyWith(response: result.data, isLoading: false));
 
         case ApiErrorResult<SignInResponseEntity>():
@@ -49,5 +56,10 @@ class SignInViewModel extends Cubit<SignInState>{
 
   navigateToRouteScreen(BuildContext context, String appRoute){
     context.pushNamed(appRoute);
+  }
+
+  void toggleRememberMe(bool value) {
+    rememberMe = value;
+    emit(SignInState(isRememberMe: rememberMe));
   }
 }

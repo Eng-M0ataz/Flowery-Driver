@@ -32,57 +32,66 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(AppSizes.paddingSm_10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              SvgPicture.asset(Assets.assetsImagesGroup, fit: BoxFit.scaleDown),
-              const SizedBox(height: AppSizes.spaceBetweenItems_8),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppSizes.paddingSm_8,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      LocaleKeys.welcome_to_flowery_rider_app.tr(),
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                    const SizedBox(height: AppSizes.sizedBoxHeight_27),
-                    CustomElevatedButton(
-                      onPressed: () { _viewModel.navigateToRouteScreen(context, AppRoutes.signInRoute);},
-                      isLoading: false,
-                      widget: Text(
-                        LocaleKeys.login.tr(),
-                        style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                          color: AppColorsLight.white,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SvgPicture.asset(Assets.assetsImagesGroup, fit: BoxFit.scaleDown),
+                const SizedBox(height: AppSizes.spaceBetweenItems_8),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppSizes.paddingSm_8,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        LocaleKeys.welcome_to_flowery_rider_app.tr(),
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                      const SizedBox(height: AppSizes.sizedBoxHeight_27),
+                      CustomElevatedButton(
+                        onPressed: () { _viewModel.navigateToRouteScreen(context, AppRoutes.signInRoute);},
+                        isLoading: false,
+                        widget: Text(
+                          LocaleKeys.login.tr(),
+                          style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                            color: AppColorsLight.white,
+                          ),
                         ),
                       ),
-                    ),
 
-                    const SizedBox(height: AppSizes.spaceBetweenItems_16),
-                    CustomElevatedButton(
-                      onPressed: () {
-                        _viewModel.navigateToRouteScreen(context, AppRoutes.signUpRoute);
-                      },
-                      isLoading: false,
-                      widget: Text(
-                        LocaleKeys.apply_now.tr(),
-                        style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                          color: AppColorsLight.white,
+                      const SizedBox(height: AppSizes.spaceBetweenItems_16),
+                      Theme(
+                        data: ThemeData(
+                          elevatedButtonTheme: ElevatedButtonThemeData(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Theme.of(context).colorScheme.onPrimary,
+                              foregroundColor: Theme.of(context).colorScheme.onSurface,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(AppSizes.borderRadiusFull),
+                                side: BorderSide(width: 1, color: Theme.of(context).colorScheme.onSurface)
+                              ),
+                            )
+                          )
+                        ),
+                        child: CustomElevatedButton(
+                          onPressed: () {
+                            _viewModel.navigateToRouteScreen(context, AppRoutes.signUpRoute);
+                          },
+                          isLoading: false,
+                          widget: Text(
+                            LocaleKeys.apply_now.tr(),
+                            style: Theme.of(context).textTheme.labelLarge
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              const Spacer(),
-              Text(
-                LocaleKeys.version,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

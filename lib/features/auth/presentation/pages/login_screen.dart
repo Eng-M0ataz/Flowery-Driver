@@ -35,7 +35,6 @@ class _LoginScreenState extends State<LoginScreen> {
       create: (context) =>  _viewModel,
       child:
          Scaffold(
-
           appBar: CustomAppBar(title: LocaleKeys.login.tr(),),
           body: SafeArea(
             child: Padding(
@@ -59,12 +58,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: AppSizes.spaceBetweenItems_24),
                     TextFormField(
                       controller: _viewModel.passwordController,
-                      obscureText: true,
+                      obscureText: _viewModel.obscureText,
                       validator: (value) => Validations.validatePassword(value),
                       decoration: InputDecoration(
                         hintText: LocaleKeys.enter_your_password.tr(),
                         labelText: LocaleKeys.password.tr(),
-                        suffixIcon: IconButton(onPressed: (){}, icon: Icon(_viewModel.obscureText ? Icons.visibility_off : Icons.visibility))
+                        suffixIcon: IconButton(onPressed: (){
+                          setState(() {
+                            _viewModel.obscureText = !_viewModel.obscureText;
+                          });
+                        }, icon: Icon(_viewModel.obscureText ? Icons.visibility_off : Icons.visibility))
                       ),
                     ),
                     const SizedBox(height: AppSizes.spaceBetweenItems_10),
@@ -74,11 +77,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: CheckboxListTile(
                             value: _viewModel.rememberMe,
                             onChanged: (value) {
-                              _viewModel.rememberMe = value ?? false;
+                              setState(() {
+                                _viewModel.toggleRememberMe(value ?? false);
+                              });
                             },
                             title: Text(LocaleKeys.remember_me.tr()),
                             controlAffinity: ListTileControlAffinity.leading,
                             contentPadding: EdgeInsets.zero,
+
                           ),
                         ),
                         TextButton(
