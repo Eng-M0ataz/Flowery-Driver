@@ -1,12 +1,9 @@
-import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flowery_tracking/core/errors/api_results.dart';
-import 'package:flowery_tracking/core/errors/failure.dart';
-import 'package:flowery_tracking/features/auth/domain/entity/signIn/sign_in_request_entity.dart';
 import 'package:flowery_tracking/features/auth/domain/entity/signIn/sign_in_response_entity.dart';
 import 'package:flowery_tracking/features/auth/domain/use_cases/sign_in_use_case.dart';
 import 'package:flowery_tracking/features/auth/presentation/viewModel/signin/sign_in_view_model.dart';
@@ -15,6 +12,8 @@ import 'package:flowery_tracking/features/auth/presentation/viewModel/signin/sig
 // Generate mocks
 @GenerateMocks([
   SignInUseCase,
+  GlobalKey<FormState>,
+  FormState,
 ])
 import 'sign_in_view_model_test.mocks.dart';
 
@@ -76,16 +75,6 @@ void main() {
   });
 
   group('SignInViewModel', () {
-    const testEmail = 'test@example.com';
-    const testPassword = 'password123';
-    const testToken = 'test_token_123';
-    const testMessage = 'Login successful';
-
-    final responseEntity = SignInResponseEntity(
-      token: testToken,
-      message: testMessage,
-    );
-
     group('Initial State', () {
       test('should have correct initial state', () {
         expect(viewModel.state, isA<SignInState>());
