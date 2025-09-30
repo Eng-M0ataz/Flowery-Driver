@@ -30,7 +30,7 @@ class ProfileEditCard extends StatelessWidget {
         ),
         padding: const EdgeInsets.all(AppSizes.paddingMd_16),
         width: double.infinity,
-        height: height * 0.17,
+        height: height * 0.12,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSizes.borderRadiusMd_10),
           color: Theme.of(context).colorScheme.onPrimary,

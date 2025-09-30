@@ -33,8 +33,8 @@ class ProfileScreen extends StatelessWidget {
               subtitle: 'subtitle',
               vehicleOrPhoneNumber: 'phone number',
             ),
-            ProfileFooter(onTap: (){},trailing: Icons.language,title: LocaleKeys.language.tr(),leading: Icons.translate,),
-            ProfileFooter(onTap: (){},trailing: Icons.logout,title: LocaleKeys.logout.tr(),leading: Icons.logout,),
+            ProfileFooter(onTap: (){},trailing: Icons.language,title: LocaleKeys.language.tr(),leading: Icons.translate, isIconBtn: false,),
+            ProfileFooter(onTap: (){},trailing: Icons.logout,title: LocaleKeys.logout.tr(),leading: Icons.logout,isIconBtn: true,),
 
           ],
         ),
