@@ -5,5 +5,6 @@ import 'package:injectable/injectable.dart';
 @Injectable(as: AuthRemoteDataSource)
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   AuthRemoteDataSourceImpl(this._apiServices);
+  // ignore: unused_field
   final AuthApiService _apiServices;
 }
