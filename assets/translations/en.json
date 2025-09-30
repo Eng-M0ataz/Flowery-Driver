@@ -3,6 +3,8 @@
   "home" : "Home",
   "orders": "Orders",
   "profile": "Profile",
+  "language" : "Language",
+  "logout" : "Logout",
   "applySuccess": "Your application has been sent submitted!",
   "applySuccessDescription": "Thank you for providing your application we will review your application and will get back to you soon."
 }
