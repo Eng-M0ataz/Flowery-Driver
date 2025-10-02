@@ -1,3 +1,16 @@
 {
-  "login": "Login"
+  "login": "Login",
+  "flower_order": "Flower order",
+  "pickup_address": "Pickup address",
+  "user_address": "User address",
+  "reject": "Reject",
+  "accept": "Accept",
+  "currency": "EGP",
+  "address_example": "21 fixed st., Cairo",
+  "no_pending_orders": "No pending orders",
+  "retry": "Retry",
+  "unknown_store": "Unknown Store",
+  "unknown_address": "Unknown Address",
+  "unknown_user": "Unknown User",
+  "order_rejected": "Order has been rejected successfully!"
 }

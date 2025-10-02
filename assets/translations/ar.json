@@ -1,3 +1,16 @@
 {
-  "login": "تسجيل الدخول"
+  "login": "تسجيل الدخول",
+  "flower_order": "طلب ورد",
+  "pickup_address": "عنوان الاستلام",
+  "user_address": "عنوان المستخدم",
+  "reject": "رفض",
+  "accept": "قبول",
+  "currency": "ج.م",
+  "address_example": "٢١ شارع ثابت، القاهرة",
+  "no_pending_orders": "لا توجد طلبات معلقة",
+  "retry": "إعادة المحاولة",
+  "unknown_store": "متجر غير معروف",
+  "unknown_address": "عنوان غير معروف",
+  "unknown_user": "مستخدم غير معروف",
+  "order_rejected": "تم رفض الطلب بنجاح!"
 }

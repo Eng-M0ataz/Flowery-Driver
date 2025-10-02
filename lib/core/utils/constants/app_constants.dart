@@ -9,4 +9,6 @@ abstract class AppConstants {
   static const String assetsPath = 'assets/translations';
   static const String token = 'token';
   static const String rememberMe = 'remember_me';
+ static const int ordersPageLimit = 10;
+  static const int uiRebuildDelay=100;
 }
