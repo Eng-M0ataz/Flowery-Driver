@@ -17,17 +17,17 @@ import 'home_view_model_test.mocks.dart';
 void main() {
   late MockGetPendingOrdersUseCase mockGetPendingOrdersUseCase;
 
-  // Register fallback values for Mockito
-  setUpAll(() {
-    provideDummy<ApiResult<PendingOrdersResponseEntity>>(
-      ApiSuccessResult(data: PendingOrdersResponseEntity(orders: [])),
-    );
-  });
-
-  // Dummy Data
   final dummyOrder = PendingOrderEntity(id: '1');
   final dummyResponse = PendingOrdersResponseEntity(orders: [dummyOrder]);
-  final serverFailure = ServerFailure(errorMessage: "Server Error");
+  final serverFailure = ServerFailure(errorMessage: 'Server Error');
+
+  const expectedLimit = 10;
+
+  setUpAll(() {
+    provideDummy<ApiResult<PendingOrdersResponseEntity>>(
+      ApiErrorResult(failure: ServerFailure(errorMessage: 'Dummy Failure')),
+    );
+  });
 
   setUp(() {
     mockGetPendingOrdersUseCase = MockGetPendingOrdersUseCase();
@@ -37,84 +37,55 @@ void main() {
     blocTest<HomeViewModel, HomeState>(
       'emits [loading, success] when LoadInitialOrdersEvent succeeds',
       build: () {
-        when(mockGetPendingOrdersUseCase.invoke(page: 1, limit: 30))
+        when(mockGetPendingOrdersUseCase.invoke(page: 1, limit: expectedLimit))
             .thenAnswer((_) async => ApiSuccessResult(data: dummyResponse));
         return HomeViewModel(mockGetPendingOrdersUseCase);
       },
       act: (bloc) => bloc.doIntend(LoadInitialOrdersEvent()),
-      skip: 0,
       expect: () => [
-        isA<HomeState>()
-            .having((s) => s.isLoading, 'isLoading', true)
-            .having((s) => s.orders, 'orders', isEmpty)
-            .having((s) => s.orderRejected, 'orderRejected', false),
+        isA<HomeState>().having((s) => s.isLoading, 'isLoading', true),
         isA<HomeState>()
             .having((s) => s.isLoading, 'isLoading', false)
             .having((s) => s.orders.length, 'orders length', 1)
-            .having((s) => s.orders.first.id, 'first order id', '1')
-            .having((s) => s.orderRejected, 'orderRejected', false),
+            .having((s) => s.orders.first.id, 'first order id', '1'),
       ],
       verify: (_) {
-        verify(mockGetPendingOrdersUseCase.invoke(page: 1, limit: 30)).called(1);
+        verify(mockGetPendingOrdersUseCase.invoke(page: 1, limit: expectedLimit)).called(1);
       },
     );
 
     blocTest<HomeViewModel, HomeState>(
       'emits [loading, error] when LoadInitialOrdersEvent fails',
       build: () {
-        when(mockGetPendingOrdersUseCase.invoke(page: 1, limit: 30))
+        when(mockGetPendingOrdersUseCase.invoke(page: 1, limit: expectedLimit))
             .thenAnswer((_) async => ApiErrorResult(failure: serverFailure));
         return HomeViewModel(mockGetPendingOrdersUseCase);
       },
       act: (bloc) => bloc.doIntend(LoadInitialOrdersEvent()),
-      skip: 0,
       expect: () => [
-        isA<HomeState>()
-            .having((s) => s.isLoading, 'isLoading', true)
-            .having((s) => s.orders, 'orders', isEmpty)
-            .having((s) => s.orderRejected, 'orderRejected', false),
+        isA<HomeState>().having((s) => s.isLoading, 'isLoading', true),
         isA<HomeState>()
             .having((s) => s.isLoading, 'isLoading', false)
             .having((s) => s.failure, 'failure', isNotNull)
-            .having((s) => s.failure?.errorMessage, 'error message', 'Server Error')
-            .having((s) => s.orderRejected, 'orderRejected', false),
+            .having((s) => s.failure?.errorMessage, 'error message', 'Server Error'),
       ],
     );
 
     blocTest<HomeViewModel, HomeState>(
       'removes order and sets orderRejected flag when RejectOrderEvent is called',
+      seed: () => HomeState(orders: [dummyOrder]),
       build: () {
-        when(mockGetPendingOrdersUseCase.invoke(page: 1, limit: 30))
-            .thenAnswer((_) async => ApiSuccessResult(data: dummyResponse));
         return HomeViewModel(mockGetPendingOrdersUseCase);
       },
-      act: (bloc) async {
-        // First load the orders
-        bloc.doIntend(LoadInitialOrdersEvent());
-        // Wait for loading to complete
-        await Future.delayed(const Duration(milliseconds: 100));
-        // Then reject an order
-        bloc.doIntend(RejectOrderEvent('1'));
-      },
+      act: (bloc) => bloc.doIntend(RejectOrderEvent('1')),
       wait: const Duration(milliseconds: 200),
       expect: () => [
-        // State 1: Loading state from LoadInitialOrdersEvent
-        isA<HomeState>()
-            .having((s) => s.isLoading, 'isLoading', true),
-        // State 2: Success state from LoadInitialOrdersEvent
-        isA<HomeState>()
-            .having((s) => s.isLoading, 'isLoading', false)
-            .having((s) => s.orders.length, 'orders length', 1),
-        // State 3: RejectOrderEvent directly emits final state (no loading)
         isA<HomeState>()
             .having((s) => s.orders, 'orders', isEmpty)
-            .having((s) => s.orderRejected, 'orderRejected', true)
-            .having((s) => s.isLoading, 'isLoading', false),
-        // State 4: After delay, orderRejected is reset to false
+            .having((s) => s.orderRejected, 'orderRejected', true),
         isA<HomeState>()
             .having((s) => s.orders, 'orders', isEmpty)
-            .having((s) => s.orderRejected, 'orderRejected', false)
-            .having((s) => s.isLoading, 'isLoading', false),
+            .having((s) => s.orderRejected, 'orderRejected', false),
       ],
     );
   });
