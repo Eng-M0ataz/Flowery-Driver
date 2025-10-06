@@ -109,6 +109,9 @@ abstract class AppSizes {
   static const double sizedBoxHeight_16 = 16.0;
   static const double sizedBoxHeight_30 = 30.0;
 
+  // profile image size
+  static const double profileImageSize_85 = 85.0;
+
   // break points
 
   static const List<Breakpoint> appBreakPoints = [

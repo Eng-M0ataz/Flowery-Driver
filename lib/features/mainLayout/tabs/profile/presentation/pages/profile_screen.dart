@@ -1,4 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flowery_tracking/core/config/routing/app_routes.dart';
+import 'package:flowery_tracking/core/helpers/routing_extensions.dart';
 import 'package:flowery_tracking/core/localization/locale_keys.g.dart';
 import 'package:flowery_tracking/core/utils/constants/sizes.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/widgets/profile_app_bar.dart';
@@ -19,14 +21,18 @@ class ProfileScreen extends StatelessWidget {
             const SizedBox(height: AppSizes.spaceBetweenItems_6),
             ProfileAppBar(onTap: (){},),
             ProfileEditCard(
-              onTap: () {},
+              onTap: () {
+                context.pushNamed(AppRoutes.editProfileRoute);
+              },
               hasImage: true,
               title: 'Abdelrahman',
               subtitle: 'subtitle',
               vehicleOrPhoneNumber: 'phone number',
             ),
             ProfileEditCard(
-              onTap: () {},
+              onTap: () {
+
+              },
               hasImage: false,
               title: 'Abdelrahman',
               subtitle: 'subtitle',

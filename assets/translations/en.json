@@ -7,6 +7,17 @@
   "logout" : "Logout",
   "english": "English",
   "arabic" : "Arabic",
+  "editProfile": "Edit Profile",
+  "firstName": "First Name",
+  "lastName": "Last Name",
+  "email": "Email",
+  "phoneNumber": "Phone Number",
+  "password": "Password",
+  "change": "Change",
+  "gender": "Gender",
+  "update": "Update",
   "applySuccess": "Your application has been sent submitted!",
+  "male": "Male",
+  "female": "Female",
   "applySuccessDescription": "Thank you for providing your application we will review your application and will get back to you soon."
 }
