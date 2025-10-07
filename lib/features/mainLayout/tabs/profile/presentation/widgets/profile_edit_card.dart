@@ -10,9 +10,11 @@ class ProfileEditCard extends StatelessWidget {
     required this.title,
     required this.subtitle,
     required this.vehicleOrPhoneNumber,
+    this.imagePath,
   });
 
   final bool hasImage;
+  final String? imagePath;
   final void Function()? onTap;
   final String title;
   final String subtitle;
@@ -47,7 +49,7 @@ class ProfileEditCard extends StatelessWidget {
           spacing: AppSizes.spaceBetweenItems_16,
           children: [
             hasImage
-                ?const CircleAvatar(radius: AppSizes.borderRadiusXxxl_32)
+                ? imagePath == null ? Container() : CircleAvatar(backgroundImage: NetworkImage(imagePath!),radius: AppSizes.borderRadiusXxxl_32)
                 : Container(),
             Column(
               spacing:AppSizes.spaceBetweenItems_8,
