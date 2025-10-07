@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flowery_tracking/core/localization/locale_keys.g.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/home/api/mappers/pending_order_item_mapper.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/api/mappers/pending_store_dto_mapper.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/api/mappers/pending_user_dto_mapper.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/api/mappers/shipping_address.dart';
@@ -13,24 +14,29 @@ extension PendingOrderDtoMapper on PendingOrderDto {
   PendingOrderEntity toEntity() {
     return PendingOrderEntity(
       id: id ?? '',
-      store:
-          store?.toEntity() ??
-          PendingStoreEntity(image: '', address: '', name: ''),
-      user:
-          user?.toEntity() ??
-          PendingUserEntity(
+      state: state ?? '',
+      paymentType: paymentType ?? '',
+      store: store?.toEntity() ??
+          PendingStoreEntity(
+            image: '',
+            address: LocaleKeys.unknown_address.tr(),
             name: LocaleKeys.unknown_user.tr(),
-            address: '',
+          ),
+      user: user?.toEntity() ??
+          PendingUserEntity(
             id: '',
+            name: LocaleKeys.unknown_user.tr(),
             photo: '',
           ),
       totalPrice: totalPrice ?? 0,
-      shippingAddress:
-          shippingAddress?.toEntity() ??
+      shippingAddress: shippingAddress?.toEntity() ??
           ShippingAddressEntity(
             street: LocaleKeys.unknown_address.tr(),
             city: '',
           ),
+      orderItems: (orderItems ?? [])
+          .map((item) => item.toEntity())
+          .toList(),
     );
   }
 }

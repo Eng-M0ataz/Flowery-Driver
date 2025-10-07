@@ -49,13 +49,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void dispose() {
     _scrollController.dispose();
+    _homeViewModel;
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<HomeViewModel>(
-      create: (context) => _homeViewModel,
+    return BlocProvider<HomeViewModel>.value(
+      value: _homeViewModel,
       child: Scaffold(
         body: SafeArea(
           child: Column(
@@ -93,7 +94,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   } else if (state.failure != null) {
                     return Column(
                       children: [
-                        Text(state.failure!.errorMessage),
+                        Builder(
+                          builder: (context) {
+                            return Text(state.failure!.errorMessage);
+                          },
+                        ),
+
                         const SizedBox(height: AppSizes.spaceBetweenItems_8),
                         ElevatedButton(
                           onPressed: () {

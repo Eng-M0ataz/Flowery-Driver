@@ -6,7 +6,7 @@ import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/entities/p
 extension PendingStoreDtoMapper on PendingStoreDto {
   PendingStoreEntity toEntity() {
     return PendingStoreEntity(
-      name: name ?? '',
+      name: name ?? LocaleKeys.unknown_user.tr(),
       address: address ?? LocaleKeys.unknown_address.tr(),
       image: image ?? '',
     );

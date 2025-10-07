@@ -5,6 +5,9 @@ abstract class ApiConstants {
   static const String applicationJson = 'application/json';
   static const String bearer = 'Bearer';
   static const String authorization = 'Authorization';
-  static const String pendingOrders='orders/pending-orders';
-  static const String imageBaseUrl = 'https://flower.elevateegy.com/uploads/';
+  static const String pendingOrders = 'orders/pending-orders';
+  static const String queryPage = 'page';
+  static const String queryLimit = 'limit';
+  static const String orderId = 'orderId';
+  static const String updateOrderState = 'orders/state';
 }

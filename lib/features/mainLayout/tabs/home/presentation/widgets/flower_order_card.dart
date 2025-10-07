@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flowery_tracking/core/config/theme/app_colors.dart';
 import 'package:flowery_tracking/core/localization/locale_keys.g.dart';
-import 'package:flowery_tracking/core/models/order_details_args.dart';
-import 'package:flowery_tracking/core/utils/constants/api_constants.dart';
+import 'package:flowery_tracking/core/models/order_details_model.dart';
+import 'package:flowery_tracking/core/utils/constants/app_constants.dart';
 import 'package:flowery_tracking/core/utils/constants/sizes.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/entities/pending_order_entity.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/presentation/viewModel/home_event.dart';
@@ -72,7 +72,7 @@ class FlowerOrderCard extends StatelessWidget {
           ),
           const SizedBox(height: AppSizes.spaceBetweenItems_8),
           AddressInfoCard(
-            imageUrl: '${ApiConstants.imageBaseUrl}${order.user!.photo}',
+            imageUrl: order.user!.photo!,
 
             name: order.user!.name!,
             location:
@@ -101,20 +101,45 @@ class FlowerOrderCard extends StatelessWidget {
               CustomHomeElevatedButton(
                 title: LocaleKeys.accept.tr(),
                 onPressed: () {
-                  final OrderDetailsArgs args = OrderDetailsArgs(
-                    storeName:
-                        order.store?.name ?? LocaleKeys.unknown_store.tr(),
-                    storeAddress: order.store!.address!,
-                    storeImage: order.store!.image!,
-                    userName: order.user!.name!,
-                    userPhoto:
-                        '${ApiConstants.imageBaseUrl}${order.user!.photo}',
-
-                    userAddress:
-                        '${order.shippingAddress?.street }, ${order.shippingAddress?.city  }',
-
-                    totalPrice: order.totalPrice!,
+                  context.read<HomeViewModel>().doIntend(
+                    UpdateOrderStateEvent(
+                      orderId: order.id!,
+                      state: AppConstants.inProgress,
+                    ),
                   );
+                  final allProducts = order.orderItems!
+                      .expand((orderItem) => orderItem.productList ?? [])
+                      .toList();
+
+                  final OrderDetailsModel args = OrderDetailsModel(
+                    storeInfo: StoreInfo(
+                      name: order.store!.name!,
+                      address: order.store!.address!,
+                      imageUrl: order.store!.image!,
+                    ),
+                    userInfo: UserInfo(
+                      name: order.user!.name!,
+                      photoUrl: order.user!.photo!,
+                      address:
+                          '${order.shippingAddress!.street!}, ${order.shippingAddress!.city!}',
+                    ),
+                    totalPrice: order.totalPrice!,
+                    status: order.state!,
+                    orderId: order.id!,
+                    paymentType: order.paymentType ?? '',
+
+                    productList: allProducts
+                        .map(
+                          (product) => ProductInfo(
+                            title: product.title!,
+                            imgCover: product.imgCover!,
+                            priceAfterDiscount: product.priceAfterDiscount!,
+                            quantity: product.quantity!,
+                          ),
+                        )
+                        .toList(),
+                  );
+
                   context.read<HomeViewModel>().doIntend(
                     NavigateToOrderDetailsUiEvent(args),
                   );

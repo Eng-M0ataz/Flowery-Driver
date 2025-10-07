@@ -1,4 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/useCases/update_order_state_use_case.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -13,15 +14,16 @@ import 'package:flowery_tracking/features/mainLayout/tabs/home/presentation/view
 
 import 'home_view_model_test.mocks.dart';
 
-@GenerateMocks([GetPendingOrdersUseCase])
+@GenerateMocks([GetPendingOrdersUseCase, UpdateOrderStateUseCase])
 void main() {
   late MockGetPendingOrdersUseCase mockGetPendingOrdersUseCase;
+  late MockUpdateOrderStateUseCase mockUpdateOrderStateUseCase;
+
+  const expectedLimit = 10;
 
   final dummyOrder = PendingOrderEntity(id: '1');
   final dummyResponse = PendingOrdersResponseEntity(orders: [dummyOrder]);
   final serverFailure = ServerFailure(errorMessage: 'Server Error');
-
-  const expectedLimit = 10;
 
   setUpAll(() {
     provideDummy<ApiResult<PendingOrdersResponseEntity>>(
@@ -31,15 +33,20 @@ void main() {
 
   setUp(() {
     mockGetPendingOrdersUseCase = MockGetPendingOrdersUseCase();
+    mockUpdateOrderStateUseCase = MockUpdateOrderStateUseCase();
   });
 
   group('HomeViewModel Tests', () {
     blocTest<HomeViewModel, HomeState>(
       'emits [loading, success] when LoadInitialOrdersEvent succeeds',
       build: () {
-        when(mockGetPendingOrdersUseCase.invoke(page: 1, limit: expectedLimit))
-            .thenAnswer((_) async => ApiSuccessResult(data: dummyResponse));
-        return HomeViewModel(mockGetPendingOrdersUseCase);
+        when(
+          mockGetPendingOrdersUseCase.invoke(page: 1, limit: expectedLimit),
+        ).thenAnswer((_) async => ApiSuccessResult(data: dummyResponse));
+        return HomeViewModel(
+          mockGetPendingOrdersUseCase,
+          mockUpdateOrderStateUseCase,
+        );
       },
       act: (bloc) => bloc.doIntend(LoadInitialOrdersEvent()),
       expect: () => [
@@ -50,16 +57,22 @@ void main() {
             .having((s) => s.orders.first.id, 'first order id', '1'),
       ],
       verify: (_) {
-        verify(mockGetPendingOrdersUseCase.invoke(page: 1, limit: expectedLimit)).called(1);
+        verify(
+          mockGetPendingOrdersUseCase.invoke(page: 1, limit: expectedLimit),
+        ).called(1);
       },
     );
 
     blocTest<HomeViewModel, HomeState>(
       'emits [loading, error] when LoadInitialOrdersEvent fails',
       build: () {
-        when(mockGetPendingOrdersUseCase.invoke(page: 1, limit: expectedLimit))
-            .thenAnswer((_) async => ApiErrorResult(failure: serverFailure));
-        return HomeViewModel(mockGetPendingOrdersUseCase);
+        when(
+          mockGetPendingOrdersUseCase.invoke(page: 1, limit: expectedLimit),
+        ).thenAnswer((_) async => ApiErrorResult(failure: serverFailure));
+        return HomeViewModel(
+          mockGetPendingOrdersUseCase,
+          mockUpdateOrderStateUseCase,
+        );
       },
       act: (bloc) => bloc.doIntend(LoadInitialOrdersEvent()),
       expect: () => [
@@ -67,7 +80,11 @@ void main() {
         isA<HomeState>()
             .having((s) => s.isLoading, 'isLoading', false)
             .having((s) => s.failure, 'failure', isNotNull)
-            .having((s) => s.failure?.errorMessage, 'error message', 'Server Error'),
+            .having(
+              (s) => s.failure?.errorMessage,
+              'error message',
+              'Server Error',
+            ),
       ],
     );
 
@@ -75,7 +92,10 @@ void main() {
       'removes order and sets orderRejected flag when RejectOrderEvent is called',
       seed: () => HomeState(orders: [dummyOrder]),
       build: () {
-        return HomeViewModel(mockGetPendingOrdersUseCase);
+        return HomeViewModel(
+          mockGetPendingOrdersUseCase,
+          mockUpdateOrderStateUseCase,
+        );
       },
       act: (bloc) => bloc.doIntend(RejectOrderEvent('1')),
       wait: const Duration(milliseconds: 200),

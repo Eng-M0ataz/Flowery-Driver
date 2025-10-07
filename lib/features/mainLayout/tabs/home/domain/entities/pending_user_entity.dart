@@ -1,8 +1,9 @@
 class PendingUserEntity {
-  PendingUserEntity({this.id, this.name, this.address, this.photo});
+  PendingUserEntity({this.id, this.name, this.photo,this.ShippingAddress});
 
   final String? id;
   final String? name;
-  final String? address;
   final String? photo;
+  final String? ShippingAddress;
+
 }

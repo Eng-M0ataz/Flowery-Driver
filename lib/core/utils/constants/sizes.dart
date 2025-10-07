@@ -70,7 +70,6 @@ abstract class AppSizes {
   static const double spaceBetweenItems_44 = 44.0;
   static const double spaceBetweenItems_48 = 48.0;
   static const double spaceBetweenItems_50 = 50.0;
-  static const double spaceBetweenItems_170 = 170.0;
 
   // Default Spacing Between Sections
 

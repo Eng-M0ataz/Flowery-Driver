@@ -16,8 +16,7 @@ void showSnackBar({
     behavior: SnackBarBehavior.floating,
     backgroundColor: Colors.transparent,
     margin: EdgeInsets.only(
-      bottom:
-          MediaQuery.of(context).size.height - AppSizes.spaceBetweenItems_170,
+      bottom: MediaQuery.of(context).size.height * 0.78,
       left: AppSizes.paddingMd_12,
       right: AppSizes.paddingMd_12,
     ),
