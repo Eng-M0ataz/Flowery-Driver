@@ -4,8 +4,10 @@ import 'package:flowery_tracking/core/localization/locale_keys.g.dart';
 import 'package:flowery_tracking/core/models/order_details_model.dart';
 import 'package:flowery_tracking/core/utils/constants/app_constants.dart';
 import 'package:flowery_tracking/core/utils/constants/sizes.dart';
+import 'package:flowery_tracking/core/widgets/custom_elevated_button.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/entities/pending_order_entity.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/presentation/viewModel/home_event.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/home/presentation/viewModel/home_state.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/presentation/viewModel/home_view_model.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/presentation/widgets/address_info_card.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/presentation/widgets/custom_home_elevated_button.dart';
@@ -98,54 +100,76 @@ class FlowerOrderCard extends StatelessWidget {
                   );
                 },
               ),
-              CustomHomeElevatedButton(
-                title: LocaleKeys.accept.tr(),
-                onPressed: () {
-                  context.read<HomeViewModel>().doIntend(
-                    UpdateOrderStateEvent(
+              BlocConsumer<HomeViewModel, HomeState>(
+                listener: (context, state) {
+                  if (state.startOrderEntity != null &&
+                      state.startOrderEntity!.id == order.id) {
+                    final allProducts = order.orderItems!
+                        .expand((orderItem) => orderItem.productList ?? [])
+                        .toList();
+
+                    final OrderDetailsModel args = OrderDetailsModel(
+                      storeInfo: StoreInfo(
+                        name: order.store!.name!,
+                        address: order.store!.address!,
+                        imageUrl: order.store!.image!,
+                        phone: order.store!.phone!,
+                      ),
+                      userInfo: UserInfo(
+                        name: order.user!.name!,
+                        photoUrl: order.user!.photo!,
+                        phone: order.user!.phone!,
+                        address:
+                            '${order.shippingAddress!.street!}, ${order.shippingAddress!.city!}',
+                      ),
+                      totalPrice: order.totalPrice!,
+                      status: AppConstants.inProgress,
                       orderId: order.id!,
-                      state: AppConstants.inProgress,
-                    ),
-                  );
-                  final allProducts = order.orderItems!
-                      .expand((orderItem) => orderItem.productList ?? [])
-                      .toList();
+                      orderNumber: order.orderNumber!,
+                      paymentType: order.paymentType!,
+                      updatedAt: state.startOrderEntity?.updatedAt ?? '',
 
-                  final OrderDetailsModel args = OrderDetailsModel(
-                    storeInfo: StoreInfo(
-                      name: order.store!.name!,
-                      address: order.store!.address!,
-                      imageUrl: order.store!.image!,
-                    ),
-                    userInfo: UserInfo(
-                      name: order.user!.name!,
-                      photoUrl: order.user!.photo!,
-                      address:
-                          '${order.shippingAddress!.street!}, ${order.shippingAddress!.city!}',
-                    ),
-                    totalPrice: order.totalPrice!,
-                    status: order.state!,
-                    orderId: order.id!,
-                    paymentType: order.paymentType ?? '',
+                      productList: allProducts
+                          .map(
+                            (product) => ProductInfo(
+                              title: product.title!,
+                              imgCover: product.imgCover!,
+                              priceAfterDiscount: product.priceAfterDiscount!,
+                              quantity: product.quantity!,
+                            ),
+                          )
+                          .toList(),
+                    );
 
-                    productList: allProducts
-                        .map(
-                          (product) => ProductInfo(
-                            title: product.title!,
-                            imgCover: product.imgCover!,
-                            priceAfterDiscount: product.priceAfterDiscount!,
-                            quantity: product.quantity!,
-                          ),
-                        )
-                        .toList(),
-                  );
+                    context.read<HomeViewModel>().doIntend(
+                      NavigateToOrderDetailsUiEvent(args),
+                    );
+                  }
+                },
+                builder: (context, state) {
+                  return SizedBox(
+                    width: AppSizes.padding_100,
+                    height: AppSizes.padding_36,
+                    child: CustomElevatedButton(
+                      isLoading:
+                          state.loadingProducts?[order.id] ??
+                          false,
+                      widget: Text(
+                        LocaleKeys.accept.tr(),
+                        style: theme.textTheme.displayLarge!.copyWith(
+                          color: theme.colorScheme.onPrimary,
+                        ),
+                      ),
+                      onPressed: () async {
+                        await context.read<HomeViewModel>().doIntend(
+                          StartOrderEvent(orderId: order.id!),
+                        );
+                      },
 
-                  context.read<HomeViewModel>().doIntend(
-                    NavigateToOrderDetailsUiEvent(args),
+                      textColor: theme.colorScheme.onPrimary,
+                    ),
                   );
                 },
-                backgroundColor: theme.colorScheme.primary,
-                textColor: theme.colorScheme.onPrimary,
               ),
             ],
           ),

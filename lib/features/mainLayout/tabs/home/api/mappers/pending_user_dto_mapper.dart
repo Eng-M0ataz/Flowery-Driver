@@ -10,6 +10,7 @@ extension PendingUserDtoMapper on PendingUserDto {
       id: id ?? '',
       name: firstName ?? LocaleKeys.unknown_user.tr(),
       photo: imageFixer(photo),
+      phone: phone??'',
     );
   }
 }

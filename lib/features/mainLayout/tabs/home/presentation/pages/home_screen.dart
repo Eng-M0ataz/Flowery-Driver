@@ -92,22 +92,24 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Center(child: OrderShimmerWidget()),
                     );
                   } else if (state.failure != null) {
-                    return Column(
-                      children: [
-                        Builder(
-                          builder: (context) {
-                            return Text(state.failure!.errorMessage);
-                          },
-                        ),
+                    return Center(
+                      child: Column(
+                        children: [
+                          Builder(
+                            builder: (context) {
+                              return Text(state.failure!.errorMessage);
+                            },
+                          ),
 
-                        const SizedBox(height: AppSizes.spaceBetweenItems_8),
-                        ElevatedButton(
-                          onPressed: () {
-                            _homeViewModel.doIntend(LoadInitialOrdersEvent());
-                          },
-                          child: Text(LocaleKeys.retry.tr()),
-                        ),
-                      ],
+                          const SizedBox(height: AppSizes.spaceBetweenItems_8),
+                          ElevatedButton(
+                            onPressed: () {
+                              _homeViewModel.doIntend(LoadInitialOrdersEvent());
+                            },
+                            child: Text(LocaleKeys.retry.tr()),
+                          ),
+                        ],
+                      ),
                     );
                   } else if (state.orders.isEmpty) {
                     return Expanded(
@@ -128,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             state.orders.length + (state.hasMore ? 1 : 0),
                         itemBuilder: (context, index) {
                           if (index < state.orders.length) {
-                            return FlowerOrderCard(order: state.orders[index]);
+                            return FlowerOrderCard(order: state.orders[index],);
                           } else {
                             if (!state.hasMore) {
                               return Padding(

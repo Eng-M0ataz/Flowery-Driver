@@ -1,23 +1,24 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/useCases/update_order_state_use_case.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
 import 'package:flowery_tracking/core/errors/api_results.dart';
 import 'package:flowery_tracking/core/errors/failure.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/entities/pending_order_entity.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/entities/response/pending_orders_response_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/entities/response/start_order_response_entity.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/useCases/get_pending_orders_use_case.dart';
-import 'package:flowery_tracking/features/mainLayout/tabs/home/presentation/viewModel/home_view_model.dart';
-import 'package:flowery_tracking/features/mainLayout/tabs/home/presentation/viewModel/home_state.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/useCases/start_order_use_case.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/presentation/viewModel/home_event.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/home/presentation/viewModel/home_state.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/home/presentation/viewModel/home_view_model.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 
 import 'home_view_model_test.mocks.dart';
 
-@GenerateMocks([GetPendingOrdersUseCase, UpdateOrderStateUseCase])
+@GenerateMocks([GetPendingOrdersUseCase, StartOrderUseCase])
 void main() {
   late MockGetPendingOrdersUseCase mockGetPendingOrdersUseCase;
-  late MockUpdateOrderStateUseCase mockUpdateOrderStateUseCase;
+  late MockStartOrderUseCase mockStartOrderUseCase;
 
   const expectedLimit = 10;
 
@@ -25,15 +26,24 @@ void main() {
   final dummyResponse = PendingOrdersResponseEntity(orders: [dummyOrder]);
   final serverFailure = ServerFailure(errorMessage: 'Server Error');
 
+  const dummyStartOrderResponse = StartOrderResponseEntity(
+    'Order started successfully',
+    '2025-10-08T22:15:38.753Z',
+    '122335',
+  );
+
   setUpAll(() {
     provideDummy<ApiResult<PendingOrdersResponseEntity>>(
+      ApiErrorResult(failure: ServerFailure(errorMessage: 'Dummy Failure')),
+    );
+    provideDummy<ApiResult<StartOrderResponseEntity>>(
       ApiErrorResult(failure: ServerFailure(errorMessage: 'Dummy Failure')),
     );
   });
 
   setUp(() {
     mockGetPendingOrdersUseCase = MockGetPendingOrdersUseCase();
-    mockUpdateOrderStateUseCase = MockUpdateOrderStateUseCase();
+    mockStartOrderUseCase = MockStartOrderUseCase();
   });
 
   group('HomeViewModel Tests', () {
@@ -45,7 +55,7 @@ void main() {
         ).thenAnswer((_) async => ApiSuccessResult(data: dummyResponse));
         return HomeViewModel(
           mockGetPendingOrdersUseCase,
-          mockUpdateOrderStateUseCase,
+          mockStartOrderUseCase,
         );
       },
       act: (bloc) => bloc.doIntend(LoadInitialOrdersEvent()),
@@ -71,7 +81,7 @@ void main() {
         ).thenAnswer((_) async => ApiErrorResult(failure: serverFailure));
         return HomeViewModel(
           mockGetPendingOrdersUseCase,
-          mockUpdateOrderStateUseCase,
+          mockStartOrderUseCase,
         );
       },
       act: (bloc) => bloc.doIntend(LoadInitialOrdersEvent()),
@@ -79,12 +89,7 @@ void main() {
         isA<HomeState>().having((s) => s.isLoading, 'isLoading', true),
         isA<HomeState>()
             .having((s) => s.isLoading, 'isLoading', false)
-            .having((s) => s.failure, 'failure', isNotNull)
-            .having(
-              (s) => s.failure?.errorMessage,
-              'error message',
-              'Server Error',
-            ),
+            .having((s) => s.failure?.errorMessage, 'error message', 'Server Error'),
       ],
     );
 
@@ -94,7 +99,7 @@ void main() {
       build: () {
         return HomeViewModel(
           mockGetPendingOrdersUseCase,
-          mockUpdateOrderStateUseCase,
+          mockStartOrderUseCase,
         );
       },
       act: (bloc) => bloc.doIntend(RejectOrderEvent('1')),
@@ -106,6 +111,52 @@ void main() {
         isA<HomeState>()
             .having((s) => s.orders, 'orders', isEmpty)
             .having((s) => s.orderRejected, 'orderRejected', false),
+      ],
+    );
+
+    blocTest<HomeViewModel, HomeState>(
+      'emits [loadingProducts true → false + success entity] when StartOrderEvent succeeds',
+      build: () {
+        when(
+          mockStartOrderUseCase.invoke(orderId: '1'),
+        ).thenAnswer((_) async => ApiSuccessResult(data: dummyStartOrderResponse));
+
+        return HomeViewModel(
+          mockGetPendingOrdersUseCase,
+          mockStartOrderUseCase,
+        );
+      },
+      act: (bloc) => bloc.doIntend(StartOrderEvent(orderId: '1')),
+      expect: () => [
+        isA<HomeState>().having((s) => s.loadingProducts?['1'], 'loadingProducts["1"]', true),
+        isA<HomeState>()
+            .having((s) => s.loadingProducts?['1'], 'loadingProducts["1"]', false)
+            .having((s) => s.startOrderEntity?.message, 'message', 'Order started successfully')
+            .having((s) => s.startOrderEntity?.updatedAt, 'updatedAt', '2025-10-08T22:15:38.753Z'),
+      ],
+      verify: (_) {
+        verify(mockStartOrderUseCase.invoke(orderId: '1')).called(1);
+      },
+    );
+
+    blocTest<HomeViewModel, HomeState>(
+      'emits [loadingProducts true → false + failure] when StartOrderEvent fails',
+      build: () {
+        when(
+          mockStartOrderUseCase.invoke(orderId: '1'),
+        ).thenAnswer((_) async => ApiErrorResult(failure: serverFailure));
+
+        return HomeViewModel(
+          mockGetPendingOrdersUseCase,
+          mockStartOrderUseCase,
+        );
+      },
+      act: (bloc) => bloc.doIntend(StartOrderEvent(orderId: '1')),
+      expect: () => [
+        isA<HomeState>().having((s) => s.loadingProducts?['1'], 'loadingProducts["1"]', true),
+        isA<HomeState>()
+            .having((s) => s.loadingProducts?['1'], 'loadingProducts["1"]', false)
+            .having((s) => s.failure?.errorMessage, 'error message', 'Server Error'),
       ],
     );
   });

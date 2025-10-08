@@ -9,5 +9,5 @@ abstract class ApiConstants {
   static const String queryPage = 'page';
   static const String queryLimit = 'limit';
   static const String orderId = 'orderId';
-  static const String updateOrderState = 'orders/state';
+  static const String startOrder = 'orders/start';
 }

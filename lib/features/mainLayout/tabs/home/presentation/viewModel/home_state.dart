@@ -1,15 +1,18 @@
 import 'package:flowery_tracking/core/errors/failure.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/entities/pending_order_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/entities/response/start_order_response_entity.dart';
 
 class HomeState {
   HomeState({
     this.isLoading = true,
     this.failure,
-    this.orders=const [],
+    this.orders = const [],
     this.currentPage = 1,
     this.hasMore = true,
     this.isLoadingMore = false,
     this.orderRejected = false,
+    this.startOrderEntity,
+    this.loadingProducts = const {},
   });
 
   final bool isLoading;
@@ -18,9 +21,12 @@ class HomeState {
   final int currentPage;
   final bool hasMore;
   final bool isLoadingMore;
-  final bool orderRejected ;
+  final bool orderRejected;
+  final Map<String, bool>? loadingProducts;
+  final StartOrderResponseEntity? startOrderEntity;
 
   HomeState copyWith({
+    StartOrderResponseEntity? startOrderEntity,
     bool? isLoading,
     Failure? failure,
     List<PendingOrderEntity>? orders,
@@ -28,8 +34,10 @@ class HomeState {
     bool? hasMore,
     bool? isLoadingMore,
     bool? orderRejected,
+    Map<String, bool>? loadingProducts,
   }) {
     return HomeState(
+      startOrderEntity: startOrderEntity ?? this.startOrderEntity,
       isLoading: isLoading ?? this.isLoading,
       failure: failure ?? this.failure,
       orders: orders ?? this.orders,
@@ -37,6 +45,7 @@ class HomeState {
       hasMore: hasMore ?? this.hasMore,
       isLoadingMore: isLoadingMore ?? this.isLoadingMore,
       orderRejected: orderRejected ?? this.orderRejected,
+      loadingProducts: loadingProducts ?? this.loadingProducts,
     );
   }
 }

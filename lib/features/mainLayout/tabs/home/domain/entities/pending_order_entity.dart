@@ -13,9 +13,11 @@ class PendingOrderEntity {
     this.state,
     this.paymentType,
     this.orderItems,
+    this.orderNumber
   });
 
   final String? id;
+  final String? orderNumber;
   final PendingStoreEntity? store;
   final PendingUserEntity? user;
   final int? totalPrice;

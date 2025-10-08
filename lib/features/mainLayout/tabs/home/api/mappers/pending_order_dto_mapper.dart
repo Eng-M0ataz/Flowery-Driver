@@ -13,7 +13,8 @@ import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/entities/s
 extension PendingOrderDtoMapper on PendingOrderDto {
   PendingOrderEntity toEntity() {
     return PendingOrderEntity(
-      id: id ?? '',
+      id: id??'',
+      orderNumber: orderNumber??'',
       state: state ?? '',
       paymentType: paymentType ?? '',
       store: store?.toEntity() ??
