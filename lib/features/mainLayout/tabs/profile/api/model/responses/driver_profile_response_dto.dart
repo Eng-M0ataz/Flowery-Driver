@@ -1,4 +1,4 @@
-import 'package:flowery_tracking/features/mainLayout/tabs/profile/api/model/driver_response_dto.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/api/model/responses/driver_response_dto.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'driver_profile_response_dto.g.dart';

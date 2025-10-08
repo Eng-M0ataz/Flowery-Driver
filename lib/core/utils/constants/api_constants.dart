@@ -6,4 +6,6 @@ abstract class ApiConstants {
   static const String bearer = 'Bearer';
   static const String authorization = 'Authorization';
   static const String getLoggedDriverData = 'drivers/profile-data';
+  static const String editProfile = 'drivers/editProfile';
+  static const String uploadPhoto = 'drivers/upload-photo';
 }

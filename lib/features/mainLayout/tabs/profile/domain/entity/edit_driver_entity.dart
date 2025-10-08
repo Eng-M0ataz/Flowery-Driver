@@ -1,6 +1,5 @@
-class DriverEntity {
-
-  DriverEntity ({
+class EditDriverEntity {
+  EditDriverEntity ({
     this.role,
     this.Id,
     this.country,
@@ -12,6 +11,7 @@ class DriverEntity {
     this.NID,
     this.NIDImg,
     this.email,
+    this.password,
     this.gender,
     this.phone,
     this.photo,
@@ -29,6 +29,7 @@ class DriverEntity {
   final String? NID;
   final String? NIDImg;
   final String? email;
+  final String? password;
   final String? gender;
   final String? phone;
   final String? photo;
