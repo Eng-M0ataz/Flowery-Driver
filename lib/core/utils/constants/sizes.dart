@@ -15,7 +15,6 @@ abstract class AppSizes {
   static const double paddingXl_64 = 64.0;
 
   // icon sizes
-
   static const double icon_8 = 8.0;
   static const double icon_12 = 12.0;
   static const double icon_16 = 16.0;
@@ -45,8 +44,16 @@ abstract class AppSizes {
   static const double buttonHigh_36 = 36;
   static const double buttonWidth_80 = 80;
 
-  // AppBar High
 
+  // pick Image
+  static const double pickImageHeight = 800.0;
+  static const double pickImageWidth = 800.0;
+
+  //image handler bar
+  static const double imageHandlerBarWidth = 40.0;
+  static const double imageHandlerBarHeight = 4.0;
+
+  // AppBar High
   static const double appBarHigh = 56.0;
   static const double appBarElevation = 0.0;
   static const double appBarLeadingWidth = 300.0;

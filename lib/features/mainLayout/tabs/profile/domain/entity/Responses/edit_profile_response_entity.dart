@@ -1,4 +1,4 @@
-import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entity/edit_driver_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entity/Responses/edit_driver_entity.dart';
 
 class EditProfileResponseEntity {
   EditProfileResponseEntity ({

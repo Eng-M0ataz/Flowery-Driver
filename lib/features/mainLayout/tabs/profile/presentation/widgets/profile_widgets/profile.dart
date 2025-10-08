@@ -5,9 +5,9 @@ import 'package:flowery_tracking/core/utils/constants/sizes.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/viewModel/profile_event.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/viewModel/profile_state.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/viewModel/profile_view_model.dart';
-import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/widgets/profile_app_bar.dart';
-import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/widgets/profile_edit_card.dart';
-import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/widgets/profile_footer.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/widgets/profile_widgets/profile_app_bar.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/widgets/profile_widgets/profile_edit_card.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/widgets/profile_widgets/profile_footer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

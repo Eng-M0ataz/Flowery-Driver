@@ -1,5 +1,5 @@
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/api/model/responses/edit_driver_dto.dart';
-import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entity/edit_driver_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entity/Responses/edit_driver_entity.dart';
 
 extension EditDriverDtoMapper on EditDriverDto{
   EditDriverEntity toEntity (){
