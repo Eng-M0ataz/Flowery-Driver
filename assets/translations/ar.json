@@ -7,6 +7,17 @@
   "logout" : "تسجيل الخروج",
   "english": "الانجليزية",
   "arabic" : "العربية",
+  "editProfile": "تعديل الصفحة الشخصية",
+  "firstName": "الاسم الاول",
+  "lastName": "الاسم الاخير",
+  "email": "البريد الالكتروني",
+  "phoneNumber": "رقم الهاتف",
+  "password": "الرقم السري",
+  "gender": "النوع",
+  "update": "تحديث",
+  "change": "تغير",
   "applySuccess": "لقد تم إرسال طلبك!",
+  "male": "ذكر",
+  "female": "انثي",
   "applySuccessDescription": "شكرا لك على تقديم طلبك، سوف نراجع طلبك ونقوم بالتواصل معك قريبا."
 }
