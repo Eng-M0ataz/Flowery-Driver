@@ -19,12 +19,9 @@ class RejectOrderEvent extends HomeEvent {
 
   final String orderId;
 }
-class UpdateOrderStateEvent extends HomeEvent {
-  UpdateOrderStateEvent({
-    required this.orderId,
-    required this.state,
-  });
+
+class StartOrderEvent extends HomeEvent {
+  StartOrderEvent({required this.orderId});
 
   final String orderId;
-  final String state;
 }

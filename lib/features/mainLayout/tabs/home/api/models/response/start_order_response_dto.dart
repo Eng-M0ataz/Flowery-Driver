@@ -1,14 +1,14 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'update_order_state_response_dto.g.dart';
+part 'start_order_response_dto.g.dart';
 
 @JsonSerializable()
-class UpdateOrderStateResponseDto {
-  factory UpdateOrderStateResponseDto.fromJson(Map<String, dynamic> json) {
-    return _$UpdateOrderStateResponseDtoFromJson(json);
+class StartOrderResponseDto {
+  factory StartOrderResponseDto.fromJson(Map<String, dynamic> json) {
+    return _$StartOrderResponseDtoFromJson(json);
   }
 
-  UpdateOrderStateResponseDto({this.message, this.orders});
+  StartOrderResponseDto({this.message, this.orders});
 
   @JsonKey(name: 'message')
   final String? message;
@@ -16,7 +16,7 @@ class UpdateOrderStateResponseDto {
   final Orders? orders;
 
   Map<String, dynamic> toJson() {
-    return _$UpdateOrderStateResponseDtoToJson(this);
+    return _$StartOrderResponseDtoToJson(this);
   }
 }
 

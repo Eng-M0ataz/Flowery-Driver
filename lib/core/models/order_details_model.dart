@@ -7,6 +7,8 @@ class OrderDetailsModel {
     required this.orderId,
     required this.paymentType,
     required this.productList,
+    required this.orderNumber,
+    required this.updatedAt,
   });
 
   final StoreInfo storeInfo;
@@ -16,6 +18,8 @@ class OrderDetailsModel {
   final String orderId;
   final String paymentType;
   final List<ProductInfo> productList;
+  final String orderNumber;
+  final String updatedAt;
 }
 
 class StoreInfo {
@@ -23,19 +27,27 @@ class StoreInfo {
     required this.name,
     required this.address,
     required this.imageUrl,
+    required this.phone,
   });
 
   final String name;
   final String address;
   final String imageUrl;
+  final String phone;
 }
 
 class UserInfo {
-  UserInfo({required this.name, required this.photoUrl, required this.address});
+  UserInfo({
+    required this.name,
+    required this.photoUrl,
+    required this.address,
+    required this.phone,
+  });
 
   final String name;
   final String photoUrl;
   final String address;
+  final String phone;
 }
 
 class ProductInfo {

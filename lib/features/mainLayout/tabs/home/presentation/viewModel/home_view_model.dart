@@ -4,7 +4,7 @@ import 'package:flowery_tracking/core/utils/constants/app_constants.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/entities/pending_order_entity.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/entities/response/pending_orders_response_entity.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/useCases/get_pending_orders_use_case.dart';
-import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/useCases/update_order_state_use_case.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/useCases/start_order_use_case.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/presentation/viewModel/home_event.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/presentation/viewModel/home_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,10 +12,10 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class HomeViewModel extends Cubit<HomeState> {
-  HomeViewModel(this._getPendingOrdersUseCase, this._updateOrderStateUseCase)
+  HomeViewModel(this._getPendingOrdersUseCase, this._startOrderUseCase)
     : super(HomeState());
   final GetPendingOrdersUseCase _getPendingOrdersUseCase;
-  final UpdateOrderStateUseCase _updateOrderStateUseCase;
+  final StartOrderUseCase _startOrderUseCase;
   final _uiEventsController = StreamController<HomeEvent>();
 
   Stream<HomeEvent> get uiEvents => _uiEventsController.stream;
@@ -49,33 +49,23 @@ class HomeViewModel extends Cubit<HomeState> {
       case RejectOrderEvent():
         _rejectOrder(event.orderId);
         break;
-      case UpdateOrderStateEvent():
-        _updateOrderState(event.orderId, event.state);
+      case StartOrderEvent():
+        await  _startOrder(event.orderId);
         break;
     }
   }
 
-  Future<void> _updateOrderState(String orderId, String newState) async {
-    final result = await _updateOrderStateUseCase.invoke(
-      orderId: orderId,
-      state: newState,
-    );
+  Future<void> _startOrder(String orderId) async {
+    emit(state.copyWith(loadingProducts: {orderId: true},));
+    final result = await _startOrderUseCase.invoke(orderId: orderId);
 
     switch (result) {
       case ApiSuccessResult():
-        final updatedOrders = List<PendingOrderEntity>.from(state.orders);
-        final index = updatedOrders.indexWhere((order) => order.id == orderId);
-
-        if (index != -1) {
-          final updatedOrder = updatedOrders[index].copyWith(state: newState);
-          updatedOrders[index] = updatedOrder;
-        }
-
-        emit(state.copyWith(isLoading: false, orders: updatedOrders));
+        emit(state.copyWith(loadingProducts: {orderId: false}, startOrderEntity: result.data));
         break;
 
       case ApiErrorResult():
-        emit(state.copyWith(isLoading: false, failure: result.failure));
+        emit(state.copyWith(loadingProducts: {orderId: false}, failure: result.failure));
         break;
     }
   }

@@ -9,6 +9,7 @@ extension PendingStoreDtoMapper on PendingStoreDto {
       name: name ?? LocaleKeys.unknown_user.tr(),
       address: address ?? LocaleKeys.unknown_address.tr(),
       image: image ?? '',
+      phone: phoneNumber??'',
     );
   }
 }
