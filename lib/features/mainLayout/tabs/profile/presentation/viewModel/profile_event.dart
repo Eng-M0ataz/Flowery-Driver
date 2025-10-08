@@ -1,14 +1,16 @@
 import 'dart:io';
 
-sealed class ProfileEvent {}
+sealed class ProfileEvents {}
 
-class GetLoggedUserDataEvent extends ProfileEvent {}
+class GetDriverDataEvent extends ProfileEvents {}
 
-class EditVechicalEvent extends ProfileEvent {}
+class GetAllVehiclesEvent extends ProfileEvents {}
 
-class OnImageSelectedEvent extends ProfileEvent {
-  OnImageSelectedEvent({required this.file});
-  final File file;
-}
+// class EditVehicleEvent extends ProfileEvents {}
 
-class CloseEvent extends ProfileEvent {}
+// class OnImageSelectedEvent extends ProfileEvents {
+//   OnImageSelectedEvent({required this.file});
+//   final File file;
+// }
+//
+// class CloseEvent extends ProfileEvents {}

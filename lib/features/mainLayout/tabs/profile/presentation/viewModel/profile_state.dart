@@ -1,51 +1,70 @@
 import 'dart:io';
 
 import 'package:flowery_tracking/core/errors/failure.dart';
-import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entities/response/edit_vechical_response_entity.dart';
-import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entities/response/logged_user_data_response_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entities/requests/edit_vehicle_request_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entities/responses/edit_vehicle_response_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entities/responses/get_all_vehicles_response_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entities/responses/get_drive_data_response_entity.dart';
 
 class ProfileState {
   const ProfileState({
     this.isLoading = true,
     this.failure,
-    this.loggedUserDataResponseEntity,
-    this.editVechicalResponseEntity,
-    this.licenseImage,
-    this.editSuccess = false,
+    this.getDriverDataResponseEntity,
+    this.getAllVehiclesResponseEntity,
+    this.selectedVehicle,
+    // this.editVehicleRequestEntity,
+    // this.editVehicleResponseEntity,
+    // this.licenseImage,
+    // this.editSuccess = false,
   });
   final bool isLoading;
   final Failure? failure;
-  final LoggedUserDataResponseEntity? loggedUserDataResponseEntity;
-  final EditVechicalResponseEntity? editVechicalResponseEntity;
-  final File? licenseImage;
-  final bool editSuccess;
+  final String? selectedVehicle;
+  final GetDriverDataResponseEntity? getDriverDataResponseEntity;
+  final GetAllVehiclesResponseEntity? getAllVehiclesResponseEntity;
+  // final EditVehicleRequestEntity? editVehicleRequestEntity;
+  // final EditVehicleResponseEntity? editVehicleResponseEntity;
+  // final File? licenseImage;
+  // final bool editSuccess;
 
   List<Object?> get props => [
     isLoading,
     failure,
-    loggedUserDataResponseEntity,
-    editVechicalResponseEntity,
-    licenseImage,
-    editSuccess,
+    getDriverDataResponseEntity,
+    getAllVehiclesResponseEntity,
+    selectedVehicle,
+    // editVehicleRequestEntity,
+    // editVehicleResponseEntity,
+    // licenseImage,
+    // editSuccess,
   ];
 
   ProfileState copyWith({
     bool? isLoading,
     Failure? failure,
-    LoggedUserDataResponseEntity? loggedUserDataResponseEntity,
-    EditVechicalResponseEntity? editVechicalResponseEntity,
-    File? licenseImage,
-    bool? editSuccess,
+    GetDriverDataResponseEntity? getDriverDataResponseEntity,
+    GetAllVehiclesResponseEntity? getAllVehiclesResponseEntity,
+    String? selectedVehicle,
+    // EditVehicleRequestEntity? editVehicleRequestEntity,
+    // EditVehicleResponseEntity? editVehicleResponseEntity,
+    // File? licenseImage,
+    // bool? editSuccess,
   }) {
     return ProfileState(
       isLoading: isLoading ?? this.isLoading,
       failure: failure ?? this.failure,
-      loggedUserDataResponseEntity:
-          loggedUserDataResponseEntity ?? this.loggedUserDataResponseEntity,
-      editVechicalResponseEntity:
-          editVechicalResponseEntity ?? this.editVechicalResponseEntity,
-      licenseImage: licenseImage ?? this.licenseImage,
-      editSuccess: editSuccess ?? this.editSuccess,
+      selectedVehicle: selectedVehicle ?? this.selectedVehicle,
+      getDriverDataResponseEntity:
+      getDriverDataResponseEntity ?? this.getDriverDataResponseEntity,
+      getAllVehiclesResponseEntity:
+        getAllVehiclesResponseEntity ?? this.getAllVehiclesResponseEntity,
+      // editVehicleRequestEntity:
+      //     editVehicleRequestEntity ?? this.editVehicleRequestEntity,
+      // editVehicleResponseEntity:
+      //     editVehicleResponseEntity ?? this.editVehicleResponseEntity,
+      // licenseImage: licenseImage ?? this.licenseImage,
+      // editSuccess: editSuccess ?? this.editSuccess,
     );
   }
 }

@@ -45,7 +45,7 @@ class ServerFailure extends Failure {
 
   factory ServerFailure.fromResponse(Response? response) {
     if (response == null) {
-      return ServerFailure(errorMessage: 'No response received from server.');
+      return ServerFailure(errorMessage: 'No responses received from server.');
     }
 
     switch (response.statusCode) {

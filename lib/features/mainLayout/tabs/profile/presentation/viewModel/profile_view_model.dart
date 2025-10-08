@@ -1,138 +1,75 @@
-import 'dart:io';
-
 import 'package:flowery_tracking/core/errors/api_results.dart';
-import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entities/response/logged_user_data_response_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entities/responses/get_all_vehicles_response_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entities/responses/get_drive_data_response_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entities/vehicles_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/useCases/get_all_vehicles_use_case.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/useCases/get_driver_data_use_case.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/viewModel/profile_event.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/viewModel/profile_state.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class ProfileViewModel extends Cubit<ProfileState> {
-
   ProfileViewModel(
-    this._getLoggedUserUseCase,
-    this._editVechicalUseCase,
-    this._uploadPhotoUseCase
-  ) : super(const ProfileState());
-  final GetLoggedUserUseCase _getLoggedUserUseCase;
-  final EditVechicalUseCase _editVechicalUseCase;
-  final UploadPhotoUseCase _uploadPhotoUseCase;
+      this._getDriverDataUseCase,
+      this._getAllVehiclesUseCase,
+      ) : super(ProfileState());
+  final GetDriverDataUseCase _getDriverDataUseCase;
+  final GetAllVehiclesUseCase _getAllVehiclesUseCase;
 
-  final TextEditingController editType = TextEditingController();
-  final TextEditingController editNumber = TextEditingController();
-  final TextEditingController editLicense = TextEditingController();
-  GlobalKey<FormState> editVechicalFormKey = GlobalKey(FormState);
+  Future<void> doIntend(ProfileEvents events) async {
+    switch (events){
 
-  File? selectedImageFile;
-  String? initialImage;
-
-  Future<void> doIntend(ProfileEvent event) async {
-    switch(event) {
-      case GetLoggedUserDataEvent():
-        await _getLoggedUserData();
-      case EditVechicalEvent():
-        await _editVechicalData();
-      case OnImageSelectedEvent():
-        await _onImageSelected(event.file);
-      case CloseEvent():
-        _close();
+      case GetDriverDataEvent():
+        await _getDriverData();
+      case GetAllVehiclesEvent():
+        await _getAllVehicles();
     }
   }
-  
-  Future<void> _getLoggedUserData() async {
-    emit(state.copyWith(isLoading: true, failure: null));
-    final result = await _getLoggedUserUseCase();
-    switch (result) {
-      case ApiSuccessResult<LoggedUserDataResponseEntity>():
-        final response = result.data;
-        _onUserDataLoaded(response);
+
+  Future<void> _getDriverData() async {
+    final result = await _getDriverDataUseCase.getDriverData();
+    switch(result){
+
+      case ApiSuccessResult<GetDriverDataResponseEntity>():
         emit(state.copyWith(
           isLoading: false,
-          failure: null,
-          loggedUserDataResponseEntity: response,
+          getDriverDataResponseEntity: result.data
         ));
-
         break;
-      case ApiErrorResult<LoggedUserDataResponseEntity>():
-        emit(state.copyWith(isLoading: false, failure: result.failure));
-        break;
-    }
-  }
-  
-  void _onUserDataLoaded(LoggedUserDataResponseEntity response) {
-    editType.text = response.user?.vechileType ?? '';
-    editNumber.text = response.user?vechial ?? '';
-    initialImage = response.user?.photo;
-  }
-  
-  Future<void> _editVechicalData() async {
-    if (!_isFormValid()) return;
-
-    emit(state.copyWith(isLoading: true, failure: null, editSuccess: false));
-
-    try {
-      final uploadSuccess = await _handleImageUploadIfNeeded();
-      if (!uploadSuccess) return;
-
-      await _updateProfileData();
-    } catch (e) {
-      emit(state.copyWith(
-        isLoading: false,
-        failure: null,
-        editSuccess: false,
-      ));
-    }
-  }
-  
-  Future _handleImageUploadIfNeeded() async {
-    if (selectedImageFile == null) return true;
-
-    final uploadResult = await _uploadPhotoUseCase.invoke(selectedImageFile!);
-    switch (uploadResult) {
-      case ApiErrorResult<UploadPhotoResponseEntity>():
+      case ApiErrorResult<GetDriverDataResponseEntity>():
         emit(state.copyWith(
           isLoading: false,
-          failure: uploadResult.failure,
-          editSuccess: false,
+          failure: result.failure
         ));
-        return false;
-
-      case ApiSuccessResult<UploadPhotoResponseEntity>():
-        return true;
     }
   }
-  
-  Future<void> _updateProfileData() async {
-    final request = EditProfileRequestEntity(
-      firstName: editProfileFirstNameController.text.trim(),
-      lastName: editProfileLastNameController.text.trim(),
-      email: editProfileEmailController.text.trim(),
-      phone: editProfilePhoneController.text
-          .replaceAll(RegExp(r'[^\d+]'), '')
-          .trim(),
-    );
 
-    final result = await _editProfileUseCase.invoke(request);
+  Future<void> _getAllVehicles() async {
+    final result = await _getAllVehiclesUseCase.getAllVehicles();
+    switch(result){
 
-    switch (result) {
-      case ApiSuccessResult<EditProfileResponseEntity>():
+      case ApiSuccessResult<GetAllVehiclesResponseEntity>():
         emit(state.copyWith(
           isLoading: false,
-          editSuccess: true,
-          failure: null,
-          editProfileResponseEntity: result.data,
+          getAllVehiclesResponseEntity: result.data
         ));
-        break;
-
-      case ApiErrorResult<EditProfileResponseEntity>():
+      case ApiErrorResult<GetAllVehiclesResponseEntity>():
         emit(state.copyWith(
           isLoading: false,
-          failure: result.failure,
-          editSuccess: false,
+          failure: result.failure
         ));
-        selectedImageFile = null;
-        break;
     }
+  }
+
+  String? getDriverVehicleNameById(String? vehicleId, List<VehicleEntity>? vehicles) {
+    return vehicles
+        ?.firstWhere(
+          (v) => v.Id == vehicleId,
+      orElse: () => VehicleEntity(Id: '-1', type: 'Unknown'),
+    )
+        .type;
   }
 
 }
