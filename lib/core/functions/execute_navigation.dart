@@ -1,4 +1,4 @@
-import 'package:flowery_tracking/core/Di/di.dart';
+import 'package:flowery_tracking/core/di/di.dart';
 import 'package:flowery_tracking/core/config/routing/app_routes.dart';
 import 'package:flowery_tracking/core/services/storage_interface.dart';
 import 'package:flowery_tracking/core/utils/constants/app_constants.dart';

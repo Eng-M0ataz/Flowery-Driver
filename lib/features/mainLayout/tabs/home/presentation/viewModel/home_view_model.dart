@@ -1,0 +1,136 @@
+import 'dart:async';
+import 'package:flowery_tracking/core/errors/api_results.dart';
+import 'package:flowery_tracking/core/utils/constants/app_constants.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/entities/pending_order_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/entities/response/pending_orders_response_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/useCases/get_pending_orders_use_case.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/useCases/update_order_state_use_case.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/home/presentation/viewModel/home_event.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/home/presentation/viewModel/home_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
+
+@injectable
+class HomeViewModel extends Cubit<HomeState> {
+  HomeViewModel(this._getPendingOrdersUseCase, this._updateOrderStateUseCase)
+    : super(HomeState());
+  final GetPendingOrdersUseCase _getPendingOrdersUseCase;
+  final UpdateOrderStateUseCase _updateOrderStateUseCase;
+  final _uiEventsController = StreamController<HomeEvent>();
+
+  Stream<HomeEvent> get uiEvents => _uiEventsController.stream;
+
+  void _emitUiEvent(HomeEvent event) {
+    _uiEventsController.add(event);
+  }
+
+  @override
+  Future<void> close() {
+    _uiEventsController.close();
+    return super.close();
+  }
+
+  Future<void> doIntend(HomeEvent event) async {
+    switch (event) {
+      case LoadInitialOrdersEvent():
+        await _loadOrders(page: 1, isRefresh: false);
+        break;
+      case LoadNextOrdersEvent():
+        if (!state.isLoadingMore && state.hasMore) {
+          await _loadOrders(page: state.currentPage + 1, isRefresh: false);
+        }
+        break;
+      case RefreshOrdersEvent():
+        await _loadOrders(page: 1, isRefresh: true);
+        break;
+      case NavigateToOrderDetailsUiEvent(args: final args):
+        _emitUiEvent(NavigateToOrderDetailsUiEvent(args));
+        break;
+      case RejectOrderEvent():
+        _rejectOrder(event.orderId);
+        break;
+      case UpdateOrderStateEvent():
+        _updateOrderState(event.orderId, event.state);
+        break;
+    }
+  }
+
+  Future<void> _updateOrderState(String orderId, String newState) async {
+    final result = await _updateOrderStateUseCase.invoke(
+      orderId: orderId,
+      state: newState,
+    );
+
+    switch (result) {
+      case ApiSuccessResult():
+        final updatedOrders = List<PendingOrderEntity>.from(state.orders);
+        final index = updatedOrders.indexWhere((order) => order.id == orderId);
+
+        if (index != -1) {
+          final updatedOrder = updatedOrders[index].copyWith(state: newState);
+          updatedOrders[index] = updatedOrder;
+        }
+
+        emit(state.copyWith(isLoading: false, orders: updatedOrders));
+        break;
+
+      case ApiErrorResult():
+        emit(state.copyWith(isLoading: false, failure: result.failure));
+        break;
+    }
+  }
+
+  void _rejectOrder(String orderId) {
+    final updatedOrders = List<PendingOrderEntity>.from(state.orders);
+
+    updatedOrders.removeWhere((order) => order.id == orderId);
+
+    emit(state.copyWith(orders: updatedOrders, orderRejected: true));
+    Future.delayed(
+      const Duration(milliseconds: AppConstants.uiRebuildDelay),
+      () {
+        emit(state.copyWith(orderRejected: false));
+      },
+    );
+  }
+
+  Future<void> _loadOrders({required int page, required bool isRefresh}) async {
+    if (isRefresh) {
+      emit(state.copyWith(isLoading: true, orders: [], failure: null));
+    } else if (page == 1) {
+      emit(state.copyWith(isLoading: true, failure: null));
+    } else {
+      emit(state.copyWith(isLoadingMore: true));
+    }
+
+    final result = await _getPendingOrdersUseCase.invoke(
+      page: page,
+      limit: AppConstants.ordersPageLimit,
+    );
+
+    switch (result) {
+      case ApiSuccessResult<PendingOrdersResponseEntity>():
+        final newOrders = result.data.orders ?? [];
+
+        emit(
+          state.copyWith(
+            isLoading: false,
+            isLoadingMore: false,
+            orders: isRefresh ? newOrders : [...state.orders, ...newOrders],
+            currentPage: page,
+            hasMore: newOrders.isNotEmpty,
+          ),
+        );
+        break;
+      case ApiErrorResult<PendingOrdersResponseEntity>():
+        emit(
+          state.copyWith(
+            isLoading: false,
+            isLoadingMore: false,
+            failure: result.failure,
+          ),
+        );
+        break;
+    }
+  }
+}
