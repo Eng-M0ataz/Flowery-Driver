@@ -1,23 +1,22 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flowery_tracking/core/config/theme/app_colors.dart';
+import 'package:flowery_tracking/core/localization/locale_keys.g.dart';
 import 'package:flowery_tracking/core/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 
-class ProfileEditCard extends StatelessWidget {
-  const ProfileEditCard({
+class VehicleEditCard extends StatelessWidget {
+  const VehicleEditCard({
     super.key,
     this.onTap,
-    required this.title,
-    required this.subtitle,
-    required this.vehicleOrPhoneNumber,
-    this.imagePath,
+
+    required this.vehicleType,
+    required this.vehicleNumber,
   });
 
 
-  final String? imagePath;
   final void Function()? onTap;
-  final String title;
-  final String subtitle;
-  final String vehicleOrPhoneNumber;
+  final String vehicleType;
+  final String vehicleNumber;
 
 
   @override
@@ -48,18 +47,17 @@ class ProfileEditCard extends StatelessWidget {
           spacing: AppSizes.spaceBetweenItems_16,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            imagePath == null ? Container() : CircleAvatar(backgroundImage: NetworkImage(imagePath!),radius: AppSizes.borderRadiusXxxl_32),
             Column(
               spacing:AppSizes.spaceBetweenItems_8,
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: Theme.of(context).textTheme.displaySmall),
+                Text( LocaleKeys.vehicleInfo.tr(), style: Theme.of(context).textTheme.displaySmall),
                 Text(
-                  subtitle,
+                  vehicleType,
                   style: Theme.of(context).textTheme.headlineLarge,
                 ),
-                Text(vehicleOrPhoneNumber, style: Theme.of(context).textTheme.headlineLarge),
+                Text(vehicleNumber, style: Theme.of(context).textTheme.headlineLarge),
               ],
             ),
             const Icon(Icons.arrow_forward_ios),

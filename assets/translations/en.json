@@ -27,5 +27,6 @@
   "failed_to_pick_image": "Failed to pick image:",
   "camera": "Camera",
   "gallery": "Gallery",
-  "select_profile_picture": "Select Profile Picture"
+  "select_profile_picture": "Select Profile Picture",
+  "vehicleInfo": "Vehicle Info"
 }

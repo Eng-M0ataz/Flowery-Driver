@@ -3,19 +3,21 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i6;
-import 'dart:io' as _i8;
+import 'dart:async' as _i7;
+import 'dart:io' as _i9;
 
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/api/client/profile_api_service.dart'
-    as _i5;
+    as _i6;
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/api/model/requestes/edit_profile_request_model.dart'
-    as _i7;
+    as _i8;
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/api/model/responses/driver_profile_response_dto.dart'
     as _i2;
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/api/model/responses/edit_profile_response_dto.dart'
     as _i3;
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/api/model/responses/upload_photo_response_dto.dart'
     as _i4;
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/api/model/responses/vehicle_response_dto.dart'
+    as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -50,54 +52,73 @@ class _FakeUploadPhotoResponseDto_2 extends _i1.SmartFake
     : super(parent, parentInvocation);
 }
 
+class _FakeVehicleResponseDto_3 extends _i1.SmartFake
+    implements _i5.VehicleResponseDto {
+  _FakeVehicleResponseDto_3(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
 /// A class which mocks [ProfileApiService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockProfileApiService extends _i1.Mock implements _i5.ProfileApiService {
+class MockProfileApiService extends _i1.Mock implements _i6.ProfileApiService {
   MockProfileApiService() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i6.Future<_i2.DriverProfileResponseDto> getLoggedDriverData() =>
+  _i7.Future<_i2.DriverProfileResponseDto> getLoggedDriverData() =>
       (super.noSuchMethod(
             Invocation.method(#getLoggedDriverData, []),
-            returnValue: _i6.Future<_i2.DriverProfileResponseDto>.value(
+            returnValue: _i7.Future<_i2.DriverProfileResponseDto>.value(
               _FakeDriverProfileResponseDto_0(
                 this,
                 Invocation.method(#getLoggedDriverData, []),
               ),
             ),
           )
-          as _i6.Future<_i2.DriverProfileResponseDto>);
+          as _i7.Future<_i2.DriverProfileResponseDto>);
 
   @override
-  _i6.Future<_i3.EditProfileResponseDto> editProfile(
-    _i7.EditProfileRequestModel? editProfileRequestModel,
+  _i7.Future<_i3.EditProfileResponseDto> editProfile(
+    _i8.EditProfileRequestModel? editProfileRequestModel,
   ) =>
       (super.noSuchMethod(
             Invocation.method(#editProfile, [editProfileRequestModel]),
-            returnValue: _i6.Future<_i3.EditProfileResponseDto>.value(
+            returnValue: _i7.Future<_i3.EditProfileResponseDto>.value(
               _FakeEditProfileResponseDto_1(
                 this,
                 Invocation.method(#editProfile, [editProfileRequestModel]),
               ),
             ),
           )
-          as _i6.Future<_i3.EditProfileResponseDto>);
+          as _i7.Future<_i3.EditProfileResponseDto>);
 
   @override
-  _i6.Future<_i4.UploadPhotoResponseDto> uploadProfilePhoto(_i8.File? photo) =>
+  _i7.Future<_i4.UploadPhotoResponseDto> uploadProfilePhoto(_i9.File? photo) =>
       (super.noSuchMethod(
             Invocation.method(#uploadProfilePhoto, [photo]),
-            returnValue: _i6.Future<_i4.UploadPhotoResponseDto>.value(
+            returnValue: _i7.Future<_i4.UploadPhotoResponseDto>.value(
               _FakeUploadPhotoResponseDto_2(
                 this,
                 Invocation.method(#uploadProfilePhoto, [photo]),
               ),
             ),
           )
-          as _i6.Future<_i4.UploadPhotoResponseDto>);
+          as _i7.Future<_i4.UploadPhotoResponseDto>);
+
+  @override
+  _i7.Future<_i5.VehicleResponseDto> getVehicle(String? vehicleId) =>
+      (super.noSuchMethod(
+            Invocation.method(#getVehicle, [vehicleId]),
+            returnValue: _i7.Future<_i5.VehicleResponseDto>.value(
+              _FakeVehicleResponseDto_3(
+                this,
+                Invocation.method(#getVehicle, [vehicleId]),
+              ),
+            ),
+          )
+          as _i7.Future<_i5.VehicleResponseDto>);
 }
 
 /// A class which mocks [DriverProfileResponseDto].
@@ -158,7 +179,7 @@ class MockUploadPhotoResponseDto extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockEditProfileRequestModel extends _i1.Mock
-    implements _i7.EditProfileRequestModel {
+    implements _i8.EditProfileRequestModel {
   MockEditProfileRequestModel() {
     _i1.throwOnMissingStub(this);
   }

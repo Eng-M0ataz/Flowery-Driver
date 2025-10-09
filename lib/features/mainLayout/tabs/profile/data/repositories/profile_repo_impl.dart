@@ -5,6 +5,7 @@ import 'package:flowery_tracking/features/mainLayout/tabs/profile/data/dataSourc
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entity/Responses/driver_profile_response_entity.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entity/Responses/edit_profile_response_entity.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entity/Responses/upload_photo_response_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entity/Responses/vehicle_response_entity.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entity/requestes/edit_profile_request_entity.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/repositories/profile_repo.dart';
 import 'package:injectable/injectable.dart';
@@ -27,6 +28,12 @@ class ProfileRepoImpl implements ProfileRepo{
   @override
   Future<ApiResult<UploadPhotoResponseEntity>> uploadProfilePhoto(File imageFile) {
     return _profileRemoteDataSource.uploadProfilePhoto(imageFile);
+
+  }
+
+  @override
+  Future<ApiResult<VehicleResponseEntity>> getVehicle(String vehicleId) {
+    return _profileRemoteDataSource.getVehicle(vehicleId);
 
   }
 }

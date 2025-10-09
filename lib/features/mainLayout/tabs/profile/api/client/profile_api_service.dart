@@ -5,6 +5,7 @@ import 'package:flowery_tracking/features/mainLayout/tabs/profile/api/model/requ
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/api/model/responses/driver_profile_response_dto.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/api/model/responses/edit_profile_response_dto.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/api/model/responses/upload_photo_response_dto.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/api/model/responses/vehicle_response_dto.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
@@ -30,4 +31,7 @@ abstract class ProfileApiService {
   Future<UploadPhotoResponseDto> uploadProfilePhoto(
       @Part(name: 'photo') File photo
       );
+
+  @GET(ApiConstants.getVehicle)
+  Future<VehicleResponseDto> getVehicle(@Path('id') String vehicleId);
 }

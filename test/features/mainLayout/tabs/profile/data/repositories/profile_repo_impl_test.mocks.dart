@@ -17,6 +17,8 @@ import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entity/
     as _i7;
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entity/Responses/upload_photo_response_entity.dart'
     as _i9;
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entity/Responses/vehicle_response_entity.dart'
+    as _i11;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i6;
 
@@ -90,4 +92,20 @@ class MockProfileRemoteDataSource extends _i1.Mock
                 ),
           )
           as _i3.Future<_i4.ApiResult<_i9.UploadPhotoResponseEntity>>);
+
+  @override
+  _i3.Future<_i4.ApiResult<_i11.VehicleResponseEntity>> getVehicle(
+    String? vehicleId,
+  ) =>
+      (super.noSuchMethod(
+            Invocation.method(#getVehicle, [vehicleId]),
+            returnValue:
+                _i3.Future<_i4.ApiResult<_i11.VehicleResponseEntity>>.value(
+                  _i6.dummyValue<_i4.ApiResult<_i11.VehicleResponseEntity>>(
+                    this,
+                    Invocation.method(#getVehicle, [vehicleId]),
+                  ),
+                ),
+          )
+          as _i3.Future<_i4.ApiResult<_i11.VehicleResponseEntity>>);
 }

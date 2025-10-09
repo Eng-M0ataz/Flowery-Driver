@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flowery_tracking/core/config/routing/app_routes.dart';
 import 'package:flowery_tracking/core/config/theme/app_colors.dart';
+import 'package:flowery_tracking/core/helpers/routing_extensions.dart';
 import 'package:flowery_tracking/core/localization/locale_keys.g.dart';
 import 'package:flowery_tracking/core/utils/constants/sizes.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/viewModel/profile_event.dart';
@@ -8,6 +10,7 @@ import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/v
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/widgets/profile_widgets/profile_app_bar.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/widgets/profile_widgets/profile_edit_card.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/widgets/profile_widgets/profile_footer.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/widgets/profile_widgets/vehicle_edit_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -44,11 +47,17 @@ class _ProfileState extends State<Profile> {
                 }
                 if (state.failure != null) {
                   return Container(
-                    margin: const EdgeInsets.symmetric(vertical: AppSizes.spaceBetweenItems_32),
-                    padding: const EdgeInsets.symmetric(vertical: AppSizes.paddingXl_64),
+                    margin: const EdgeInsets.symmetric(
+                        vertical: AppSizes.spaceBetweenItems_32),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: AppSizes.paddingXl_64),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(AppSizes.borderRadiusMd_10),
-                      border: Border.all(color: Theme.of(context).colorScheme.onSurface)
+                        borderRadius: BorderRadius.circular(
+                            AppSizes.borderRadiusMd_10),
+                        border: Border.all(color: Theme
+                            .of(context)
+                            .colorScheme
+                            .onSurface)
                     ),
                     child: Center(
                       child: Column(
@@ -62,7 +71,10 @@ class _ProfileState extends State<Profile> {
                           ),
                           Text(
                             state.failure!.errorMessage,
-                            style: Theme.of(context).textTheme.bodySmall,
+                            style: Theme
+                                .of(context)
+                                .textTheme
+                                .bodySmall,
                           ),
                         ],
                       ),
@@ -72,41 +84,33 @@ class _ProfileState extends State<Profile> {
                 return Column(
                   children: [
                     ProfileEditCard(
-                      onTap: () {},
-                      hasImage: true,
+                      onTap: () {
+                        context.pushNamed(AppRoutes.editProfileRoute);
+                      },
                       imagePath:
-                          state.driverProfileResponseEntity!.driver!.photo,
+                      state.driverProfileResponseEntity!.driver!.photo,
                       title:
-                          '${state.driverProfileResponseEntity!.driver!.firstName} ${state.driverProfileResponseEntity!.driver!.lastName}',
+                      '${state.driverProfileResponseEntity!.driver!
+                          .firstName} ${state.driverProfileResponseEntity!
+                          .driver!.lastName}',
                       subtitle:
-                          state.driverProfileResponseEntity!.driver!.email ??
+                      state.driverProfileResponseEntity!.driver!.email ??
                           '',
                       vehicleOrPhoneNumber:
-                          state.driverProfileResponseEntity!.driver!.phone ??
+                      state.driverProfileResponseEntity!.driver!.phone ??
                           '',
                     ),
-                    ProfileEditCard(
+                    VehicleEditCard(
+                      vehicleType: state
+                          .vehicleResponseEntity!.vehicle!.type ??
+                          '',
+                      vehicleNumber: state
+                          .driverProfileResponseEntity!
+                          .driver!
+                          .vehicleNumber ??
+                          '',
                       onTap: () {},
-                      hasImage: false,
-                      title:
-                          state
-                              .driverProfileResponseEntity!
-                              .driver!
-                              .vehicleLicense ??
-                          ' ',
-                      subtitle:
-                          state
-                              .driverProfileResponseEntity!
-                              .driver!
-                              .vehicleType ??
-                          '',
-                      vehicleOrPhoneNumber:
-                          state
-                              .driverProfileResponseEntity!
-                              .driver!
-                              .vehicleNumber ??
-                          '',
-                    ),
+                    )
                   ],
                 );
               },
