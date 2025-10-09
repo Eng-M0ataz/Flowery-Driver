@@ -1,0 +1,204 @@
+import 'package:flowery_tracking/core/errors/api_results.dart';
+import 'package:flowery_tracking/core/errors/failure.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entity/Responses/driver_profile_response_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entity/Responses/driver_response_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/repositories/profile_repo.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/use_cases/get_logged_user_use_case.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+
+import 'get_logged_user_use_case_test.mocks.dart';
+
+@GenerateMocks([ProfileRepo])
+void main() {
+  late GetLoggedUserUseCase useCase;
+  late MockProfileRepo mockProfileRepo;
+
+  setUpAll(() {
+    // Provide dummy values for ApiResult types
+    provideDummy<ApiResult<DriverProfileResponseEntity>>(
+      ApiSuccessResult(
+       data:  DriverProfileResponseEntity(
+          driver: DriverEntity(
+            Id: '',
+            firstName: '',
+            lastName: '',
+            email: '',
+            phone: '',
+            photo: null,
+          ),
+        ),
+      ),
+    );
+  });
+
+  setUp(() {
+    mockProfileRepo = MockProfileRepo();
+    useCase = GetLoggedUserUseCase(mockProfileRepo);
+  });
+
+  group('GetLoggedUserUseCase', () {
+    test('should call repository getLoggedDriverData and return success result', () async {
+      // Arrange
+      final driverEntity = DriverEntity(
+        Id: '123',
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'john.doe@example.com',
+        phone: '+1234567890',
+        photo: 'https://example.com/photo.jpg',
+      );
+
+      final responseEntity = DriverProfileResponseEntity(
+        driver: driverEntity,
+      );
+
+      final successResult = ApiSuccessResult<DriverProfileResponseEntity>(data: responseEntity);
+
+      when(mockProfileRepo.getLoggedDriverData())
+          .thenAnswer((_) async => successResult);
+
+      // Act
+      final result = await useCase.call();
+
+      // Assert
+      expect(result, isA<ApiSuccessResult<DriverProfileResponseEntity>>());
+      expect((result as ApiSuccessResult).data, responseEntity);
+      verify(mockProfileRepo.getLoggedDriverData()).called(1);
+      verifyNoMoreInteractions(mockProfileRepo);
+    });
+
+    test('should call repository getLoggedDriverData and return error result when repository fails', () async {
+      // Arrange
+      final failure = ServerFailure(errorMessage: 'Failed to fetch driver data');
+      final errorResult = ApiErrorResult<DriverProfileResponseEntity>(failure: failure);
+
+      when(mockProfileRepo.getLoggedDriverData())
+          .thenAnswer((_) async => errorResult);
+
+      // Act
+      final result = await useCase.call();
+
+      // Assert
+      expect(result, isA<ApiErrorResult<DriverProfileResponseEntity>>());
+      expect((result as ApiErrorResult).failure, failure);
+
+      verify(mockProfileRepo.getLoggedDriverData()).called(1);
+      verifyNoMoreInteractions(mockProfileRepo);
+    });
+
+    test('should return network failure when there is no internet connection', () async {
+      // Arrange
+      final failure = Failure(errorMessage: 'No internet connection');
+      final errorResult = ApiErrorResult<DriverProfileResponseEntity>(failure: failure);
+
+      when(mockProfileRepo.getLoggedDriverData())
+          .thenAnswer((_) async => errorResult);
+
+      // Act
+      final result = await useCase.call();
+
+      // Assert
+      expect(result, isA<ApiErrorResult<DriverProfileResponseEntity>>());
+      expect((result as ApiErrorResult).failure, isA<Failure>());
+      verify(mockProfileRepo.getLoggedDriverData()).called(1);
+      verifyNoMoreInteractions(mockProfileRepo);
+    });
+
+    test('should return unauthorized failure when user is not authenticated', () async {
+      // Arrange
+      final failure = Failure(errorMessage: 'User not authenticated');
+      final errorResult = ApiErrorResult<DriverProfileResponseEntity>(failure: failure);
+
+      when(mockProfileRepo.getLoggedDriverData())
+          .thenAnswer((_) async => errorResult);
+
+      // Act
+      final result = await useCase.call();
+
+      // Assert
+      expect(result, isA<ApiErrorResult<DriverProfileResponseEntity>>());
+      expect((result as ApiErrorResult).failure, isA<Failure>());
+      verify(mockProfileRepo.getLoggedDriverData()).called(1);
+      verifyNoMoreInteractions(mockProfileRepo);
+    });
+
+    test('should return driver with null photo when photo is not available', () async {
+      // Arrange
+      final driverEntity = DriverEntity(
+        Id: '456',
+        firstName: 'Jane',
+        lastName: 'Smith',
+        email: 'jane.smith@example.com',
+        phone: '+9876543210',
+        photo: null,
+      );
+
+      final responseEntity = DriverProfileResponseEntity(
+        driver: driverEntity,
+      );
+
+      final successResult = ApiSuccessResult<DriverProfileResponseEntity>(data: responseEntity);
+
+      when(mockProfileRepo.getLoggedDriverData())
+          .thenAnswer((_) async => successResult);
+
+      // Act
+      final result = await useCase.call();
+
+      // Assert
+      expect(result, isA<ApiSuccessResult<DriverProfileResponseEntity>>());
+      expect((result as ApiSuccessResult).data.driver?.photo, isNull);
+      verify(mockProfileRepo.getLoggedDriverData()).called(1);
+      verifyNoMoreInteractions(mockProfileRepo);
+    });
+
+    test('should handle null driver in response entity', () async {
+      // Arrange
+      final responseEntity = DriverProfileResponseEntity(
+        driver: null,
+      );
+
+      final successResult = ApiSuccessResult<DriverProfileResponseEntity>(data: responseEntity);
+
+      when(mockProfileRepo.getLoggedDriverData())
+          .thenAnswer((_) async => successResult);
+
+      // Act
+      final result = await useCase.call();
+
+      // Assert
+      expect(result, isA<ApiSuccessResult<DriverProfileResponseEntity>>());
+      expect((result as ApiSuccessResult).data.driver, isNull);
+      verify(mockProfileRepo.getLoggedDriverData()).called(1);
+      verifyNoMoreInteractions(mockProfileRepo);
+    });
+
+    test('should verify repository method is called with no parameters', () async {
+      // Arrange
+      final responseEntity = DriverProfileResponseEntity(
+        driver: DriverEntity(
+          Id: '789',
+          firstName: 'Bob',
+          lastName: 'Wilson',
+          email: 'bob@example.com',
+          phone: '+1122334455',
+          photo: null,
+        ),
+      );
+
+      final successResult = ApiSuccessResult<DriverProfileResponseEntity>(data: responseEntity);
+
+      when(mockProfileRepo.getLoggedDriverData())
+          .thenAnswer((_) async => successResult);
+
+      // Act
+      await useCase.call();
+
+      // Assert
+      verify(mockProfileRepo.getLoggedDriverData()).called(1);
+      verifyNoMoreInteractions(mockProfileRepo);
+    });
+  });
+}
