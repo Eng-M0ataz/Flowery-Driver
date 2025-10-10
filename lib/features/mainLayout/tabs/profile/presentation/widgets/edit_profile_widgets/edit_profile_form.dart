@@ -219,7 +219,6 @@ class _EditProfileFormState extends State<EditProfileForm> {
             },
           );
         }
-
         if (state.editSuccess && !state.isLoading) {
           DialogueUtils.showMessage(
             context: context,
