@@ -8,7 +8,6 @@ extension EditProfileRequestMapper on EditProfileRequestEntity{
       lastName: lastName,
       email: email,
       phone: phone,
-      gender: gender,
     );
   }
 }

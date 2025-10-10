@@ -4,6 +4,7 @@ import 'package:flowery_tracking/core/config/theme/app_colors.dart';
 import 'package:flowery_tracking/core/helpers/routing_extensions.dart';
 import 'package:flowery_tracking/core/localization/locale_keys.g.dart';
 import 'package:flowery_tracking/core/utils/constants/sizes.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/pages/edit_profile_screen.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/viewModel/profile_event.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/viewModel/profile_state.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/viewModel/profile_view_model.dart';
@@ -84,8 +85,19 @@ class _ProfileState extends State<Profile> {
                 return Column(
                   children: [
                     ProfileEditCard(
-                      onTap: () {
-                        context.pushNamed(AppRoutes.editProfileRoute);
+                      onTap: () async {
+                        // Navigate to second screen and wait for result
+                        final shouldRefresh = await Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const EditProfileScreen(),
+                          ),
+                        );
+
+                        // If we got a result and it's true, refresh data
+                        if (shouldRefresh == true) {
+                          viewModel.doIntend(LoadDriverDataEvent());
+                        }
+
                       },
                       imagePath:
                       state.driverProfileResponseEntity!.driver!.photo,

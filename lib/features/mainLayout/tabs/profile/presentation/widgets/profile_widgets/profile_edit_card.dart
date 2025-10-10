@@ -62,7 +62,7 @@ class ProfileEditCard extends StatelessWidget {
                 Text(vehicleOrPhoneNumber, style: Theme.of(context).textTheme.headlineLarge),
               ],
             ),
-            const Icon(Icons.arrow_forward_ios),
+            const Expanded(child: Icon(Icons.arrow_forward_ios)),
           ],
         ),
       ),

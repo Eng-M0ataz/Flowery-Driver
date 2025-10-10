@@ -62,14 +62,16 @@ class _EditProfileFormState extends State<EditProfileForm> {
                       spacing: AppSizes.spaceBetweenItems_24,
                       children: [
                         ProfileImagePickerWidget(
-                          initialImageUrl: state.selectedImage?.path??viewModel.initialImage,
+                          initialImageUrl:
+                              state.selectedImage?.path ??
+                              viewModel.initialImage,
                           onImageSelected: (image) {
                             if (image != null) {
-                              viewModel
-                                  .doIntend(OnImageSelectedEvent(file: image));
+                              viewModel.doIntend(
+                                OnImageSelectedEvent(file: image),
+                              );
                             }
-                          }
-
+                          },
                         ),
                         Row(
                           spacing: AppSizes.spaceBetweenItems_16,
@@ -136,10 +138,10 @@ class _EditProfileFormState extends State<EditProfileForm> {
                         ),
                         TextFormField(
                           keyboardType: TextInputType.visiblePassword,
-                          controller: TextEditingController(text: AppConstants.passwordCharacters),
+                          controller: TextEditingController(
+                            text: AppConstants.passwordCharacters,
+                          ),
                           readOnly: true,
-                          validator: (password) =>
-                              Validations.validatePassword(password),
                           textInputAction: TextInputAction.next,
                           autofillHints: const [AutofillHints.password],
                           decoration: InputDecoration(
@@ -164,14 +166,24 @@ class _EditProfileFormState extends State<EditProfileForm> {
                             const SizedBox(width: AppSizes.paddingMd_20),
                             GenderOption(
                               value: AppConstants.female,
-                              groupValue: state.driverProfileResponseEntity?.driver?.gender ?? AppConstants.male,
+                              groupValue:
+                                  state
+                                      .driverProfileResponseEntity
+                                      ?.driver
+                                      ?.gender ??
+                                  AppConstants.male,
                               label: LocaleKeys.female_label.tr(),
                               activeColor: AppColorsLight.pink,
                             ),
                             const SizedBox(width: AppSizes.paddingMd_20),
                             GenderOption(
                               value: AppConstants.male,
-                              groupValue: state.driverProfileResponseEntity?.driver?.gender ?? AppConstants.male,
+                              groupValue:
+                                  state
+                                      .driverProfileResponseEntity
+                                      ?.driver
+                                      ?.gender ??
+                                  AppConstants.male,
                               label: LocaleKeys.male_label.tr(),
                               activeColor: AppColorsLight.grey,
                             ),
@@ -216,12 +228,12 @@ class _EditProfileFormState extends State<EditProfileForm> {
             posActionName: LocaleKeys.ok.tr(),
             posAction: () {
               viewModel.doIntend(ResetSuccessStateEvent());
-              context.pop();
+              Navigator.of(context).pop(true);
+
             },
           );
         }
       },
     );
   }
-
 }

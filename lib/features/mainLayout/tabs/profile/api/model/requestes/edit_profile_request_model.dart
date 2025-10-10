@@ -10,8 +10,7 @@ class EditProfileRequestModel {
     this.lastName,
     this.firstName,
     this.email,
-    this.phone,
-    this.gender,
+    this.phone
   });
 
   factory EditProfileRequestModel.fromJson(Map<String, dynamic> json) {
@@ -29,8 +28,6 @@ class EditProfileRequestModel {
   @JsonKey(name: 'phone')
   final String? phone;
 
-  @JsonKey(name: 'gender')
-  final String? gender;
 
   Map<String, dynamic> toJson() {
     return _$EditProfileRequestModelToJson(this);
