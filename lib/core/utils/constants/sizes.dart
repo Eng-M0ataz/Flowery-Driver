@@ -46,6 +46,8 @@ abstract class AppSizes {
   static const double buttonHigh_48 = 48;
   static const double buttonHigh_36 = 36;
   static const double buttonWidth_80 = 80;
+  static const double buttonWidth_343 = 343;
+
 
   // AppBar High
 
@@ -117,6 +119,9 @@ abstract class AppSizes {
   static const double imageLogoHeight_25 = 25.0;
   static const double imageProfileWidth_80 = 80.0;
   static const double imageProfileHeight_80 = 80.0;
+  static const double imageOrderSuccessWidth_150=150.0;
+  static const double imageOrderSuccessHeight_150=150.0;
+
 
   //circle avatar sizes
   static const double circleAvatarRadius_22 = 22.0;
