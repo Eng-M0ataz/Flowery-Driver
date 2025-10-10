@@ -6,8 +6,8 @@ import 'package:flowery_tracking/core/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class OrderSuccessScreen extends StatelessWidget {
-  const OrderSuccessScreen({super.key});
+class OrderThanksPageScreen extends StatelessWidget {
+  const OrderThanksPageScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
