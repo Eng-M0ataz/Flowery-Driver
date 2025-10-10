@@ -18,7 +18,7 @@ class OrderSuccessScreen extends StatelessWidget {
             mainAxisAlignment:MainAxisAlignment.center,
             children: [
               Container(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(AppSizes.paddingMd_16),
                 child:SvgPicture.asset(
                   AppConstants.orderSuccessImage,
                   fit: BoxFit.contain,
