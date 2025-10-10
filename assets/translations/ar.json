@@ -12,5 +12,8 @@
   "unknown_store": "متجر غير معروف",
   "unknown_address": "عنوان غير معروف",
   "unknown_user": "مستخدم غير معروف",
-  "order_rejected": "تم رفض الطلب بنجاح!"
+  "order_rejected": "تم رفض الطلب بنجاح!",
+  "thank_you": "شكراً لك !!",
+  "order_successful_desc": "تم تسليم الطلب بنجاح",
+  "done" : "منتهي"
 }
