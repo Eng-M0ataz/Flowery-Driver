@@ -4,5 +4,13 @@
   "orders": "Orders",
   "profile": "Profile",
   "applySuccess": "Your application has been sent submitted!",
-  "applySuccessDescription": "Thank you for providing your application we will review your application and will get back to you soon."
+  "applySuccessDescription": "Thank you for providing your application we will review your application and will get back to you soon.",
+  "myOrders": "My Orders",
+  "cancelled" : "Cancelled",
+  "completed" : "Completed",
+  "recentOrders" : "Recent Orders",
+  "flowerOrder" : "Flower Order",
+  "pickupAddress" : "Pickup Address",
+  "userAddress" : "User Address",
+  "floweryStore" : "Flowery Store"
 }
