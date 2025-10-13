@@ -34,7 +34,12 @@ class OrderDetailsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              OrderStateWidget(orderNumber: order.order!.orderNumber!, state: order.order!.state!),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: AppSizes.spaceBetweenItems_24,
+                ),
+                child: OrderStateWidget(orderNumber: order.order!.orderNumber!, state: order.order!.state!),
+              ),
               OrderDetailsTextWidget(title: LocaleKeys.pickupAddress.tr()),
               AddressCard(name: order.store!.name!, imagePath: order.store!.image!, address: order.store!.address!),
               OrderDetailsTextWidget(title: LocaleKeys.userAddress.tr()),

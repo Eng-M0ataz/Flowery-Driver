@@ -18,35 +18,30 @@ class OrderStateWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: AppSizes.spaceBetweenItems_24,
-      ),
-      child: Row(
-        children: [
-          SvgPicture.asset(
-            state == 'completed'
-                ? Assets.assetsImagesCheckCircle
-                : Assets.assetsImagesCancel,
-          ),
-          const SizedBox(width: AppSizes.spaceBetweenItems_4),
+    return Row(
+      children: [
+        SvgPicture.asset(
           state == 'completed'
-              ? Text(
-                  LocaleKeys.completed.tr(),
-                  style: Theme.of(
-                    context,
-                  ).textTheme.labelLarge!.copyWith(color: AppColorsLight.green),
-                )
-              : Text(
-                  LocaleKeys.cancelled.tr(),
-                  style: Theme.of(
-                    context,
-                  ).textTheme.labelLarge!.copyWith(color: AppColorsLight.red),
-                ),
-          const Spacer(),
-          Text(orderNumber, style: Theme.of(context).textTheme.labelLarge),
-        ],
-      ),
+              ? Assets.assetsImagesCheckCircle
+              : Assets.assetsImagesCancel,
+        ),
+        const SizedBox(width: AppSizes.spaceBetweenItems_4),
+        state == 'completed'
+            ? Text(
+                LocaleKeys.completed.tr(),
+                style: Theme.of(
+                  context,
+                ).textTheme.labelLarge!.copyWith(color: AppColorsLight.green),
+              )
+            : Text(
+                LocaleKeys.cancelled.tr(),
+                style: Theme.of(
+                  context,
+                ).textTheme.labelLarge!.copyWith(color: AppColorsLight.red),
+              ),
+        const Spacer(),
+        Text(orderNumber, style: Theme.of(context).textTheme.labelLarge),
+      ],
     );
   }
 }

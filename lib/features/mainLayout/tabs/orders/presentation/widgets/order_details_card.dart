@@ -3,6 +3,7 @@ import 'package:flowery_tracking/core/localization/locale_keys.g.dart';
 import 'package:flowery_tracking/core/utils/constants/app_assets.dart';
 import 'package:flowery_tracking/core/utils/constants/sizes.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/orders/presentation/widgets/address_card.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/orders/presentation/widgets/order_state_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -17,9 +18,6 @@ class OrderDetailsCard extends StatelessWidget {
   final String storeImage;
   final String userImage;
   final void Function()? onTap;
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -50,41 +48,7 @@ class OrderDetailsCard extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            status == 'completed' ?
-            Row(
-              children: [
-                SvgPicture.asset(Assets.assetsImagesCheckCircle),
-                const SizedBox(width: AppSizes.spaceBetweenItems_4),
-                Text(
-                  LocaleKeys.completed,
-                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                    color: AppColorsLight.green,
-                  ),
-                ),
-                const Spacer(),
-                Text(
-                  orderNumber,
-                  style: Theme.of(context).textTheme.labelLarge,
-                ),
-              ],
-            ) :
-            Row(
-              children: [
-                SvgPicture.asset(Assets.assetsImagesCancel),
-                const SizedBox(width: AppSizes.spaceBetweenItems_4),
-                Text(
-                  LocaleKeys.cancelled,
-                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                    color: AppColorsLight.red,
-                  ),
-                ),
-                const Spacer(),
-                Text(
-                  orderNumber,
-                  style: Theme.of(context).textTheme.labelLarge,
-                ),
-              ],
-            ) ,
+            OrderStateWidget(orderNumber: orderNumber, state: status),
             Text(
               LocaleKeys.pickupAddress,
               style: Theme.of(context).textTheme.labelMedium!.copyWith(
