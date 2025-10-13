@@ -21,38 +21,43 @@ class OrderDetailsScreen extends StatelessWidget {
     final order = ModalRoute.of(context)?.settings.arguments;
 
     if (order == null || order is! AllOrdersEntity) {
-      return const Scaffold(
-        body: Center(child: Text('No order details available')),
+      return  Scaffold(
+        body: Center(child: Text(LocaleKeys.noOrders.tr())),
       );
     }
     return Scaffold(
       appBar: CustomAppBar(title: LocaleKeys.orderDetails.tr()),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppSizes.paddingMd_16,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: AppSizes.spaceBetweenItems_24,
-                  bottom: AppSizes.spaceBetweenItems_6
-                ),
-                child: OrderStateWidget(orderNumber: order.order!.orderNumber!, state: order.order!.state!),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSizes.paddingMd_16,
+          vertical: AppSizes.paddingSm_8,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                top: AppSizes.spaceBetweenItems_24,
+                bottom: AppSizes.spaceBetweenItems_6
               ),
-              OrderDetailsTextWidget(title: LocaleKeys.pickupAddress.tr()),
-              AddressCard(name: order.store!.name!, imagePath: order.store!.image!, address: order.store!.address!),
-              OrderDetailsTextWidget(title: LocaleKeys.userAddress.tr()),
-              AddressCard(name: order.order!.user!.firstName!, imagePath: order.order!.user!.photo!, address: order.order!.user!.email!),
-              OrderDetailsTextWidget(title: LocaleKeys.orderDetails.tr()),
-              const SizedBox(height: AppSizes.spaceBetweenItems_12,),
-              PaymentData(title: LocaleKeys.total.tr(), paymentMethod: '${LocaleKeys.egp.tr()} ${order.order!.totalPrice!}'),
-              PaymentData(title: LocaleKeys.paymentMethod.tr(), paymentMethod: order.order!.paymentType!),
+              child: OrderStateWidget(orderNumber: order.order!.orderNumber!, state: order.order!.state!),
+            ),
+            OrderDetailsTextWidget(title: LocaleKeys.pickupAddress.tr()),
+            AddressCard(name: order.store!.name!, imagePath: order.store!.image!, address: order.store!.address!),
+            OrderDetailsTextWidget(title: LocaleKeys.userAddress.tr()),
+            AddressCard(name: order.order!.user!.firstName!, imagePath: order.order!.user!.photo!, address: order.order!.user!.email!),
+            OrderDetailsTextWidget(title: LocaleKeys.orderDetails.tr()),
+            Expanded(child: ListView.separated(
+              separatorBuilder: (context,index){
+                return const SizedBox(height: AppSizes.spaceBetweenItems_12,);
+              },itemBuilder: (context,index){
+              return ProductCard(imagePath:  order.order!.user!.photo!, title:  order.order!.user!.firstName!, price: order.order!.orderItems![index].price!, quantity: order.order!.orderItems![index].quantity!);
+            }, itemCount: order.order!.orderItems!.length,)),
+            const SizedBox(height: AppSizes.spaceBetweenItems_12,),
+            PaymentData(title: LocaleKeys.total.tr(), paymentMethod: '${LocaleKeys.egp.tr()} ${order.order!.totalPrice!}'),
+            PaymentData(title: LocaleKeys.paymentMethod.tr(), paymentMethod: order.order!.paymentType!),
 
-            ],
-          ),
+          ],
         ),
       ),
     );
