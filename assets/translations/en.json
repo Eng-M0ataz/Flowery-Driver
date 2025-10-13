@@ -12,5 +12,11 @@
   "flowerOrder" : "Flower Order",
   "pickupAddress" : "Pickup Address",
   "userAddress" : "User Address",
-  "floweryStore" : "Flowery Store"
+  "floweryStore" : "Flowery Store",
+  "orderDetails" : "Order Details",
+  "total" : "Total",
+  "paymentMethod" : "Payment Method",
+  "noOrders": "No order details available",
+  "egp" : "EGP"
+
 }

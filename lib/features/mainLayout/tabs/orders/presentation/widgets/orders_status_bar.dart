@@ -6,15 +6,17 @@ import 'package:flowery_tracking/features/mainLayout/tabs/orders/presentation/wi
 import 'package:flutter/material.dart';
 
 class OrdersStatusBar extends StatelessWidget {
-  const OrdersStatusBar({super.key});
+  const OrdersStatusBar({super.key, required this.completed, required this.cancelled});
+  final int completed;
+  final int cancelled;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       spacing: AppSizes.spaceBetweenItems_32,
       children: [
-          Expanded(child: StatusCard(ordersNumbers: 4, status: LocaleKeys.cancelled.tr(), iconPath: Assets.assetsImagesCancel)),
-          Expanded(child: StatusCard(ordersNumbers: 100, status: LocaleKeys.completed.tr(), iconPath: Assets.assetsImagesCheckCircle)),
+          Expanded(child: StatusCard(ordersNumbers: cancelled, status: LocaleKeys.cancelled.tr(), iconPath: Assets.assetsImagesCancel)),
+          Expanded(child: StatusCard(ordersNumbers: completed, status: LocaleKeys.completed.tr(), iconPath: Assets.assetsImagesCheckCircle)),
       ],
     );
   }

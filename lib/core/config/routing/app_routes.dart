@@ -7,4 +7,5 @@ abstract class AppRoutes {
   static const String ordersRoute = '/ordersRoute';
   static const String profileRoute = '/profileRoute';
   static const String applySuccessRoute = '/applySuccessRoute';
+  static const String orderDetailsRoute = '/orderDetailsRoute';
 }
