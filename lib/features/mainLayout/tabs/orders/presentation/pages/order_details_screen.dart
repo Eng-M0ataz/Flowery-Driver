@@ -56,7 +56,6 @@ class OrderDetailsScreen extends StatelessWidget {
             const SizedBox(height: AppSizes.spaceBetweenItems_12,),
             PaymentData(title: LocaleKeys.total.tr(), paymentMethod: '${LocaleKeys.egp.tr()} ${order.order!.totalPrice!}'),
             PaymentData(title: LocaleKeys.paymentMethod.tr(), paymentMethod: order.order!.paymentType!),
-
           ],
         ),
       ),
