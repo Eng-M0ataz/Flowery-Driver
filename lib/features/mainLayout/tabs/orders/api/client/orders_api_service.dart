@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flowery_tracking/core/utils/constants/api_constants.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/orders/api/models/reponses/driver_orders_response_dto.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/orders/api/models/reponses/product_data_dto.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
@@ -15,4 +16,7 @@ abstract class OrdersApiService {
 
   @GET(ApiConstants.driverOrders)
   Future<DriverOrdersResponseDto> getDriverOrders();
+
+  @GET(ApiConstants.getProductItem)
+  Future<ProductDataDto> getProduct(@Path('id') String productId);
 }
