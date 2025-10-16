@@ -71,4 +71,9 @@ final TextTheme textTheme = const TextTheme(
     fontWeight: FontWeight.w400,
     fontSize: AppSizes.mdFont_16,
   ),
+  titleSmall: TextStyle(
+    fontWeight: FontWeight.w500,
+    fontSize: AppSizes.xsFont_13,
+    fontFamily: AppFonts.roboto,
+  ),
 );
