@@ -8,6 +8,7 @@ import 'package:flowery_tracking/core/helpers/app_config_cubit.dart';
 import 'package:flowery_tracking/core/helpers/block_observer.dart';
 import 'package:flowery_tracking/core/utils/constants/app_constants.dart';
 import 'package:flowery_tracking/core/utils/constants/sizes.dart';
+import 'package:flowery_tracking/features/resetPassword/presentation/pages/reset_password_screen.dart';
 import 'package:flowery_tracking/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,6 +51,7 @@ class FloweryDirver extends StatelessWidget {
               locale: localeState,
               theme: AppThemeLight.lightTheme,
               onGenerateRoute: RouteGenerator.getRoute,
+              home: const ResetPasswordScreen(),
               builder: (context, child) => ResponsiveScaledBox(
                 width: ResponsiveValue<double>(
                   context,

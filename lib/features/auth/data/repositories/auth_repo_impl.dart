@@ -9,7 +9,9 @@ import 'package:injectable/injectable.dart';
 @Injectable(as: AuthRepo)
 class AuthRepoImpl implements AuthRepo {
   AuthRepoImpl(this._authRemoteDataSource, this._authLocalDataSource);
+  // ignore: unused_field
   final AuthRemoteDataSource _authRemoteDataSource;
+  // ignore: unused_field
   final AuthLocalDataSource _authLocalDataSource;
 
   @override

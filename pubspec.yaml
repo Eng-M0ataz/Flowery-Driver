@@ -59,8 +59,7 @@ dependencies:
   country_code_picker: ^3.4.0
   firebase_ai: ^3.3.0
   flutter_doc_scanner: ^0.0.16
-  
-
+  awesome_snackbar_content: ^0.1.8
 
 
 dev_dependencies:

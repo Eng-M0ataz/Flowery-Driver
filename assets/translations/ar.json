@@ -31,4 +31,26 @@
   "welcome": "مرحبا!!",
   "join_team": "عايز تبقى دليفري؟\nانضم لفريقنا",
   "apply": "انشاء حساب"
+  "error": "خطأ",
+  "success": "نجاح",
+  "ok": "موافق",
+  "passwordUpdated": "تم تحديث كلمة المرور بنجاح",
+  "update": "تحديث",
+  "currentPassword": "كلمة المرور الحالية",
+  "newPassword": "كلمة المرور الجديدة",
+  "confirmPassword": "تأكيد كلمة المرور",
+  "resetPassword": "تغير كلمة المرور"
+  "flower_order": "طلب ورد",
+  "pickup_address": "عنوان الاستلام",
+  "user_address": "عنوان المستخدم",
+  "reject": "رفض",
+  "accept": "قبول",
+  "currency": "ج.م",
+  "address_example": "٢١ شارع ثابت، القاهرة",
+  "no_pending_orders": "لا توجد طلبات معلقة",
+  "retry": "إعادة المحاولة",
+  "unknown_store": "متجر غير معروف",
+  "unknown_address": "عنوان غير معروف",
+  "unknown_user": "مستخدم غير معروف",
+  "order_rejected": "تم رفض الطلب بنجاح!"
 }

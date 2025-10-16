@@ -1,5 +1,6 @@
 import 'package:flowery_tracking/core/config/routing/app_routes.dart';
 import 'package:flowery_tracking/features/auth/presentation/pages/sign_up_screen.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/home/presentation/pages/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class RouteGenerator {
@@ -8,6 +9,8 @@ class RouteGenerator {
       case AppRoutes.signUpRoute:
         return MaterialPageRoute(builder: (context) => const SignUpScreen());
 
+      case AppRoutes.homeRoute:
+        return MaterialPageRoute(builder: (_) => const HomeScreen());
       default:
         return unDefinedRoute();
     }
