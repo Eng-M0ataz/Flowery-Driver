@@ -1,5 +1,10 @@
 {
   "login": "تسجيل الدخول",
+  "home" : "الصفحة الرئيسية",
+  "orders": "الطلبات",
+  "profile": "الملف",
+  "applySuccess": "لقد تم إرسال طلبك!",
+  "applySuccessDescription": "شكرا لك على تقديم طلبك، سوف نراجع طلبك ونقوم بالتواصل معك قريبا."
   "vehicle_license": "رخصة المركبة",
   "upload_license_photo": "رفع صورة الرخصة",
   "error": "خطأ",

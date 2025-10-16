@@ -41,6 +41,14 @@ abstract class AppSizes {
   static const double xxlFont_22 = 22.0;
   static const double xxlFont_24 = 24.0;
 
+  // widget sizes
+  static const double widgetWidth_315 = 315;
+  static const double widgetHeight_382 = 382;
+
+  // image sizes
+  static const double imageWidth_160 = 160;
+  static const double imageHeight_160 = 160;
+
   // button sizes
 
   static const double buttonHigh_48 = 48;

@@ -1,5 +1,10 @@
 {
   "login": "Login",
+  "home" : "Home",
+  "orders": "Orders",
+  "profile": "Profile",
+  "applySuccess": "Your application has been sent submitted!",
+  "applySuccessDescription": "Thank you for providing your application we will review your application and will get back to you soon."
   "vehicle_license": "Vehicle license",
   "upload_license_photo": "Upload license photo",
   "error": "Error",

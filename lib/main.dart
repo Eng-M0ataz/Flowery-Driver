@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flowery_tracking/core/config/routing/app_routes.dart';
 import 'package:flowery_tracking/core/config/routing/route_generator.dart';
 import 'package:flowery_tracking/core/config/theme/app_theme.dart';
 import 'package:flowery_tracking/core/di/di.dart';
@@ -51,7 +52,6 @@ class FloweryDirver extends StatelessWidget {
               locale: localeState,
               theme: AppThemeLight.lightTheme,
               onGenerateRoute: RouteGenerator.getRoute,
-              home: const ResetPasswordScreen(),
               builder: (context, child) => ResponsiveScaledBox(
                 width: ResponsiveValue<double>(
                   context,
