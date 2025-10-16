@@ -12,5 +12,7 @@
   "unknown_store": "Unknown Store",
   "unknown_address": "Unknown Address",
   "unknown_user": "Unknown User",
-  "order_rejected": "Order has been rejected successfully!"
+  "order_rejected": "Order has been rejected successfully!",
+  "error": "Error",
+  "ok": "OK"
 }

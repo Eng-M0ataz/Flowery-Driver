@@ -12,5 +12,7 @@
   "unknown_store": "متجر غير معروف",
   "unknown_address": "عنوان غير معروف",
   "unknown_user": "مستخدم غير معروف",
-  "order_rejected": "تم رفض الطلب بنجاح!"
+  "order_rejected": "تم رفض الطلب بنجاح!",
+  "error": "خطأ",
+  "ok": "حسنًا"
 }

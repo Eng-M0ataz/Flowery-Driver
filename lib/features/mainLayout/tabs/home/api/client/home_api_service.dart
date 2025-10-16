@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flowery_tracking/core/utils/constants/api_constants.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/home/api/models/response/driver_response_dto.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/api/models/response/pending_orders_response_dto.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/api/models/response/start_order_response_dto.dart';
 import 'package:injectable/injectable.dart';
@@ -23,4 +24,7 @@ abstract class HomeApiService {
   Future<StartOrderResponseDto> startOrder(
       @Path(ApiConstants.orderId) String orderId,
       );
+  @GET(ApiConstants.driverData)
+  Future<DriverResponseDto> getDriverData();
+
 }
