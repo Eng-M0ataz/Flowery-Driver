@@ -8,7 +8,7 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      appBar: CustomAppBar(title: 'Apply'),
+      appBar: CustomAppBar(title: LocaleKeys.apply.tr()),
       body: SignUpScreenBody(),
     );
   }
