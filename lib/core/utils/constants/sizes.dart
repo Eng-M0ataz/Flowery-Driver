@@ -1,4 +1,4 @@
-import 'package:flowery_tracking/core/utils/constants/device_type.dart';
+//import 'package:flowery_tracking/core/utils/constants/device_type.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 abstract class AppSizes {
@@ -119,7 +119,6 @@ abstract class AppSizes {
   static const double sizedBoxHeight_16 = 16.0;
   static const double sizedBoxHeight_30 = 30.0;
 
-
   // image sizes
   static const double imageLogoWidth_113 = 113.0;
   static const double imageLogoHeight_25 = 25.0;
@@ -148,18 +147,17 @@ abstract class AppSizes {
   static const double shimmerButtonHeight_40 = 40.0;
   static const double shimmerButtonWidth_80 = 80.0;
 
-
   // break points
 
   static const List<Breakpoint> appBreakPoints = [
-    Breakpoint(start: 0, end: 450, name: DeviceType.mobile),
-    Breakpoint(start: 451, end: 800, name: DeviceType.tablet),
-    Breakpoint(start: 801, end: 1920, name: DeviceType.desktop),
+    Breakpoint(start: 0, end: 450, name: 'MOBILE'),
+    Breakpoint(start: 451, end: 800, name: 'TABLET'),
+    Breakpoint(start: 801, end: 1920, name: 'DESKTOP'),
   ];
   static const List<Breakpoint> appLandscapeBreakPoints = [
-    Breakpoint(start: 0, end: 1023, name: DeviceType.mobile),
-    Breakpoint(start: 1024, end: 1599, name: DeviceType.tablet),
-    Breakpoint(start: 1600, end: double.infinity, name: DeviceType.desktop),
+    Breakpoint(start: 0, end: 1023, name: 'MOBILE'),
+    Breakpoint(start: 1024, end: 1599, name: 'TABLET'),
+    Breakpoint(start: 1600, end: double.infinity, name: 'DESKTOP'),
   ];
 
   static const List<Condition<double>> conditionalValues = [
@@ -168,4 +166,10 @@ abstract class AppSizes {
     Condition.between(start: 769, end: 1024, value: 1024),
   ];
 
+  //pin code
+  static const int pinCodeLength_6 = 6;
+  static const double pinCodeHeight_74 = 74;
+  static const double pinCodeWidth_68 = 68;
+  static const int pinCodeSpace = 16;
+  static const double pinCodeBorderWidth_2 = 2;
 }

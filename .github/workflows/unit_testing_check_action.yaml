@@ -35,20 +35,16 @@ jobs:
       - name: Generate code (json_serializable, retrofit, mockito)
         run: flutter pub run build_runner build --delete-conflicting-outputs
       - name: Check if tests exist
-        id: check_tests
         run: |
           if [ -d "test" ] && [ "$(find test -name "*.dart" -type f | wc -l)" -gt 0 ]; then
-            echo "Tests found, proceeding with test execution"
-            echo "has_tests=true" >> $GITHUB_OUTPUT
+            echo "✅ Tests found, proceeding with execution"
           else
-            echo "No tests found, skipping test execution"
-            echo "has_tests=false" >> $GITHUB_OUTPUT
+            echo "❌ No tests found, please add unit tests before merging."
+            exit 1
           fi
       - name: Run tests
-        if: steps.check_tests.outputs.has_tests == 'true'
         run: flutter test --coverage
       - name: Upload coverage reports
-        if: steps.check_tests.outputs.has_tests == 'true'
         uses: codecov/codecov-action@v4
         with:
           file: coverage/lcov.info
