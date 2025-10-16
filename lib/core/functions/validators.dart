@@ -93,4 +93,39 @@ abstract class Validations {
 
     return null;
   }
+
+  static String? egyptianIdValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'National ID is required';
+    }
+    if (value.length != 14) {
+      return 'National ID must be exactly 14 digits';
+    }
+    if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+      return 'National ID must contain digits only';
+    }
+    return null;
+  }
+
+  static String? photoValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please select a photo';
+    }
+    return null;
+  }
+
+  static String? VehicleTypeValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please select a vehicle type';
+    }
+    return null;
+  }
+
+  static String? VehicleNumberValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Vehicle number is required';
+    }
+
+    return null;
+  }
 }
