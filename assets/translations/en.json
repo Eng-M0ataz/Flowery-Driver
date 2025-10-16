@@ -1,15 +1,13 @@
 {
   "login": "Login",
-  "home" : "Home",
+  "home": "Home",
   "orders": "Orders",
   "profile": "Profile",
   "applySuccess": "Your application has been sent submitted!",
-  "applySuccessDescription": "Thank you for providing your application we will review your application and will get back to you soon."
+  "applySuccessDescription": "Thank you for providing your application we will review your application and will get back to you soon.",
   "vehicle_license": "Vehicle license",
   "upload_license_photo": "Upload license photo",
-  "error": "Error",
   "invalid_pic_message": "Sorry this is an Invalid Pic please upload a valid picture",
-  "ok": "ok",
   "id_image": "ID image",
   "upload_id_image": "Upload ID image",
   "enter_first_legal_name": "Enter first legal name",
@@ -35,7 +33,7 @@
   "continue_text": "Continue",
   "welcome": "Welcome!!",
   "join_team": "You want to be a delivery man?\nJoin our team",
-  "apply": "Apply"
+  "apply": "Apply",
   "error": "Error",
   "success": "Success",
   "ok": "Ok",
@@ -44,7 +42,7 @@
   "currentPassword": "Current password",
   "newPassword": "New password",
   "confirmPassword": "Confirm password",
-  "resetPassword": "Reset Password"
+  "resetPassword": "Reset Password",
   "flower_order": "Flower order",
   "pickup_address": "Pickup address",
   "user_address": "User address",

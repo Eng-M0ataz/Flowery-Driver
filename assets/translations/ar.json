@@ -1,15 +1,13 @@
 {
   "login": "تسجيل الدخول",
-  "home" : "الصفحة الرئيسية",
+  "home": "الصفحة الرئيسية",
   "orders": "الطلبات",
   "profile": "الملف",
   "applySuccess": "لقد تم إرسال طلبك!",
-  "applySuccessDescription": "شكرا لك على تقديم طلبك، سوف نراجع طلبك ونقوم بالتواصل معك قريبا."
+  "applySuccessDescription": "شكرا لك على تقديم طلبك، سوف نراجع طلبك ونقوم بالتواصل معك قريبا.",
   "vehicle_license": "رخصة المركبة",
   "upload_license_photo": "رفع صورة الرخصة",
-  "error": "خطأ",
   "invalid_pic_message": "عذراً، هذه صورة غير صالحة، يرجى رفع صورة صالحة",
-  "ok": "موافق",
   "id_image": "صورة الهوية",
   "upload_id_image": "رفع صورة الهوية",
   "enter_first_legal_name": "أدخل الاسم الأول القانوني",
@@ -35,7 +33,7 @@
   "continue_text": "متابعة",
   "welcome": "مرحبا!!",
   "join_team": "عايز تبقى دليفري؟\nانضم لفريقنا",
-  "apply": "انشاء حساب"
+  "apply": "انشاء حساب",
   "error": "خطأ",
   "success": "نجاح",
   "ok": "موافق",
@@ -44,7 +42,7 @@
   "currentPassword": "كلمة المرور الحالية",
   "newPassword": "كلمة المرور الجديدة",
   "confirmPassword": "تأكيد كلمة المرور",
-  "resetPassword": "تغير كلمة المرور"
+  "resetPassword": "تغير كلمة المرور",
   "flower_order": "طلب ورد",
   "pickup_address": "عنوان الاستلام",
   "user_address": "عنوان المستخدم",

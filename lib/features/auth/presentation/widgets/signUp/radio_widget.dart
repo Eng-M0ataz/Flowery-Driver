@@ -21,16 +21,13 @@ class RadioWidget extends StatelessWidget {
         Expanded(
           flex: 4,
           child: RadioItemListener(
-            gender: LocaleKeys.female.tr(),
+            gender: 'female',
             value: GenderEnum.female.name,
           ),
         ),
         Expanded(
           flex: 4,
-          child: RadioItemListener(
-            gender: LocaleKeys.male.tr(),
-            value: GenderEnum.male.name,
-          ),
+          child: RadioItemListener(gender: 'male', value: GenderEnum.male.name),
         ),
       ],
     );
