@@ -4,6 +4,7 @@ import 'package:flowery_tracking/core/enum/location_return_types.dart';
 import 'package:flowery_tracking/core/errors/location_resualt.dart';
 import 'package:flowery_tracking/core/services/location_service.dart';
 import 'package:flutter_test/flutter_test.dart';
+// ignore: depend_on_referenced_packages
 import 'package:geolocator_platform_interface/geolocator_platform_interface.dart';
 
 class _FakeGeolocator extends GeolocatorPlatform {
@@ -12,8 +13,11 @@ class _FakeGeolocator extends GeolocatorPlatform {
     required this.checkPermissionResult,
     required this.requestPermissionResult,
     required this.currentPosition,
+    // ignore: unused_element_parameter
     this.throwOnGetCurrent = false,
+    // ignore: unused_element_parameter
     this.openAppSettingsResult = true,
+    // ignore: unused_element_parameter
     this.openLocationSettingsResult = true,
   });
 
