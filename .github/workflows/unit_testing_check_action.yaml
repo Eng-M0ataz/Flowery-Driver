@@ -15,6 +15,7 @@ jobs:
           else
             echo "pubspec.lock not found, skipping"
           fi
+
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
