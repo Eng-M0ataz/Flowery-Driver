@@ -5,6 +5,12 @@ abstract class ApiConstants {
   static const String applicationJson = 'application/json';
   static const String bearer = 'Bearer';
   static const String authorization = 'Authorization';
+  static const String forgotPassword = 'drivers/forgotPassword';
+  static const String verifyResetCode = 'drivers/verifyResetCode';
+  static const String resetPassword = 'drivers/resetPassword';
+  static const String signUp = 'drivers/apply';
+  static const String vehicles = 'vehicles';
+  static const String changePassword = 'drivers/change-password';
   static const String pendingOrders = 'orders/pending-orders';
   static const String queryPage = 'page';
   static const String queryLimit = 'limit';

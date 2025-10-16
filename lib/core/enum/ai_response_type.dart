@@ -1,0 +1,1 @@
+enum AiResponseType { valid, invalid }
