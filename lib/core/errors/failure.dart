@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class Failure {
   Failure({required this.errorMessage, this.code = 'No Status Code Found'});
@@ -60,6 +61,114 @@ class ServerFailure extends Failure {
         return ServerFailure(
           errorMessage: response.data['message'] ?? response.data['error'],
           code: response.data['code'].toString(),
+        );
+    }
+  }
+}
+
+class FirebaseFailure extends Failure {
+  FirebaseFailure({required super.errorMessage, super.code});
+
+  factory FirebaseFailure.fromException(FirebaseException exception) {
+    switch (exception.code) {
+      case 'invalid-email':
+        return FirebaseFailure(
+          errorMessage: 'Invalid email address.',
+          code: 'invalid-email',
+        );
+      case 'user-disabled':
+        return FirebaseFailure(
+          errorMessage: 'This user account has been disabled.',
+          code: 'user-disabled',
+        );
+      case 'user-not-found':
+        return FirebaseFailure(
+          errorMessage: 'No user found for the given credentials.',
+          code: 'user-not-found',
+        );
+      case 'wrong-password':
+        return FirebaseFailure(
+          errorMessage: 'Incorrect password.',
+          code: 'wrong-password',
+        );
+      case 'email-already-in-use':
+        return FirebaseFailure(
+          errorMessage: 'Email is already in use.',
+          code: 'email-already-in-use',
+        );
+      case 'weak-password':
+        return FirebaseFailure(
+          errorMessage: 'Password is too weak.',
+          code: 'weak-password',
+        );
+      case 'network-request-failed':
+        return FirebaseFailure(
+          errorMessage: 'Network error. Please check your internet connection.',
+          code: 'network-request-failed',
+        );
+      case 'too-many-requests':
+        return FirebaseFailure(
+          errorMessage: 'Too many requests. Please try again later.',
+          code: 'too-many-requests',
+        );
+
+      case 'permission-denied':
+        return FirebaseFailure(
+          errorMessage: 'You do not have permission to perform this action.',
+          code: 'permission-denied',
+        );
+      case 'unavailable':
+        return FirebaseFailure(
+          errorMessage:
+              'Service temporarily unavailable. Please try again later.',
+          code: 'unavailable',
+        );
+      case 'not-found':
+        return FirebaseFailure(
+          errorMessage: 'Requested data not found.',
+          code: 'not-found',
+        );
+      case 'cancelled':
+        return FirebaseFailure(
+          errorMessage: 'Operation was cancelled.',
+          code: 'cancelled',
+        );
+      case 'already-exists':
+        return FirebaseFailure(
+          errorMessage: 'Resource already exists.',
+          code: 'already-exists',
+        );
+      case 'invalid-argument':
+        return FirebaseFailure(
+          errorMessage: 'Invalid argument provided.',
+          code: 'invalid-argument',
+        );
+      case 'deadline-exceeded':
+        return FirebaseFailure(
+          errorMessage: 'Request timed out. Try again.',
+          code: 'deadline-exceeded',
+        );
+      case 'data-loss':
+        return FirebaseFailure(
+          errorMessage: 'Data loss detected.',
+          code: 'data-loss',
+        );
+      case 'resource-exhausted':
+        return FirebaseFailure(
+          errorMessage: 'Resource limit exceeded.',
+          code: 'resource-exhausted',
+        );
+      case 'internal':
+        return FirebaseFailure(
+          errorMessage: 'Internal server error.',
+          code: 'internal',
+        );
+
+      default:
+        return FirebaseFailure(
+          errorMessage:
+              exception.message ?? 'Unexpected Firebase error occurred.',
+          code: exception.code,
         );
     }
   }
