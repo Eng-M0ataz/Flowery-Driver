@@ -5,6 +5,8 @@ import 'package:flowery_tracking/features/auth/domain/entity/forgetPassword/requ
 import 'package:flowery_tracking/features/auth/domain/entity/forgetPassword/response/forget_password_response_entity.dart';
 import 'package:flowery_tracking/features/auth/domain/entity/forgetPassword/response/reset_password_response_entity.dart';
 import 'package:flowery_tracking/features/auth/domain/entity/forgetPassword/response/verify_reset_code_response_entity.dart';
+import 'package:flowery_tracking/features/auth/api/model/signUp/request/sign_up_request_model.dart';
+import 'package:flowery_tracking/features/auth/domain/entity/signUp/vehicle_type_entity.dart';
 
 abstract interface class AuthRemoteDataSource {
   Future<ApiResult<ForgetPasswordResponseEntity>> forgetPassword(
@@ -18,4 +20,8 @@ abstract interface class AuthRemoteDataSource {
   Future<ApiResult<ResetPasswordResponseEntity>> resetPassword(
     ResetPasswordRequestEntity request,
   );
+  
+  Future<ApiResult<void>> signUp(SignUpRequestModel signUpRequest);
+  
+  Future<ApiResult<VehicleTypesResponsEntity>> getVehicleTypes();
 }

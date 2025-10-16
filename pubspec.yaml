@@ -50,12 +50,16 @@ dependencies:
   geolocator: ^14.0.2
   google_maps_flutter: ^2.13.1
   geocoding: ^2.1.1
-  firebase_core: ^4.1.0
+  firebase_core: ^4.1.1
   firebase_messaging: ^16.0.1
   pinput: ^5.0.1
   bloc_test: ^10.0.0
   equatable: ^2.0.7
   cupertino_icons: ^1.0.8
+  country_code_picker: ^3.4.0
+  firebase_ai: ^3.3.0
+  flutter_doc_scanner: ^0.0.16
+  awesome_snackbar_content: ^0.1.8
 
 
 dev_dependencies:
@@ -77,6 +81,7 @@ flutter:
    assets:
     - assets/images/
     - assets/translations/
+    - assets/vehicle_types.json
    fonts:
      - family: Inter
        fonts:

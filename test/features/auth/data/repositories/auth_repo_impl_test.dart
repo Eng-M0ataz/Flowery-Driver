@@ -1,14 +1,16 @@
 import 'package:flowery_tracking/core/errors/api_results.dart';
 import 'package:flowery_tracking/core/errors/failure.dart';
+import 'package:flowery_tracking/features/auth/api/model/signUp/request/sign_up_request_model.dart';
 import 'package:flowery_tracking/features/auth/data/dataSources/auth_local_data_source.dart';
 import 'package:flowery_tracking/features/auth/data/dataSources/auth_remote_data_source.dart';
-import 'package:flowery_tracking/features/auth/data/repositories/auth_repo_impl.dart';
+import 'packagepackage:flowery_tracking/features/auth/data/repositories/auth_repo_impl.dart';
 import 'package:flowery_tracking/features/auth/domain/entity/forgetPassword/request/forget_password_request_entity.dart';
 import 'package:flowery_tracking/features/auth/domain/entity/forgetPassword/request/reset_password_request_entity.dart';
 import 'package:flowery_tracking/features/auth/domain/entity/forgetPassword/request/verify_reset_code_request_entity.dart';
 import 'package:flowery_tracking/features/auth/domain/entity/forgetPassword/response/forget_password_response_entity.dart';
-import 'package:flowery_tracking/features/auth/domain/entity/forgetPassword/response/reset_password_response_entity.dart';
-import 'package:flowery_tracking/features/auth/domain/entity/forgetPassword/response/verify_reset_code_response_entity.dart';
+import 'packagepackage:flowery_tracking/features/auth/domain/entity/forgetPassword/response/reset_password_response_entity.dart';
+import 'packagepackage:flowery_tracking/features/auth/domain/entity/forgetPassword/response/verify_reset_code_response_entity.dart';
+import 'package:flowery_tracking/features/auth/domain/entity/signUp/vehicle_type_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -17,33 +19,40 @@ import 'auth_repo_impl_test.mocks.dart';
 
 @GenerateMocks([AuthRemoteDataSource, AuthLocalDataSource])
 void main() {
-  // Provide dummy values for ApiResult types
-  provideDummy<ApiResult<ForgetPasswordResponseEntity>>(
-    ApiSuccessResult<ForgetPasswordResponseEntity>(
-      data: ForgetPasswordResponseEntity(message: '', info: ''),
-    ),
-  );
-  provideDummy<ApiResult<VerifyResetCodeResponseEntity>>(
-    ApiSuccessResult<VerifyResetCodeResponseEntity>(
-      data: VerifyResetCodeResponseEntity(status: ''),
-    ),
-  );
-  provideDummy<ApiResult<ResetPasswordResponseEntity>>(
-    ApiSuccessResult<ResetPasswordResponseEntity>(
-      data: ResetPasswordResponseEntity(message: '', token: ''),
-    ),
-  );
-  late AuthRepoImpl authRepo;
-  late MockAuthRemoteDataSource mockRemoteDataSource;
-  late MockAuthLocalDataSource mockLocalDataSource;
+  late AuthRepoImpl authRepoImpl;
+  late MockAuthRemoteDataSource mockAuthRemoteDataSource;
+  late MockAuthLocalDataSource mockAuthLocalDataSource;
+
+  setUpAll(() {
+    // Provide dummy values for all ApiResult types used in the tests
+    provideDummy<ApiResult<ForgetPasswordResponseEntity>>(
+      ApiSuccessResult<ForgetPasswordResponseEntity>(
+        data: ForgetPasswordResponseEntity(message: '', info: ''),
+      ),
+    );
+    provideDummy<ApiResult<VerifyResetCodeResponseEntity>>(
+      ApiSuccessResult<VerifyResetCodeResponseEntity>(
+        data: VerifyResetCodeResponseEntity(status: ''),
+      ),
+    );
+    provideDummy<ApiResult<ResetPasswordResponseEntity>>(
+      ApiSuccessResult<ResetPasswordResponseEntity>(
+        data: ResetPasswordResponseEntity(message: '', token: ''),
+      ),
+    );
+    provideDummy<ApiResult<void>>(ApiSuccessResult(data: null));
+    provideDummy<ApiResult<VehicleTypesResponsEntity>>(
+        ApiSuccessResult(data: VehicleTypesResponsEntity(vehicles: [])));
+  });
 
   setUp(() {
-    mockRemoteDataSource = MockAuthRemoteDataSource();
-    mockLocalDataSource = MockAuthLocalDataSource();
-    authRepo = AuthRepoImpl(mockRemoteDataSource, mockLocalDataSource);
+    mockAuthRemoteDataSource = MockAuthRemoteDataSource();
+    mockAuthLocalDataSource = MockAuthLocalDataSource();
+    authRepoImpl = AuthRepoImpl(mockAuthRemoteDataSource, mockAuthLocalDataSource);
   });
 
   group('AuthRepoImpl', () {
+    // --- Forget Password Feature Tests ---
     group('forgetPassword', () {
       test(
         'should return ApiSuccessResult when remote data source call is successful',
@@ -60,11 +69,11 @@ void main() {
           );
 
           when(
-            mockRemoteDataSource.forgetPassword(any),
+            mockAuthRemoteDataSource.forgetPassword(any),
           ).thenAnswer((_) async => expectedResult);
 
           // Act
-          final result = await authRepo.forgetPassword(requestEntity);
+          final result = await authRepoImpl.forgetPassword(requestEntity);
 
           // Assert
           expect(result, isA<ApiSuccessResult<ForgetPasswordResponseEntity>>());
@@ -72,8 +81,8 @@ void main() {
               result as ApiSuccessResult<ForgetPasswordResponseEntity>;
           expect(successResult.data.message, equals(responseEntity.message));
           expect(successResult.data.info, equals(responseEntity.info));
-          verify(mockRemoteDataSource.forgetPassword(requestEntity)).called(1);
-          verifyNoMoreInteractions(mockLocalDataSource);
+          verify(mockAuthRemoteDataSource.forgetPassword(requestEntity)).called(1);
+          verifyNoMoreInteractions(mockAuthLocalDataSource);
         },
       );
 
@@ -89,19 +98,19 @@ void main() {
           );
 
           when(
-            mockRemoteDataSource.forgetPassword(any),
+            mockAuthRemoteDataSource.forgetPassword(any),
           ).thenAnswer((_) async => expectedResult);
 
           // Act
-          final result = await authRepo.forgetPassword(requestEntity);
+          final result = await authRepoImpl.forgetPassword(requestEntity);
 
           // Assert
           expect(result, isA<ApiErrorResult<ForgetPasswordResponseEntity>>());
           final errorResult =
               result as ApiErrorResult<ForgetPasswordResponseEntity>;
           expect(errorResult.failure, equals(failure));
-          verify(mockRemoteDataSource.forgetPassword(requestEntity)).called(1);
-          verifyNoMoreInteractions(mockLocalDataSource);
+          verify(mockAuthRemoteDataSource.forgetPassword(requestEntity)).called(1);
+          verifyNoMoreInteractions(mockAuthLocalDataSource);
         },
       );
     });
@@ -120,15 +129,15 @@ void main() {
           );
           final expectedResult =
               ApiSuccessResult<VerifyResetCodeResponseEntity>(
-                data: responseEntity,
-              );
+            data: responseEntity,
+          );
 
           when(
-            mockRemoteDataSource.verifyResetCode(any),
+            mockAuthRemoteDataSource.verifyResetCode(any),
           ).thenAnswer((_) async => expectedResult);
 
           // Act
-          final result = await authRepo.verifyResetCode(requestEntity);
+          final result = await authRepoImpl.verifyResetCode(requestEntity);
 
           // Assert
           expect(
@@ -138,8 +147,9 @@ void main() {
           final successResult =
               result as ApiSuccessResult<VerifyResetCodeResponseEntity>;
           expect(successResult.data.status, equals(responseEntity.status));
-          verify(mockRemoteDataSource.verifyResetCode(requestEntity)).called(1);
-          verifyNoMoreInteractions(mockLocalDataSource);
+          verify(mockAuthRemoteDataSource.verifyResetCode(requestEntity))
+              .called(1);
+          verifyNoMoreInteractions(mockAuthLocalDataSource);
         },
       );
 
@@ -157,19 +167,20 @@ void main() {
           );
 
           when(
-            mockRemoteDataSource.verifyResetCode(any),
+            mockAuthRemoteDataSource.verifyResetCode(any),
           ).thenAnswer((_) async => expectedResult);
 
           // Act
-          final result = await authRepo.verifyResetCode(requestEntity);
+          final result = await authRepoImpl.verifyResetCode(requestEntity);
 
           // Assert
           expect(result, isA<ApiErrorResult<VerifyResetCodeResponseEntity>>());
           final errorResult =
               result as ApiErrorResult<VerifyResetCodeResponseEntity>;
           expect(errorResult.failure, equals(failure));
-          verify(mockRemoteDataSource.verifyResetCode(requestEntity)).called(1);
-          verifyNoMoreInteractions(mockLocalDataSource);
+          verify(mockAuthRemoteDataSource.verifyResetCode(requestEntity))
+              .called(1);
+          verifyNoMoreInteractions(mockAuthLocalDataSource);
         },
       );
     });
@@ -194,11 +205,11 @@ void main() {
           );
 
           when(
-            mockRemoteDataSource.resetPassword(any),
+            mockAuthRemoteDataSource.resetPassword(any),
           ).thenAnswer((_) async => expectedResult);
 
           // Act
-          final result = await authRepo.resetPassword(requestEntity);
+          final result = await authRepoImpl.resetPassword(requestEntity);
 
           // Assert
           expect(result, isA<ApiSuccessResult<ResetPasswordResponseEntity>>());
@@ -206,8 +217,8 @@ void main() {
               result as ApiSuccessResult<ResetPasswordResponseEntity>;
           expect(successResult.data.message, equals(responseEntity.message));
           expect(successResult.data.token, equals(responseEntity.token));
-          verify(mockRemoteDataSource.resetPassword(requestEntity)).called(1);
-          verifyNoMoreInteractions(mockLocalDataSource);
+          verify(mockAuthRemoteDataSource.resetPassword(requestEntity)).called(1);
+          verifyNoMoreInteractions(mockAuthLocalDataSource);
         },
       );
 
@@ -227,27 +238,96 @@ void main() {
           );
 
           when(
-            mockRemoteDataSource.resetPassword(any),
+            mockAuthRemoteDataSource.resetPassword(any),
           ).thenAnswer((_) async => expectedResult);
 
           // Act
-          final result = await authRepo.resetPassword(requestEntity);
+          final result = await authRepoImpl.resetPassword(requestEntity);
 
           // Assert
           expect(result, isA<ApiErrorResult<ResetPasswordResponseEntity>>());
           final errorResult =
               result as ApiErrorResult<ResetPasswordResponseEntity>;
           expect(errorResult.failure, equals(failure));
-          verify(mockRemoteDataSource.resetPassword(requestEntity)).called(1);
-          verifyNoMoreInteractions(mockLocalDataSource);
+          verify(mockAuthRemoteDataSource.resetPassword(requestEntity)).called(1);
+          verifyNoMoreInteractions(mockAuthLocalDataSource);
         },
       );
     });
 
+    // --- Sign Up Feature Tests ---
+    group('signUp', () {
+      final signUpRequest = SignUpRequestModel(
+        firstName: 'test',
+        lastName: 'user',
+        email: 'test@test.com',
+        password: 'password',
+        phoneNumber: '1234567890',
+        country: 'Egypt',
+        vehicleType: 'car',
+        vehicleNumber: '123',
+        nationalId: '12345678901234',
+        nationalIdImage: 'path/to/image',
+        vehicleLicenseImage: 'path/to/image',
+        confirmPassword: 'password',
+        gender: 'male',
+      );
+
+      test('should call signUp on the remote data source', () async {
+        // arrange
+        when(mockAuthRemoteDataSource.signUp(any))
+            .thenAnswer((_) async => ApiSuccessResult(data: null));
+        // act
+        await authRepoImpl.signUp(signUpRequest);
+        // assert
+        verify(mockAuthRemoteDataSource.signUp(signUpRequest));
+        verifyNoMoreInteractions(mockAuthRemoteDataSource);
+      });
+    });
+
+    group('getVehicleTypes', () {
+      final vehicleTypes = VehicleTypesResponsEntity(vehicles: [
+        VehicleTypeEntity(id: '1', type: 'car'),
+      ]);
+
+      test('should call getVehicleTypes on the remote data source', () async {
+        // arrange
+        when(mockAuthRemoteDataSource.getVehicleTypes())
+            .thenAnswer((_) async => ApiSuccessResult(data: vehicleTypes));
+        // act
+        final result = await authRepoImpl.getVehicleTypes();
+        // assert
+        expect(result, isA<ApiSuccessResult>());
+        expect((result as ApiSuccessResult).data, vehicleTypes);
+        verify(mockAuthRemoteDataSource.getVehicleTypes());
+        verifyNoMoreInteractions(mockAuthRemoteDataSource);
+      });
+    });
+
+    group('getVehicleTypesFromLocal', () {
+      final vehicleTypes = VehicleTypesResponsEntity(vehicles: [
+        VehicleTypeEntity(id: '1', type: 'car'),
+      ]);
+
+      test('should call loadVehicleList on the local data source', () async {
+        // arrange
+        when(mockAuthLocalDataSource.loadVehicleList())
+            .thenAnswer((_) async => vehicleTypes);
+        // act
+        final result = await authRepoImpl.getVehicleTypesFromLocal();
+        // assert
+        expect(result, vehicleTypes);
+        verify(mockAuthLocalDataSource.loadVehicleList());
+        verifyNoMoreInteractions(mockAuthLocalDataSource);
+      });
+    });
+
+    // --- General Tests ---
     group('constructor', () {
       test('should initialize with provided dependencies', () {
         // Arrange & Act
-        final repo = AuthRepoImpl(mockRemoteDataSource, mockLocalDataSource);
+        final repo =
+            AuthRepoImpl(mockAuthRemoteDataSource, mockAuthLocalDataSource);
 
         // Assert
         expect(repo, isA<AuthRepoImpl>());

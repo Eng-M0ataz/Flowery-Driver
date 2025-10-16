@@ -2,16 +2,19 @@ import 'package:dio/dio.dart';
 import 'package:flowery_tracking/core/errors/api_results.dart';
 import 'package:flowery_tracking/core/errors/failure.dart';
 import 'package:flowery_tracking/features/auth/api/client/auth_api_service.dart';
-import 'package:flowery_tracking/features/auth/api/dataSources/auth_remote_data_source_impl.dart';
-import 'package:flowery_tracking/features/auth/api/model/forgetPassword/response/forget_password_response_dto.dart';
-import 'package:flowery_tracking/features/auth/api/model/forgetPassword/response/reset_password_response_dto.dart';
-import 'package:flowery_tracking/features/auth/api/model/forgetPassword/response/verify_reset_code_response_dto.dart';
-import 'package:flowery_tracking/features/auth/domain/entity/forgetPassword/request/forget_password_request_entity.dart';
-import 'package:flowery_tracking/features/auth/domain/entity/forgetPassword/request/reset_password_request_entity.dart';
-import 'package:flowery_tracking/features/auth/domain/entity/forgetPassword/request/verify_reset_code_request_entity.dart';
-import 'package:flowery_tracking/features/auth/domain/entity/forgetPassword/response/forget_password_response_entity.dart';
-import 'package:flowery_tracking/features/auth/domain/entity/forgetPassword/response/reset_password_response_entity.dart';
-import 'package:flowery_tracking/features/auth/domain/entity/forgetPassword/response/verify_reset_code_response_entity.dart';
+import 'packagepackage:flowery_tracking/features/auth/api/dataSources/auth_remote_data_source_impl.dart';
+import 'packagepackage:flowery_tracking/features/auth/api/model/forgetPassword/response/forget_password_response_dto.dart';
+import 'packagepackage:flowery_tracking/features/auth/api/model/forgetPassword/response/reset_password_response_dto.dart';
+import 'packagepackage:flowery_tracking/features/auth/api/model/forgetPassword/response/verify_reset_code_response_dto.dart';
+import 'packagepackage:flowery_tracking/features/auth/api/model/signUp/response/vehicle/vehicle_meta_data_dto.dart';
+import 'packagepackage:flowery_tracking/features/auth/api/model/signUp/response/vehicle/vehicle_types_response_model.dart';
+import 'packagepackage:flowery_tracking/features/auth/domain/entity/forgetPassword/request/forget_password_request_entity.dart';
+import 'packagepackage:flowery_tracking/features/auth/domain/entity/forgetPassword/request/reset_password_request_entity.dart';
+import 'packagepackage:flowery_tracking/features/auth/domain/entity/forgetPassword/request/verify_reset_code_request_entity.dart';
+import 'packagepackage:flowery_tracking/features/auth/domain/entity/forgetPassword/response/forget_password_response_entity.dart';
+import 'packagepackage:flowery_tracking/features/auth/domain/entity/forgetPassword/response/reset_password_response_entity.dart';
+import 'packagepackage:flowery_tracking/features/auth/domain/entity/forgetPassword/response/verify_reset_code_response_entity.dart';
+import 'package:flowery_tracking/features/auth/domain/entity/signUp/vehicle_type_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -20,15 +23,16 @@ import 'auth_remote_data_source_impl_test.mocks.dart';
 
 @GenerateMocks([AuthApiService])
 void main() {
-  late AuthRemoteDataSourceImpl dataSource;
-  late MockAuthApiService mockApiService;
+  late AuthRemoteDataSourceImpl authRemoteDataSourceImpl;
+  late MockAuthApiService mockAuthApiService;
 
   setUp(() {
-    mockApiService = MockAuthApiService();
-    dataSource = AuthRemoteDataSourceImpl(mockApiService);
+    mockAuthApiService = MockAuthApiService();
+    authRemoteDataSourceImpl = AuthRemoteDataSourceImpl(mockAuthApiService);
   });
 
   group('AuthRemoteDataSourceImpl', () {
+    // --- Forget Password Feature Tests ---
     group('forgetPassword', () {
       test(
         'should return ApiSuccessResult when API call is successful',
@@ -46,11 +50,12 @@ void main() {
           );
 
           when(
-            mockApiService.forgetPassword(any),
+            mockAuthApiService.forgetPassword(any),
           ).thenAnswer((_) async => responseDto);
 
           // Act
-          final result = await dataSource.forgetPassword(requestEntity);
+          final result =
+              await authRemoteDataSourceImpl.forgetPassword(requestEntity);
 
           // Assert
           expect(result, isA<ApiSuccessResult<ForgetPasswordResponseEntity>>());
@@ -58,7 +63,7 @@ void main() {
               result as ApiSuccessResult<ForgetPasswordResponseEntity>;
           expect(successResult.data.message, equals(expectedEntity.message));
           expect(successResult.data.info, equals(expectedEntity.info));
-          verify(mockApiService.forgetPassword(any)).called(1);
+          verify(mockAuthApiService.forgetPassword(any)).called(1);
         },
       );
 
@@ -75,17 +80,18 @@ void main() {
           ),
         );
 
-        when(mockApiService.forgetPassword(any)).thenThrow(dioException);
+        when(mockAuthApiService.forgetPassword(any)).thenThrow(dioException);
 
         // Act
-        final result = await dataSource.forgetPassword(requestEntity);
+        final result =
+            await authRemoteDataSourceImpl.forgetPassword(requestEntity);
 
         // Assert
         expect(result, isA<ApiErrorResult<ForgetPasswordResponseEntity>>());
         final errorResult =
             result as ApiErrorResult<ForgetPasswordResponseEntity>;
         expect(errorResult.failure, isA<Failure>());
-        verify(mockApiService.forgetPassword(any)).called(1);
+        verify(mockAuthApiService.forgetPassword(any)).called(1);
       });
     });
 
@@ -104,11 +110,12 @@ void main() {
           );
 
           when(
-            mockApiService.verifyResetCode(any),
+            mockAuthApiService.verifyResetCode(any),
           ).thenAnswer((_) async => responseDto);
 
           // Act
-          final result = await dataSource.verifyResetCode(requestEntity);
+          final result =
+              await authRemoteDataSourceImpl.verifyResetCode(requestEntity);
 
           // Assert
           expect(
@@ -118,7 +125,7 @@ void main() {
           final successResult =
               result as ApiSuccessResult<VerifyResetCodeResponseEntity>;
           expect(successResult.data.status, equals(expectedEntity.status));
-          verify(mockApiService.verifyResetCode(any)).called(1);
+          verify(mockAuthApiService.verifyResetCode(any)).called(1);
         },
       );
 
@@ -137,17 +144,18 @@ void main() {
           ),
         );
 
-        when(mockApiService.verifyResetCode(any)).thenThrow(dioException);
+        when(mockAuthApiService.verifyResetCode(any)).thenThrow(dioException);
 
         // Act
-        final result = await dataSource.verifyResetCode(requestEntity);
+        final result =
+            await authRemoteDataSourceImpl.verifyResetCode(requestEntity);
 
         // Assert
         expect(result, isA<ApiErrorResult<VerifyResetCodeResponseEntity>>());
         final errorResult =
             result as ApiErrorResult<VerifyResetCodeResponseEntity>;
         expect(errorResult.failure, isA<Failure>());
-        verify(mockApiService.verifyResetCode(any)).called(1);
+        verify(mockAuthApiService.verifyResetCode(any)).called(1);
       });
     });
 
@@ -172,11 +180,12 @@ void main() {
           );
 
           when(
-            mockApiService.resetPassword(any),
+            mockAuthApiService.resetPassword(any),
           ).thenAnswer((_) async => responseDto);
 
           // Act
-          final result = await dataSource.resetPassword(requestEntity);
+          final result =
+              await authRemoteDataSourceImpl.resetPassword(requestEntity);
 
           // Assert
           expect(result, isA<ApiSuccessResult<ResetPasswordResponseEntity>>());
@@ -184,7 +193,7 @@ void main() {
               result as ApiSuccessResult<ResetPasswordResponseEntity>;
           expect(successResult.data.message, equals(expectedEntity.message));
           expect(successResult.data.token, equals(expectedEntity.token));
-          verify(mockApiService.resetPassword(any)).called(1);
+          verify(mockAuthApiService.resetPassword(any)).called(1);
         },
       );
 
@@ -205,18 +214,46 @@ void main() {
           ),
         );
 
-        when(mockApiService.resetPassword(any)).thenThrow(dioException);
+        when(mockAuthApiService.resetPassword(any)).thenThrow(dioException);
 
         // Act
-        final result = await dataSource.resetPassword(requestEntity);
+        final result =
+            await authRemoteDataSourceImpl.resetPassword(requestEntity);
 
         // Assert
         expect(result, isA<ApiErrorResult<ResetPasswordResponseEntity>>());
         final errorResult =
             result as ApiErrorResult<ResetPasswordResponseEntity>;
         expect(errorResult.failure, isA<Failure>());
-        verify(mockApiService.resetPassword(any)).called(1);
+        verify(mockAuthApiService.resetPassword(any)).called(1);
       });
+    });
+
+    // --- Sign Up Feature Tests ---
+    group('getVehicleTypes', () {
+      final vehicleTypesDto = const VehicleTypesResponseDto(
+        message: 'success',
+        metadata: Metadata(
+          currentPage: 1,
+          totalPages: 1,
+          limit: 10,
+          totalItems: 1,
+        ),
+        vehicles: [],
+      );
+      test(
+        'should return ApiSuccessResult with VehicleTypesResponsEntity when getVehicleTypes is successful',
+        () async {
+          // arrange
+          when(
+            mockAuthApiService.getVehicleTypes(),
+          ).thenAnswer((_) async => vehicleTypesDto);
+          // act
+          final result = await authRemoteDataSourceImpl.getVehicleTypes();
+          // assert
+          expect(result, isA<ApiSuccessResult<VehicleTypesResponsEntity>>());
+        },
+      );
     });
   });
 }
