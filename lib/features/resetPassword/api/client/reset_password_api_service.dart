@@ -12,7 +12,7 @@ part 'reset_password_api_service.g.dart';
 abstract class ResetPasswordApiService {
   @factoryMethod
   factory ResetPasswordApiService(Dio dio) = _ResetPasswordApiService;
-  @PATCH(ApiConstants.resetPassword)
+  @PATCH(ApiConstants.changePassword)
   Future<void> resetPassword(
     @Body() ResetPasswordRequestModel resetPasswordRequestModel,
   );

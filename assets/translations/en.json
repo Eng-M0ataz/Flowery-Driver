@@ -60,7 +60,7 @@
   "unknown_address": "Unknown Address",
   "unknown_user": "Unknown User",
   "order_rejected": "Order has been rejected successfully!",
-  "forgetPassword": "Forget password",
+  "forget_Password": "Forget password",
   "enterEmailInstruction": "Please enter your email associated to your account",
   "confirm": "Confirm",
   "invalidEmail": "This email is not valid",
@@ -68,4 +68,5 @@
   "enterCodeInstruction": "Please enter your code that was sent to your email address",
   "didNotReceiveCode": "Didn't receive code?",
   "resend": "Resend",
-  "passwordValidation": "Password must not be empty and must\n contain 6 characters with
+  "passwordValidation": "Password must not be empty and must\n contain 6 characters with"
+}

@@ -29,7 +29,7 @@ abstract class AuthApiService {
     @Body() VerifyResetCodeRequest verifyResetCodeRequest,
   );
 
-  @PUT(ApiConstants.resetPassword)
+  @PUT(ApiConstants.changePassword)
   Future<ResetPasswordResponseDto> resetPassword(
     @Body() ResetPasswordRequest resetPasswordRequest,
   );

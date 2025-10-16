@@ -167,7 +167,7 @@ class _SignUpFormState extends State<SignUpForm> {
               controller: _passwordController,
               validator: (value) => Validations.validatePassword(value),
               label: LocaleKeys.password.tr(),
-              hint: LocaleKeys.enter_password.tr(),
+              hint: LocaleKeys.enterPassword.tr(),
             ),
             CustomPasswordTextFormField(
               controller: _confirmPasswordController,

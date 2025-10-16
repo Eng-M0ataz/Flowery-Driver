@@ -2,18 +2,18 @@ import 'package:dio/dio.dart';
 import 'package:flowery_tracking/core/errors/api_results.dart';
 import 'package:flowery_tracking/core/errors/failure.dart';
 import 'package:flowery_tracking/features/auth/api/client/auth_api_service.dart';
-import 'packagepackage:flowery_tracking/features/auth/api/dataSources/auth_remote_data_source_impl.dart';
-import 'packagepackage:flowery_tracking/features/auth/api/model/forgetPassword/response/forget_password_response_dto.dart';
-import 'packagepackage:flowery_tracking/features/auth/api/model/forgetPassword/response/reset_password_response_dto.dart';
-import 'packagepackage:flowery_tracking/features/auth/api/model/forgetPassword/response/verify_reset_code_response_dto.dart';
-import 'packagepackage:flowery_tracking/features/auth/api/model/signUp/response/vehicle/vehicle_meta_data_dto.dart';
-import 'packagepackage:flowery_tracking/features/auth/api/model/signUp/response/vehicle/vehicle_types_response_model.dart';
-import 'packagepackage:flowery_tracking/features/auth/domain/entity/forgetPassword/request/forget_password_request_entity.dart';
-import 'packagepackage:flowery_tracking/features/auth/domain/entity/forgetPassword/request/reset_password_request_entity.dart';
-import 'packagepackage:flowery_tracking/features/auth/domain/entity/forgetPassword/request/verify_reset_code_request_entity.dart';
-import 'packagepackage:flowery_tracking/features/auth/domain/entity/forgetPassword/response/forget_password_response_entity.dart';
-import 'packagepackage:flowery_tracking/features/auth/domain/entity/forgetPassword/response/reset_password_response_entity.dart';
-import 'packagepackage:flowery_tracking/features/auth/domain/entity/forgetPassword/response/verify_reset_code_response_entity.dart';
+import 'package:flowery_tracking/features/auth/api/dataSources/auth_remote_data_source_impl.dart';
+import 'package:flowery_tracking/features/auth/api/model/forgetPassword/response/forget_password_response_dto.dart';
+import 'package:flowery_tracking/features/auth/api/model/forgetPassword/response/reset_password_response_dto.dart';
+import 'package:flowery_tracking/features/auth/api/model/forgetPassword/response/verify_reset_code_response_dto.dart';
+import 'package:flowery_tracking/features/auth/api/model/signUp/response/vehicle/vehicle_meta_data_dto.dart';
+import 'package:flowery_tracking/features/auth/api/model/signUp/response/vehicle/vehicle_types_response_model.dart';
+import 'package:flowery_tracking/features/auth/domain/entity/forgetPassword/request/forget_password_request_entity.dart';
+import 'package:flowery_tracking/features/auth/domain/entity/forgetPassword/request/reset_password_request_entity.dart';
+import 'package:flowery_tracking/features/auth/domain/entity/forgetPassword/request/verify_reset_code_request_entity.dart';
+import 'package:flowery_tracking/features/auth/domain/entity/forgetPassword/response/forget_password_response_entity.dart';
+import 'package:flowery_tracking/features/auth/domain/entity/forgetPassword/response/reset_password_response_entity.dart';
+import 'package:flowery_tracking/features/auth/domain/entity/forgetPassword/response/verify_reset_code_response_entity.dart';
 import 'package:flowery_tracking/features/auth/domain/entity/signUp/vehicle_type_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -54,8 +54,9 @@ void main() {
           ).thenAnswer((_) async => responseDto);
 
           // Act
-          final result =
-              await authRemoteDataSourceImpl.forgetPassword(requestEntity);
+          final result = await authRemoteDataSourceImpl.forgetPassword(
+            requestEntity,
+          );
 
           // Assert
           expect(result, isA<ApiSuccessResult<ForgetPasswordResponseEntity>>());
@@ -83,8 +84,9 @@ void main() {
         when(mockAuthApiService.forgetPassword(any)).thenThrow(dioException);
 
         // Act
-        final result =
-            await authRemoteDataSourceImpl.forgetPassword(requestEntity);
+        final result = await authRemoteDataSourceImpl.forgetPassword(
+          requestEntity,
+        );
 
         // Assert
         expect(result, isA<ApiErrorResult<ForgetPasswordResponseEntity>>());
@@ -114,8 +116,9 @@ void main() {
           ).thenAnswer((_) async => responseDto);
 
           // Act
-          final result =
-              await authRemoteDataSourceImpl.verifyResetCode(requestEntity);
+          final result = await authRemoteDataSourceImpl.verifyResetCode(
+            requestEntity,
+          );
 
           // Assert
           expect(
@@ -147,8 +150,9 @@ void main() {
         when(mockAuthApiService.verifyResetCode(any)).thenThrow(dioException);
 
         // Act
-        final result =
-            await authRemoteDataSourceImpl.verifyResetCode(requestEntity);
+        final result = await authRemoteDataSourceImpl.verifyResetCode(
+          requestEntity,
+        );
 
         // Assert
         expect(result, isA<ApiErrorResult<VerifyResetCodeResponseEntity>>());
@@ -184,8 +188,9 @@ void main() {
           ).thenAnswer((_) async => responseDto);
 
           // Act
-          final result =
-              await authRemoteDataSourceImpl.resetPassword(requestEntity);
+          final result = await authRemoteDataSourceImpl.resetPassword(
+            requestEntity,
+          );
 
           // Assert
           expect(result, isA<ApiSuccessResult<ResetPasswordResponseEntity>>());
@@ -217,8 +222,9 @@ void main() {
         when(mockAuthApiService.resetPassword(any)).thenThrow(dioException);
 
         // Act
-        final result =
-            await authRemoteDataSourceImpl.resetPassword(requestEntity);
+        final result = await authRemoteDataSourceImpl.resetPassword(
+          requestEntity,
+        );
 
         // Assert
         expect(result, isA<ApiErrorResult<ResetPasswordResponseEntity>>());
