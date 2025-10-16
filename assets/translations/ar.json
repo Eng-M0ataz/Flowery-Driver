@@ -1,5 +1,14 @@
 {
   "login": "تسجيل الدخول",
+  "error": "خطأ",
+  "success": "نجاح",
+  "ok": "موافق",
+  "passwordUpdated": "تم تحديث كلمة المرور بنجاح",
+  "update": "تحديث",
+  "currentPassword": "كلمة المرور الحالية",
+  "newPassword": "كلمة المرور الجديدة",
+  "confirmPassword": "تأكيد كلمة المرور",
+  "resetPassword": "تغير كلمة المرور"
   "flower_order": "طلب ورد",
   "pickup_address": "عنوان الاستلام",
   "user_address": "عنوان المستخدم",

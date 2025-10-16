@@ -1,5 +1,14 @@
 {
   "login": "Login",
+  "error": "Error",
+  "success": "Success",
+  "ok": "Ok",
+  "passwordUpdated": "Password updated successfully",
+  "update": "Update",
+  "currentPassword": "Current password",
+  "newPassword": "New password",
+  "confirmPassword": "Confirm password",
+  "resetPassword": "Reset Password"
   "flower_order": "Flower order",
   "pickup_address": "Pickup address",
   "user_address": "User address",
