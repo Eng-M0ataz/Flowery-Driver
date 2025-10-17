@@ -1,5 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flowery_tracking/core/Functions/validators.dart';
+import 'package:flowery_tracking/core/functions/validators.dart';
 import 'package:flowery_tracking/core/localization/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 

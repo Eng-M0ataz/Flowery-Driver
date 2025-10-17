@@ -8,14 +8,14 @@ import 'package:flowery_tracking/features/mainLayout/tabs/home/presentation/page
 import 'package:flowery_tracking/features/mainLayout/tabs/orders/presentation/pages/order_details_screen.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/orders/presentation/pages/orders_screen.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/pages/profile_screen.dart';
-import 'package:flowery_tracking/features/orderDetails/presentation/pages/order_details_screen.dart';
+import 'package:flowery_tracking/features/orderDetails/presentation/pages/order_details_screen.dart' hide OrderDetailsScreen;
 import 'package:flutter/material.dart';
 
 class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
     switch (settings.name) {
       case AppRoutes.forgetPasswordRoute:
-        return MaterialPageRoute(builder: (_) => ForgetPasswordScreen());
+        return MaterialPageRoute(builder: (_) => const ForgetPasswordScreen());
       case AppRoutes.mainLayoutRoute:
         return MaterialPageRoute(builder: (_) => const MainLayout());
       case AppRoutes.homeRoute:
@@ -28,13 +28,6 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const ApplySuccessScreen());
       case AppRoutes.signUpRoute:
         return MaterialPageRoute(builder: (context) => const SignUpScreen());
-      case AppRoutes.homeRoute:
-        return MaterialPageRoute(builder: (_) => const HomeScreen());
-      case AppRoutes.orderDetailsRoute:
-        final arg = settings.arguments as OrderDetailsModel;
-        return MaterialPageRoute(
-          builder: (_) => OrderDetailsScreen(orderDetailsModel: arg),
-        );
       case AppRoutes.orderDetailsRoute:
         return MaterialPageRoute(builder: (_) => const OrderDetailsScreen(),settings: settings, );
       default:
