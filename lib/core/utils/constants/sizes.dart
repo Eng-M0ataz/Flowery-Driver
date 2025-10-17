@@ -1,4 +1,4 @@
-import 'package:flowery_tracking/core/utils/constants/device_type.dart';
+//import 'package:flowery_tracking/core/utils/constants/device_type.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 abstract class AppSizes {
@@ -12,7 +12,9 @@ abstract class AppSizes {
   static const double paddingMd_20 = 20.0;
   static const double paddingLg_24 = 24.0;
   static const double paddingXl_32 = 32.0;
+  static const double padding_36 = 36.0;
   static const double paddingXl_64 = 64.0;
+  static const double padding_100 = 100.0;
 
   // icon sizes
 
@@ -117,17 +119,45 @@ abstract class AppSizes {
   static const double sizedBoxHeight_16 = 16.0;
   static const double sizedBoxHeight_30 = 30.0;
 
+  // image sizes
+  static const double imageLogoWidth_113 = 113.0;
+  static const double imageLogoHeight_25 = 25.0;
+  static const double imageProfileWidth_80 = 80.0;
+  static const double imageProfileHeight_80 = 80.0;
+
+  //circle avatar sizes
+  static const double circleAvatarRadius_22 = 22.0;
+  // Placeholder sizes
+  static const double shimmerTitleHeight_24 = 24.0;
+  static const double shimmerTitleWidth_120 = 120.0;
+
+  static const double shimmerSubtitleHeight_16 = 16.0;
+  static const double shimmerSubtitleWidth_100 = 100.0;
+
+  static const double shimmerCircleSize_50 = 50.0;
+
+  static const double shimmerLineHeight_18 = 18.0;
+  static const double shimmerLineWidth_150 = 150.0;
+
+  static const double shimmerSmallLineHeight_14 = 14.0;
+
+  static const double shimmerFooterHeight_24 = 24.0;
+  static const double shimmerFooterWidth_80 = 80.0;
+
+  static const double shimmerButtonHeight_40 = 40.0;
+  static const double shimmerButtonWidth_80 = 80.0;
+
   // break points
 
   static const List<Breakpoint> appBreakPoints = [
-    Breakpoint(start: 0, end: 450, name: DeviceType.mobile),
-    Breakpoint(start: 451, end: 800, name: DeviceType.tablet),
-    Breakpoint(start: 801, end: 1920, name: DeviceType.desktop),
+    Breakpoint(start: 0, end: 450, name: 'MOBILE'),
+    Breakpoint(start: 451, end: 800, name: 'TABLET'),
+    Breakpoint(start: 801, end: 1920, name: 'DESKTOP'),
   ];
   static const List<Breakpoint> appLandscapeBreakPoints = [
-    Breakpoint(start: 0, end: 1023, name: DeviceType.mobile),
-    Breakpoint(start: 1024, end: 1599, name: DeviceType.tablet),
-    Breakpoint(start: 1600, end: double.infinity, name: DeviceType.desktop),
+    Breakpoint(start: 0, end: 1023, name: 'MOBILE'),
+    Breakpoint(start: 1024, end: 1599, name: 'TABLET'),
+    Breakpoint(start: 1600, end: double.infinity, name: 'DESKTOP'),
   ];
 
   static const List<Condition<double>> conditionalValues = [
@@ -135,4 +165,11 @@ abstract class AppSizes {
     Condition.between(start: 451, end: 768, value: 600),
     Condition.between(start: 769, end: 1024, value: 1024),
   ];
+
+  //pin code
+  static const int pinCodeLength_6 = 6;
+  static const double pinCodeHeight_74 = 74;
+  static const double pinCodeWidth_68 = 68;
+  static const int pinCodeSpace = 16;
+  static const double pinCodeBorderWidth_2 = 2;
 }

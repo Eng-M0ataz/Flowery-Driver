@@ -46,5 +46,5 @@ app.*.map.json
 *.g.dart
 *.freezed.dart
 *.config.dart
-*.mocks
-lib/core/di/di.config.dart
+*.mocks.dart
+
