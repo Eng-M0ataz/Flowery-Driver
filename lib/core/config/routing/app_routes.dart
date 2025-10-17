@@ -5,4 +5,5 @@ abstract class AppRoutes {
   static const String forgetPasswordRoute = '/forgetPasswordRoute';
   static const String homeRoute = '/homeRoute';
   static const String orderDetailsRoute = '/orderDetailsRoute';
+  static const String applySuccessRoute = '/applySuccessRoute';
 }
