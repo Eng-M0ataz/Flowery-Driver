@@ -73,7 +73,7 @@ class _OrdersState extends State<Orders> {
                           storeImage: state.driverOrdersResponseEntity!.orders[index].store.image,
                           storeName: state.driverOrdersResponseEntity!.orders[index].store.name,
                           userAddress: LocaleKeys.userAddress.tr(),
-                          userImage: state.driverOrdersResponseEntity!.orders[index].store.image,
+                          userImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkAJEkJQ1WumU0hXNpXdgBt9NUKc0QDVIiaw&s',
                           userName: '${state.driverOrdersResponseEntity!.orders[index].order.user.firstName} ${state.driverOrdersResponseEntity!.orders[index].order.user.lastName}',
                         );
                       },

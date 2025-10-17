@@ -66,7 +66,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
             OrderDetailsTextWidget(title: LocaleKeys.userAddress.tr()),
             AddressCard(
               name: widget.order.order.user.firstName,
-              imagePath: widget.order.order.user.photo,
+              imagePath: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkAJEkJQ1WumU0hXNpXdgBt9NUKc0QDVIiaw&s',
               address: widget.order.order.user.email,
             ),
             OrderDetailsTextWidget(title: LocaleKeys.orderDetails.tr()),

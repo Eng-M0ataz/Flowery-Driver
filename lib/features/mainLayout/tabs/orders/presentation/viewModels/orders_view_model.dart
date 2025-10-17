@@ -15,7 +15,6 @@ class OrdersViewModel extends Cubit<OrdersStates> {
   final DriverOrdersUseCase _driverOrdersUseCase;
   final GetProductUseCase _getProductUseCase;
   int cancelled = 0;
-
   int completed = 0;
 
   Future<void> doIntend(OrdersEvent event) async {
@@ -33,10 +32,10 @@ class OrdersViewModel extends Cubit<OrdersStates> {
     switch (result) {
       case ApiSuccessResult<DriverOrdersResponseEntity>():
         final response = result.data;
-        for (var element in response.orders!) {
-          if (element.order!.state == 'cancelled') {
+        for (var element in response.orders) {
+          if (element.order.state == 'cancelled') {
             cancelled++;
-          } else if (element.order!.state == 'completed') {
+          } else if (element.order.state == 'completed') {
             completed++;
           }
         }
@@ -48,7 +47,6 @@ class OrdersViewModel extends Cubit<OrdersStates> {
           ),
         );
         break;
-
       case ApiErrorResult<DriverOrdersResponseEntity>():
         emit(state.copyWith(isLoading: false, failure: result.failure));
         break;
