@@ -104,20 +104,13 @@ class _OrdersState extends State<Orders> {
                                   .name ??
                               '',
                           userAddress:
-                              state
-                                  .driverOrdersResponseEntity!
-                                  .orders![index]
-                                  .order!
-                                  .user!
-                                  .email ??
-                              '',
+                              LocaleKeys.userAddress.tr(),
                           userImage:
-                              state
-                                  .driverOrdersResponseEntity!
-                                  .orders![index]
-                                  .order!
-                                  .user!
-                                  .photo ??
+                          state
+                              .driverOrdersResponseEntity!
+                              .orders![index]
+                              .store!
+                              .image ??
                               '',
                           userName:
                               state
