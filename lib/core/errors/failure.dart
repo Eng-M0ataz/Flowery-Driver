@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 
 class Failure {
   Failure({required this.errorMessage, this.code = 'No Status Code Found'});
+
   final String errorMessage;
   final String code;
 }

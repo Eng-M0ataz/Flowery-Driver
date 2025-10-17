@@ -20,4 +20,5 @@ abstract class ApiConstants {
   static const String updateOrderState = 'orders/state/{id}';
   static const String orderStatusPath = '/statusHistory/';
   static const String driverLocationPath = '/driver/location';
+  static const String driverData = 'drivers/profile-data';
 }
