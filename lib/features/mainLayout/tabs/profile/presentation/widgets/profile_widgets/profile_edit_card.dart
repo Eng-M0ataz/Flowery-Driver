@@ -54,7 +54,7 @@ class ProfileEditCard extends StatelessWidget {
                     radius: AppSizes.borderRadiusXxxl_32,
                   ),
             Expanded(
-              flex: 8,
+              flex: 9,
               child: Column(
                 spacing: AppSizes.spaceBetweenItems_8,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -66,7 +66,7 @@ class ProfileEditCard extends StatelessWidget {
                 ],
               ),
             ),
-            const Expanded(flex: 2,child: Icon(Icons.arrow_forward_ios)),
+            const Expanded(flex: 1,child: Icon(Icons.arrow_forward_ios)),
           ],
         ),
       ),

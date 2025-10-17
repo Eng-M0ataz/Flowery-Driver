@@ -48,17 +48,20 @@ class VehicleEditCard extends StatelessWidget {
           spacing: AppSizes.spaceBetweenItems_16,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              spacing:AppSizes.spaceBetweenItems_8,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text( LocaleKeys.vehicleInfo.tr(), style: Theme.of(context).textTheme.displaySmall),
-                MiddleEllipsisText(text: vehicleType),
-                MiddleEllipsisText(text: vehicleNumber),
-                ],
+            Expanded(
+              flex: 9,
+              child: Column(
+                spacing:AppSizes.spaceBetweenItems_8,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text( LocaleKeys.vehicleInfo.tr(), style: Theme.of(context).textTheme.displaySmall),
+                  MiddleEllipsisText(text: vehicleType),
+                  MiddleEllipsisText(text: vehicleNumber),
+                  ],
+              ),
             ),
-            const Icon(Icons.arrow_forward_ios),
+            const Expanded(flex: 1,child: Icon(Icons.arrow_forward_ios)),
           ],
         ),
       ),
