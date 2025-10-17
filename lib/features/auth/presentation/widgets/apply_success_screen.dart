@@ -18,61 +18,48 @@ class ApplySuccessScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          /// Background waves at bottom
           Align(
             alignment: Alignment.bottomCenter,
             child: SizedBox(
               height: screenHeight/3,
               width: double.infinity,
               child: SvgPicture.asset(
-                Assets.assetsImagesBg, // <-- your bg.svg
+                Assets.assetsImagesBg,
                 fit: BoxFit.fill,
               ),
             ),
           ),
-
-          /// Centered fixed-size content
           Center(
             child: SizedBox(
-              width: 315,
-              height: 382,
+              width: AppSizes.widgetWidth_315,
+              height: AppSizes.widgetHeight_382,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  /// Big check icon
                   SvgPicture.asset(
                     Assets.assetsImagesVector,
-                    width: 160,
-                    height: 160,
+                    width: AppSizes.imageWidth_160,
+                    height: AppSizes.imageHeight_160,
                   ),
-
                   const SizedBox(height: AppSizes.spaceBetweenItems_16),
-
-                  /// Title
                   Text(
                     LocaleKeys.applySuccess.tr(),
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                      fontSize: AppSizes.xlFont_20,
                     ),
                   ),
-
                   const SizedBox(height: AppSizes.spaceBetweenItems_12),
-
-                  /// Description
                   Text(
                     LocaleKeys.applySuccessDescription.tr(),
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Colors.grey[700],
-                      fontSize: 15,
+                      fontSize: AppSizes.mdFont_16,
                     ),
                   ),
-
                   const Spacer(),
-
-                  /// Login Button
                   SizedBox(
                     width: double.infinity,
                     child: CustomElevatedButton(
