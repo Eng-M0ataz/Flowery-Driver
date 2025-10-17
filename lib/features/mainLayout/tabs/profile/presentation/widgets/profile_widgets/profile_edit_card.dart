@@ -1,5 +1,6 @@
 import 'package:flowery_tracking/core/config/theme/app_colors.dart';
 import 'package:flowery_tracking/core/utils/constants/sizes.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/widgets/profile_widgets/middle_ellipsis_text.dart';
 import 'package:flutter/material.dart';
 
 class ProfileEditCard extends StatelessWidget {
@@ -12,13 +13,11 @@ class ProfileEditCard extends StatelessWidget {
     this.imagePath,
   });
 
-
   final String? imagePath;
   final void Function()? onTap;
   final String title;
   final String subtitle;
   final String vehicleOrPhoneNumber;
-
 
   @override
   Widget build(BuildContext context) {
@@ -48,21 +47,26 @@ class ProfileEditCard extends StatelessWidget {
           spacing: AppSizes.spaceBetweenItems_16,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            imagePath == null ? Container() : CircleAvatar(backgroundImage: NetworkImage(imagePath!),radius: AppSizes.borderRadiusXxxl_32),
-            Column(
-              spacing:AppSizes.spaceBetweenItems_8,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, style: Theme.of(context).textTheme.displaySmall),
-                Text(
-                  subtitle,
-                  style: Theme.of(context).textTheme.headlineLarge,
-                ),
-                Text(vehicleOrPhoneNumber, style: Theme.of(context).textTheme.headlineLarge),
-              ],
+            imagePath == null
+                ? Container()
+                : CircleAvatar(
+                    backgroundImage: NetworkImage(imagePath!),
+                    radius: AppSizes.borderRadiusXxxl_32,
+                  ),
+            Expanded(
+              flex: 8,
+              child: Column(
+                spacing: AppSizes.spaceBetweenItems_8,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  MiddleEllipsisText(text: title),
+                  MiddleEllipsisText(text: subtitle),
+                  MiddleEllipsisText(text: vehicleOrPhoneNumber),
+                ],
+              ),
             ),
-            const Expanded(child: Icon(Icons.arrow_forward_ios)),
+            const Expanded(flex: 2,child: Icon(Icons.arrow_forward_ios)),
           ],
         ),
       ),

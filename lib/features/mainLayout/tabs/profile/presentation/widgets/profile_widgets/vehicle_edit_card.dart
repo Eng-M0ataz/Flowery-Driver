@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flowery_tracking/core/config/theme/app_colors.dart';
 import 'package:flowery_tracking/core/localization/locale_keys.g.dart';
 import 'package:flowery_tracking/core/utils/constants/sizes.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/widgets/profile_widgets/middle_ellipsis_text.dart';
 import 'package:flutter/material.dart';
 
 class VehicleEditCard extends StatelessWidget {
@@ -53,12 +54,9 @@ class VehicleEditCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text( LocaleKeys.vehicleInfo.tr(), style: Theme.of(context).textTheme.displaySmall),
-                Text(
-                  vehicleType,
-                  style: Theme.of(context).textTheme.headlineLarge,
-                ),
-                Text(vehicleNumber, style: Theme.of(context).textTheme.headlineLarge),
-              ],
+                MiddleEllipsisText(text: vehicleType),
+                MiddleEllipsisText(text: vehicleNumber),
+                ],
             ),
             const Icon(Icons.arrow_forward_ios),
           ],

@@ -1,5 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flowery_tracking/core/Di/di.dart';
+import 'package:flowery_tracking/core/di/di.dart';
 import 'package:flowery_tracking/core/functions/snack_bar.dart';
 import 'package:flowery_tracking/core/helpers/routing_extensions.dart';
 import 'package:flowery_tracking/core/localization/locale_keys.g.dart';

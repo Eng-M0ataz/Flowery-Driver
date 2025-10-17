@@ -1,5 +1,5 @@
-import 'package:flowery_tracking/core/Config/Theme/app_colors.dart';
-import 'package:flowery_tracking/core/Functions/validators.dart';
+import 'package:flowery_tracking/core/config/theme/app_colors.dart';
+import 'package:flowery_tracking/core/functions/validators.dart';
 import 'package:flowery_tracking/core/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';

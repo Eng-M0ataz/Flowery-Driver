@@ -15,8 +15,6 @@ abstract class AppConstants {
   static const String female = 'female';
   static const String femaleValue = 'Female';
   static const int imageQuality = 80;
-  static const String male = 'male';
-  static const String female = 'female';
   static const String chatgpt = 'chatgpt';
   static const String gemini = 'gemini';
   static const String imageDataType = 'image/jpeg';

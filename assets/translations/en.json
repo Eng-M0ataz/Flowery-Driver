@@ -85,5 +85,8 @@
   "camera": "Camera",
   "gallery": "Gallery",
   "select_profile_picture": "Select Profile Picture",
-  "vehicleInfo": "Vehicle Info"
+  "vehicleInfo": "Vehicle Info",
+  "passwordResetSuccessfully": "Password Reset Successfully",
+  "codeVerifiedSuccessfully": "Code Verified Successfully",
+  "forgetPassword" : "Forget Password"
 }
