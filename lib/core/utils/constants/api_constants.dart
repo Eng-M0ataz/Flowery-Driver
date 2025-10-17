@@ -16,5 +16,9 @@ abstract class ApiConstants {
   static const String queryLimit = 'limit';
   static const String orderId = 'orderId';
   static const String startOrder = 'orders/start';
+  static const String id = 'id';
+  static const String updateOrderState = 'orders/state/{id}';
+  static const String orderStatusPath = '/statusHistory/';
+  static const String driverLocationPath = '/driver/location';
   static const String driverData = 'drivers/profile-data';
 }
