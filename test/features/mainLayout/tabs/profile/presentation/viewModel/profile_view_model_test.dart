@@ -9,7 +9,6 @@ import 'package:flowery_tracking/core/errors/api_results.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entity/Responses/driver_profile_response_entity.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entity/Responses/edit_profile_response_entity.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entity/Responses/upload_photo_response_entity.dart';
-import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entity/requestes/edit_profile_request_entity.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/use_cases/edit_profile_use_case.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/use_cases/get_logged_user_use_case.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/use_cases/upload_photo_use_case.dart';

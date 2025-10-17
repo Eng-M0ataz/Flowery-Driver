@@ -24,10 +24,9 @@ abstract class DioModule {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          final String token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkcml2ZXIiOiI2OGU4MDAyYjdmZWU2OGE0YzJlYTJjYTMiLCJpYXQiOjE3NjAwMzQ4NTl9.UIngOuNVo0w_W3L0I56NCZ_XmcM5rrvYTqp6m0cOGek';
-          // final String token = await getIt
-          //     .get<Storage>(instanceName: AppConstants.secureStorage)
-          //     .read(key: ApiConstants.token);
+          final String token = await getIt
+              .get<Storage>(instanceName: AppConstants.secureStorage)
+              .read(key: ApiConstants.token);
           if (token.isNotEmpty) {
             options.headers[ApiConstants.authorization] =
                 '${ApiConstants.bearer} $token';
