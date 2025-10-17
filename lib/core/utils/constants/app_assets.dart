@@ -143,4 +143,12 @@ class Assets {
   /// Assets for assetsImagesWhatsapp
   /// assets/images/whatsapp.svg
   static const String assetsImagesWhatsapp = "assets/images/whatsapp.svg";
+
+  /// Assets for assetsJsonSilverMapStyle
+  /// assets/jsons/silver_map_style.json
+  static const String assetsJsonSilverMapStyle = "assets/jsons/silver_map_style.json";
+
+  /// Assets for assetsImagesUserLocation
+  /// assets/images/user-location.svg
+  static const String assetsImagesUserLocation = "assets/images/user-location.svg";
 }

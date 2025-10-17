@@ -1,0 +1,7 @@
+enum LocationReturnTypes {
+locationServiceDisabled,
+locationPermissionDenied,
+locationPermissionDeniedForever,
+locationPermissionGranted,
+failedToGetLocation,
+}

@@ -2,25 +2,25 @@ import 'package:flowery_tracking/core/helpers/regex.dart';
 
 abstract class Validations {
   static String? validateName(String? name) {
-    if (name!.isEmpty) {
+    if (name == null || name.trim().isEmpty) {
       return 'Name is required!';
-    } else if (!AppRegExp.isNameValid(name)) {
+    } else if (!AppRegExp.isNameValid(name.trim())) {
       return 'This Name is not valid';
     }
     return null;
   }
 
   static String? validateEmail(String? email) {
-    if (email!.isEmpty) {
+    if (email == null || email.trim().isEmpty) {
       return 'Email is required!';
-    } else if (!AppRegExp.isEmailValid(email)) {
+    } else if (!AppRegExp.isEmailValid(email.trim())) {
       return 'This Email is not valid';
     }
     return null;
   }
 
   static String? validatePassword(String? password) {
-    if (password!.isEmpty) {
+    if (password == null || password.isEmpty) {
       return 'Password is required!';
     } else if (!AppRegExp.isPasswordValid(password)) {
       return 'This Password is not valid';
@@ -32,7 +32,7 @@ abstract class Validations {
     String? password,
     String? confirmPassword,
   ) {
-    if (confirmPassword!.isEmpty) {
+    if (confirmPassword == null || confirmPassword.isEmpty) {
       return 'Confirm Password is required!';
     } else if (!AppRegExp.isPasswordValid(confirmPassword)) {
       return 'This Confirm Password is not valid';
@@ -43,9 +43,9 @@ abstract class Validations {
   }
 
   static String? validatePhoneNumber(String? phoneNumber) {
-    if (phoneNumber!.isEmpty) {
+    if (phoneNumber == null || phoneNumber.trim().isEmpty) {
       return 'Phone number is required!';
-    } else if (!AppRegExp.isPhoneNumberValid(phoneNumber)) {
+    } else if (!AppRegExp.isPhoneNumberValid(phoneNumber.trim())) {
       return 'This Phone number is not valid';
     }
     return null;

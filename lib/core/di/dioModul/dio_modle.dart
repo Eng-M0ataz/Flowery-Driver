@@ -24,13 +24,18 @@ abstract class DioModule {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          final String token = await getIt
-              .get<Storage>(instanceName: AppConstants.secureStorage)
-              .read(key: ApiConstants.token);
-          if (token.isNotEmpty) {
-            options.headers[ApiConstants.authorization] =
-                '${ApiConstants.bearer} $token';
-          }
+          // delete after login merging
+          final mToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkcml2ZXIiOiI2NzZiNDI2YjNlYjc3NGIyZGNjY2IwNWUiLCJpYXQiOjE3NjA2MTczNzh9.V9qXO4l7Uxm56O8MhRecb1QYVw9-Vdd2o5OUAd1fcc8";
+          options.headers[ApiConstants.authorization] =
+              '${ApiConstants.bearer} $mToken';
+
+          // final String token = await getIt
+          //     .get<Storage>(instanceName: AppConstants.secureStorage)
+          //     .read(key: ApiConstants.token);
+          // if (token.isNotEmpty) {
+          //   options.headers[ApiConstants.authorization] =
+          //       '${ApiConstants.bearer} $token';
+          // }
           return handler.next(options);
         },
       ),
