@@ -23,12 +23,12 @@ void main() {
         data: EditProfileResponseEntity(
           message: '',
           driver: EditDriverEntity(
-            Id: '',
+            id: '',
             firstName: '',
             lastName: '',
             email: '',
             phone: '',
-            photo: null,
+            photo: '', role: '', country: '', vehicleType: '', vehicleNumber: '', vehicleLicense: '', nID: '', nIDImg: '', password: '', gender: '', createdAt: '',
           ),
         ),
       ),
@@ -47,16 +47,16 @@ void main() {
         firstName: 'John',
         lastName: 'Doe',
         email: 'john.doe@example.com',
-        phone: '+1234567890',
+        phone: '+1234567890', gender: '',
       );
 
       final driverEntity = EditDriverEntity(
-        Id: '123',
+        id: '123',
         firstName: 'John',
         lastName: 'Doe',
         email: 'john.doe@example.com',
         phone: '+1234567890',
-        photo: 'https://example.com/photo.jpg',
+        photo: 'https://example.com/photo.jpg', role: '', country: '', vehicleType: '', vehicleNumber: '', vehicleLicense: '', nID: '', nIDImg: '', password: '', gender: '', createdAt: '',
       );
 
       final responseEntity = EditProfileResponseEntity(
@@ -85,7 +85,7 @@ void main() {
         firstName: 'John',
         lastName: 'Doe',
         email: 'john.doe@example.com',
-        phone: '+1234567890',
+        phone: '+1234567890', gender: '',
       );
 
       final failure = ServerFailure(errorMessage: 'Failed to update profile');
@@ -110,7 +110,7 @@ void main() {
         firstName: 'Jane',
         lastName: 'Smith',
         email: 'jane.smith@example.com',
-        phone: '+9876543210',
+        phone: '+9876543210', gender: '',
       );
 
       final failure = Failure(errorMessage: 'No internet connection');
@@ -135,18 +135,18 @@ void main() {
         firstName: 'Alice',
         lastName: 'Johnson',
         email: 'alice@example.com',
-        phone: '+1122334455',
+        phone: '+1122334455', gender: '',
       );
 
       final responseEntity = EditProfileResponseEntity(
         message: 'Success',
         driver: EditDriverEntity(
-          Id: '456',
+          id: '456',
           firstName: 'Alice',
           lastName: 'Johnson',
           email: 'alice@example.com',
           phone: '+1122334455',
-          photo: null,
+          photo: '', role: '', country: '', vehicleType: '', vehicleNumber: '', vehicleLicense: '', nID: '', nIDImg: '', password: '', gender: '', createdAt: '',
         ),
       );
 
@@ -174,7 +174,7 @@ void main() {
         firstName: '',
         lastName: '',
         email: 'invalid-email',
-        phone: '',
+        phone: '', gender: '',
       );
 
       final failure = Failure(errorMessage: 'Invalid input data');

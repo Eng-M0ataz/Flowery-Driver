@@ -8,15 +8,15 @@ class EditDriverDto {
 
   EditDriverDto ({
     this.role,
-    this.Id,
+    this.id,
     this.country,
     this.firstName,
     this.lastName,
     this.vehicleType,
     this.vehicleNumber,
     this.vehicleLicense,
-    this.NID,
-    this.NIDImg,
+    this.nID,
+    this.nIDImg,
     this.email,
     this.password,
     this.gender,
@@ -31,7 +31,7 @@ class EditDriverDto {
   @JsonKey(name: 'role')
   final String? role;
   @JsonKey(name: '_id')
-  final String? Id;
+  final String? id;
   @JsonKey(name: 'country')
   final String? country;
   @JsonKey(name: 'firstName')
@@ -45,9 +45,9 @@ class EditDriverDto {
   @JsonKey(name: 'vehicleLicense')
   final String? vehicleLicense;
   @JsonKey(name: 'NID')
-  final String? NID;
+  final String? nID;
   @JsonKey(name: 'NIDImg')
-  final String? NIDImg;
+  final String? nIDImg;
   @JsonKey(name: 'email')
   final String? email;
   @JsonKey(name: 'password')

@@ -6,7 +6,7 @@ part 'vehicle_dto.g.dart';
 class VehicleDto {
 
   VehicleDto ({
-    this.Id,
+    this.id,
     this.type,
     this.image,
     this.createdAt,
@@ -17,7 +17,7 @@ class VehicleDto {
     return _$VehicleDtoFromJson(json);
   }
   @JsonKey(name: '_id')
-  final String? Id;
+  final String? id;
   @JsonKey(name: 'type')
   final String? type;
   @JsonKey(name: 'image')

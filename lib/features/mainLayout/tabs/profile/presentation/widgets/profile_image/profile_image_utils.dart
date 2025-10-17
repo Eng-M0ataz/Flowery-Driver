@@ -75,7 +75,7 @@ Widget buildPickerOption({
           width: AppSizes.icon_64,
           height: AppSizes.icon_64,
           decoration: BoxDecoration(
-            color: (color ?? AppColorsLight.pink).withOpacity(0.1),
+            color: (color ?? AppColorsLight.pink).withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(15),
           ),
           child: Icon(icon,

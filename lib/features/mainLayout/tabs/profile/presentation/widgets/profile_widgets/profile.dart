@@ -1,7 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flowery_tracking/core/config/routing/app_routes.dart';
 import 'package:flowery_tracking/core/config/theme/app_colors.dart';
-import 'package:flowery_tracking/core/helpers/routing_extensions.dart';
 import 'package:flowery_tracking/core/localization/locale_keys.g.dart';
 import 'package:flowery_tracking/core/utils/constants/sizes.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/pages/edit_profile_screen.dart';
@@ -100,27 +98,23 @@ class _ProfileState extends State<Profile> {
 
                       },
                       imagePath:
-                      state.driverProfileResponseEntity!.driver!.photo,
+                      state.driverProfileResponseEntity!.driver.photo,
                       title:
-                      '${state.driverProfileResponseEntity!.driver!
+                      '${state.driverProfileResponseEntity!.driver
                           .firstName} ${state.driverProfileResponseEntity!
-                          .driver!.lastName}',
+                          .driver.lastName}',
                       subtitle:
-                      state.driverProfileResponseEntity!.driver!.email ??
-                          '',
+                      state.driverProfileResponseEntity!.driver.email,
                       vehicleOrPhoneNumber:
-                      state.driverProfileResponseEntity!.driver!.phone ??
-                          '',
+                      state.driverProfileResponseEntity!.driver.phone,
                     ),
                     VehicleEditCard(
                       vehicleType: state
-                          .vehicleResponseEntity!.vehicle!.type ??
-                          '',
+                          .vehicleResponseEntity!.vehicle.type,
                       vehicleNumber: state
                           .driverProfileResponseEntity!
-                          .driver!
-                          .vehicleNumber ??
-                          '',
+                          .driver
+                          .vehicleNumber,
                       onTap: () {},
                     )
                   ],

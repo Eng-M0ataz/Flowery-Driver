@@ -1,12 +1,9 @@
-import 'dart:io';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flowery_tracking/core/config/theme/app_colors.dart';
 import 'package:flowery_tracking/core/functions/validators.dart';
 import 'package:flowery_tracking/core/helpers/dialogue_utils.dart';
 import 'package:flowery_tracking/core/helpers/routing_extensions.dart';
 import 'package:flowery_tracking/core/localization/locale_keys.g.dart';
-import 'package:flowery_tracking/core/utils/constants/app_assets.dart';
 import 'package:flowery_tracking/core/utils/constants/app_constants.dart';
 import 'package:flowery_tracking/core/utils/constants/sizes.dart';
 import 'package:flowery_tracking/core/widgets/custom_app_bar.dart';
@@ -18,7 +15,6 @@ import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/w
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/widgets/edit_profile_widgets/profile_image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 
 class EditProfileForm extends StatefulWidget {
   const EditProfileForm({super.key});
@@ -170,7 +166,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
                                   state
                                       .driverProfileResponseEntity
                                       ?.driver
-                                      ?.gender ??
+                                      .gender ??
                                   AppConstants.male,
                               label: LocaleKeys.female_label.tr(),
                               activeColor: AppColorsLight.pink,
@@ -182,7 +178,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
                                   state
                                       .driverProfileResponseEntity
                                       ?.driver
-                                      ?.gender ??
+                                      .gender ??
                                   AppConstants.male,
                               label: LocaleKeys.male_label.tr(),
                               activeColor: AppColorsLight.grey,
@@ -195,7 +191,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
                             FocusManager.instance.primaryFocus?.unfocus();
                             viewModel.doIntend(EditProfileSubmitEvent());
                           },
-                          isLoading: state.isLoading,
+                          isLoading: false,
                           widget: Text(LocaleKeys.update.tr()),
                         ),
                       ],

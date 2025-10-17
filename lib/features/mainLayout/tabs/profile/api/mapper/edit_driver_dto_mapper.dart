@@ -4,22 +4,22 @@ import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entity/
 extension EditDriverDtoMapper on EditDriverDto{
   EditDriverEntity toEntity (){
     return EditDriverEntity(
-      createdAt: createdAt,
-      country: country,
-      email: email,
-      firstName: firstName,
-      gender: gender,
-      Id: Id,
-      lastName: lastName,
-      NID: NID,
-      NIDImg: NIDImg,
-      password: password,
-      phone: phone,
-      photo: photo,
-      role: role,
-      vehicleLicense: vehicleLicense,
-      vehicleNumber: vehicleNumber,
-      vehicleType: vehicleType
+      createdAt: createdAt ?? '',
+      country: country ?? '',
+      email: email ?? '',
+      firstName: firstName ?? '',
+      gender: gender ?? '',
+      id: id ?? '',
+      lastName: lastName ?? '',
+      nID: nID ?? '',
+      nIDImg: nIDImg ?? '',
+      password: password ?? '',
+      phone: phone ?? '',
+      photo: photo ?? '',
+      role: role ?? '',
+      vehicleLicense: vehicleLicense ?? '',
+      vehicleNumber: vehicleNumber ?? '',
+      vehicleType: vehicleType ?? ''
     );
   }
 }

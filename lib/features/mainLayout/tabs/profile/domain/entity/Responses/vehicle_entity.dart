@@ -1,13 +1,19 @@
 class VehicleEntity {
-  VehicleEntity({this.Id, this.type, this.image, this.createdAt, this.updatedAt});
+  VehicleEntity({
+    required this.id,
+    required this.type,
+    required this.image,
+    required this.createdAt,
+    required this.updatedAt,
+  });
 
-  final String? Id;
+  final String id;
 
-  final String? type;
+  final String type;
 
-  final String? image;
+  final String image;
 
-  final String? createdAt;
+  final String createdAt;
 
-  final String? updatedAt;
+  final String updatedAt;
 }

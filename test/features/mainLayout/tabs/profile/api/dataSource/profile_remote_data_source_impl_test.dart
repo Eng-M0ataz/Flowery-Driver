@@ -9,6 +9,7 @@ import 'package:flowery_tracking/features/mainLayout/tabs/profile/api/model/resp
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/api/model/responses/edit_profile_response_dto.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/api/model/responses/upload_photo_response_dto.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entity/Responses/driver_profile_response_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entity/Responses/driver_response_entity.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entity/Responses/edit_profile_response_entity.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entity/Responses/upload_photo_response_entity.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entity/requestes/edit_profile_request_entity.dart';
@@ -38,163 +39,193 @@ void main() {
   });
 
   group('ProfileRemoteDataSourceImpl - getLoggedDriverData', () {
-    test('should return ApiSuccessResult with mapped entity when API call succeeds', () async {
-      // Arrange
-      final mockDriverDto = DriverDto(
-        Id: '1',
-        firstName: 'Ahmed',
-        lastName: 'Hassan',
-        email: 'ahmed@example.com',
-        phone: '+201234567890',
-        photo: 'https://example.com/photo.jpg',
-      );
+    test(
+      'should return ApiSuccessResult with mapped entity when API call succeeds',
+      () async {
+        // Arrange
+        final mockDriverDto = DriverDto(
+          id: '1',
+          firstName: 'Ahmed',
+          lastName: 'Hassan',
+          email: 'ahmed@example.com',
+          phone: '+201234567890',
+          photo: 'https://example.com/photo.jpg',
+        );
 
-      final mockDto = DriverProfileResponseDto(
-        message: 'Data retrieved successfully',
-        driver: mockDriverDto,
-      );
+        final mockDto = DriverProfileResponseDto(
+          message: 'Data retrieved successfully',
+          driver: mockDriverDto,
+        );
 
-      when(mockProfileApiService.getLoggedDriverData())
-          .thenAnswer((_) async => mockDto);
+        when(
+          mockProfileApiService.getLoggedDriverData(),
+        ).thenAnswer((_) async => mockDto);
 
-      // Act
-      final result = await remoteDataSource.getLoggedDriverData();
+        // Act
+        final result = await remoteDataSource.getLoggedDriverData();
 
-      // Assert
-      expect(result, isA<ApiSuccessResult<DriverProfileResponseEntity>>());
-      final successResult = result as ApiSuccessResult<DriverProfileResponseEntity>;
-      expect(successResult.data.driver?.firstName, equals('Ahmed'));
-      expect(successResult.data.driver?.email, equals('ahmed@example.com'));
+        // Assert
+        expect(result, isA<ApiSuccessResult<DriverProfileResponseEntity>>());
+        final successResult =
+            result as ApiSuccessResult<DriverProfileResponseEntity>;
+        expect(successResult.data.driver.firstName, equals('Ahmed'));
+        expect(successResult.data.driver.email, equals('ahmed@example.com'));
 
-      verify(mockProfileApiService.getLoggedDriverData()).called(1);
-      verifyNoMoreInteractions(mockProfileApiService);
-    });
+        verify(mockProfileApiService.getLoggedDriverData()).called(1);
+        verifyNoMoreInteractions(mockProfileApiService);
+      },
+    );
 
-    test('should return ApiErrorResult when API throws DioException with 401 Unauthorized', () async {
-      // Arrange
-      final dioException = DioException(
-        requestOptions: RequestOptions(path: '/driver'),
-        response: Response(
+    test(
+      'should return ApiErrorResult when API throws DioException with 401 Unauthorized',
+      () async {
+        // Arrange
+        final dioException = DioException(
           requestOptions: RequestOptions(path: '/driver'),
-          statusCode: 401,
-          statusMessage: 'Unauthorized',
-          data: {'message': 'Token expired'},
-        ),
-        type: DioExceptionType.badResponse,
-      );
+          response: Response(
+            requestOptions: RequestOptions(path: '/driver'),
+            statusCode: 401,
+            statusMessage: 'Unauthorized',
+            data: {'message': 'Token expired'},
+          ),
+          type: DioExceptionType.badResponse,
+        );
 
-      when(mockProfileApiService.getLoggedDriverData())
-          .thenThrow(dioException);
+        when(
+          mockProfileApiService.getLoggedDriverData(),
+        ).thenThrow(dioException);
 
-      // Act
-      final result = await remoteDataSource.getLoggedDriverData();
+        // Act
+        final result = await remoteDataSource.getLoggedDriverData();
 
-      // Assert
-      expect(result, isA<ApiErrorResult<DriverProfileResponseEntity>>());
-      final errorResult = result as ApiErrorResult<DriverProfileResponseEntity>;
-      expect(errorResult.failure, isNotNull);
+        // Assert
+        expect(result, isA<ApiErrorResult<DriverProfileResponseEntity>>());
+        final errorResult =
+            result as ApiErrorResult<DriverProfileResponseEntity>;
+        expect(errorResult.failure, isNotNull);
 
-      verify(mockProfileApiService.getLoggedDriverData()).called(1);
-      verifyNoMoreInteractions(mockProfileApiService);
-    });
+        verify(mockProfileApiService.getLoggedDriverData()).called(1);
+        verifyNoMoreInteractions(mockProfileApiService);
+      },
+    );
 
-    test('should return ApiErrorResult when API throws DioException with 500 Server Error', () async {
-      // Arrange
-      final dioException = DioException(
-        requestOptions: RequestOptions(path: '/driver'),
-        response: Response(
+    test(
+      'should return ApiErrorResult when API throws DioException with 500 Server Error',
+      () async {
+        // Arrange
+        final dioException = DioException(
           requestOptions: RequestOptions(path: '/driver'),
-          statusCode: 500,
-          statusMessage: 'Internal Server Error',
-        ),
-        type: DioExceptionType.badResponse,
-      );
+          response: Response(
+            requestOptions: RequestOptions(path: '/driver'),
+            statusCode: 500,
+            statusMessage: 'Internal Server Error',
+          ),
+          type: DioExceptionType.badResponse,
+        );
 
-      when(mockProfileApiService.getLoggedDriverData())
-          .thenThrow(dioException);
+        when(
+          mockProfileApiService.getLoggedDriverData(),
+        ).thenThrow(dioException);
 
-      // Act
-      final result = await remoteDataSource.getLoggedDriverData();
+        // Act
+        final result = await remoteDataSource.getLoggedDriverData();
 
-      // Assert
-      expect(result, isA<ApiErrorResult<DriverProfileResponseEntity>>());
-      verify(mockProfileApiService.getLoggedDriverData()).called(1);
-    });
+        // Assert
+        expect(result, isA<ApiErrorResult<DriverProfileResponseEntity>>());
+        verify(mockProfileApiService.getLoggedDriverData()).called(1);
+      },
+    );
 
-    test('should return ApiErrorResult when API throws connection timeout', () async {
-      // Arrange
-      final dioException = DioException(
-        requestOptions: RequestOptions(path: '/driver'),
-        type: DioExceptionType.connectionTimeout,
-        message: 'Connection timeout',
-      );
-
-      when(mockProfileApiService.getLoggedDriverData())
-          .thenThrow(dioException);
-
-      // Act
-      final result = await remoteDataSource.getLoggedDriverData();
-
-      // Assert
-      expect(result, isA<ApiErrorResult<DriverProfileResponseEntity>>());
-      verify(mockProfileApiService.getLoggedDriverData()).called(1);
-    });
-
-    test('should return ApiErrorResult when API throws network error', () async {
-      // Arrange
-      final dioException = DioException(
-        requestOptions: RequestOptions(path: '/driver'),
-        type: DioExceptionType.connectionError,
-        message: 'No internet connection',
-      );
-
-      when(mockProfileApiService.getLoggedDriverData())
-          .thenThrow(dioException);
-
-      // Act
-      final result = await remoteDataSource.getLoggedDriverData();
-
-      // Assert
-      expect(result, isA<ApiErrorResult<DriverProfileResponseEntity>>());
-      verify(mockProfileApiService.getLoggedDriverData()).called(1);
-    });
-
-    test('should return ApiErrorResult when API throws 404 Not Found', () async {
-      // Arrange
-      final dioException = DioException(
-        requestOptions: RequestOptions(path: '/driver'),
-        response: Response(
+    test(
+      'should return ApiErrorResult when API throws connection timeout',
+      () async {
+        // Arrange
+        final dioException = DioException(
           requestOptions: RequestOptions(path: '/driver'),
-          statusCode: 404,
-          statusMessage: 'Not Found',
-          data: {'message': 'Driver not found'},
-        ),
-        type: DioExceptionType.badResponse,
-      );
+          type: DioExceptionType.connectionTimeout,
+          message: 'Connection timeout',
+        );
 
-      when(mockProfileApiService.getLoggedDriverData())
-          .thenThrow(dioException);
+        when(
+          mockProfileApiService.getLoggedDriverData(),
+        ).thenThrow(dioException);
 
-      // Act
-      final result = await remoteDataSource.getLoggedDriverData();
+        // Act
+        final result = await remoteDataSource.getLoggedDriverData();
 
-      // Assert
-      expect(result, isA<ApiErrorResult<DriverProfileResponseEntity>>());
-      verify(mockProfileApiService.getLoggedDriverData()).called(1);
-    });
+        // Assert
+        expect(result, isA<ApiErrorResult<DriverProfileResponseEntity>>());
+        verify(mockProfileApiService.getLoggedDriverData()).called(1);
+      },
+    );
 
-    test('should return ApiErrorResult when API throws generic exception', () async {
-      // Arrange
-      when(mockProfileApiService.getLoggedDriverData())
-          .thenThrow(Exception('Unexpected error'));
+    test(
+      'should return ApiErrorResult when API throws network error',
+      () async {
+        // Arrange
+        final dioException = DioException(
+          requestOptions: RequestOptions(path: '/driver'),
+          type: DioExceptionType.connectionError,
+          message: 'No internet connection',
+        );
 
-      // Act
-      final result = await remoteDataSource.getLoggedDriverData();
+        when(
+          mockProfileApiService.getLoggedDriverData(),
+        ).thenThrow(dioException);
 
-      // Assert
-      expect(result, isA<ApiErrorResult<DriverProfileResponseEntity>>());
-      verify(mockProfileApiService.getLoggedDriverData()).called(1);
-    });
+        // Act
+        final result = await remoteDataSource.getLoggedDriverData();
+
+        // Assert
+        expect(result, isA<ApiErrorResult<DriverProfileResponseEntity>>());
+        verify(mockProfileApiService.getLoggedDriverData()).called(1);
+      },
+    );
+
+    test(
+      'should return ApiErrorResult when API throws 404 Not Found',
+      () async {
+        // Arrange
+        final dioException = DioException(
+          requestOptions: RequestOptions(path: '/driver'),
+          response: Response(
+            requestOptions: RequestOptions(path: '/driver'),
+            statusCode: 404,
+            statusMessage: 'Not Found',
+            data: {'message': 'Driver not found'},
+          ),
+          type: DioExceptionType.badResponse,
+        );
+
+        when(
+          mockProfileApiService.getLoggedDriverData(),
+        ).thenThrow(dioException);
+
+        // Act
+        final result = await remoteDataSource.getLoggedDriverData();
+
+        // Assert
+        expect(result, isA<ApiErrorResult<DriverProfileResponseEntity>>());
+        verify(mockProfileApiService.getLoggedDriverData()).called(1);
+      },
+    );
+
+    test(
+      'should return ApiErrorResult when API throws generic exception',
+      () async {
+        // Arrange
+        when(
+          mockProfileApiService.getLoggedDriverData(),
+        ).thenThrow(Exception('Unexpected error'));
+
+        // Act
+        final result = await remoteDataSource.getLoggedDriverData();
+
+        // Assert
+        expect(result, isA<ApiErrorResult<DriverProfileResponseEntity>>());
+        verify(mockProfileApiService.getLoggedDriverData()).called(1);
+      },
+    );
   });
 
   group('ProfileRemoteDataSourceImpl - editProfile', () {
@@ -206,33 +237,36 @@ void main() {
         lastName: 'Ali',
         email: 'mohamed@example.com',
         phone: '+201098765432',
+        gender: '',
       );
     });
 
-    test('should call API service with correctly mapped EditProfileRequestModel', () async {
-      // Arrange
-      final mockDto = EditProfileResponseDto(
-        message: 'Profile updated',
-      );
+    test(
+      'should call API service with correctly mapped EditProfileRequestModel',
+      () async {
+        // Arrange
+        final mockDto = EditProfileResponseDto(message: 'Profile updated');
 
-      when(mockProfileApiService.editProfile(any))
-          .thenAnswer((_) async => mockDto);
+        when(
+          mockProfileApiService.editProfile(any),
+        ).thenAnswer((_) async => mockDto);
 
-      // Act
-      await remoteDataSource.editProfile(requestEntity);
+        // Act
+        await remoteDataSource.editProfile(requestEntity);
 
-      // Assert
-      final captured = verify(
-        mockProfileApiService.editProfile(captureAny),
-      ).captured;
+        // Assert
+        final captured = verify(
+          mockProfileApiService.editProfile(captureAny),
+        ).captured;
 
-      expect(captured.length, 1);
-      final capturedModel = captured[0] as EditProfileRequestModel;
-      expect(capturedModel.firstName, equals('Mohamed'));
-      expect(capturedModel.lastName, equals('Ali'));
-      expect(capturedModel.email, equals('mohamed@example.com'));
-      expect(capturedModel.phone, equals('+201098765432'));
-    });
+        expect(captured.length, 1);
+        final capturedModel = captured[0] as EditProfileRequestModel;
+        expect(capturedModel.firstName, equals('Mohamed'));
+        expect(capturedModel.lastName, equals('Ali'));
+        expect(capturedModel.email, equals('mohamed@example.com'));
+        expect(capturedModel.phone, equals('+201098765432'));
+      },
+    );
 
     test('should return ApiErrorResult when validation fails (400)', () async {
       // Arrange
@@ -246,15 +280,14 @@ void main() {
             'error': 'Validation Error',
             'errors': {
               'email': ['Invalid email format'],
-              'firstName': ['First name is required']
-            }
+              'firstName': ['First name is required'],
+            },
           },
         ),
         type: DioExceptionType.badResponse,
       );
 
-      when(mockProfileApiService.editProfile(any))
-          .thenThrow(dioException);
+      when(mockProfileApiService.editProfile(any)).thenThrow(dioException);
 
       // Act
       final result = await remoteDataSource.editProfile(requestEntity);
@@ -264,29 +297,31 @@ void main() {
       verify(mockProfileApiService.editProfile(any)).called(1);
     });
 
-    test('should return ApiErrorResult when email already exists (409)', () async {
-      // Arrange
-      final dioException = DioException(
-        requestOptions: RequestOptions(path: '/profile/edit'),
-        response: Response(
+    test(
+      'should return ApiErrorResult when email already exists (409)',
+      () async {
+        // Arrange
+        final dioException = DioException(
           requestOptions: RequestOptions(path: '/profile/edit'),
-          statusCode: 409,
-          statusMessage: 'Conflict',
-          data: {'message': 'Email already registered to another account'},
-        ),
-        type: DioExceptionType.badResponse,
-      );
+          response: Response(
+            requestOptions: RequestOptions(path: '/profile/edit'),
+            statusCode: 409,
+            statusMessage: 'Conflict',
+            data: {'message': 'Email already registered to another account'},
+          ),
+          type: DioExceptionType.badResponse,
+        );
 
-      when(mockProfileApiService.editProfile(any))
-          .thenThrow(dioException);
+        when(mockProfileApiService.editProfile(any)).thenThrow(dioException);
 
-      // Act
-      final result = await remoteDataSource.editProfile(requestEntity);
+        // Act
+        final result = await remoteDataSource.editProfile(requestEntity);
 
-      // Assert
-      expect(result, isA<ApiErrorResult<EditProfileResponseEntity>>());
-      verify(mockProfileApiService.editProfile(any)).called(1);
-    });
+        // Assert
+        expect(result, isA<ApiErrorResult<EditProfileResponseEntity>>());
+        verify(mockProfileApiService.editProfile(any)).called(1);
+      },
+    );
 
     test('should return ApiErrorResult on server error (500)', () async {
       // Arrange
@@ -300,8 +335,7 @@ void main() {
         type: DioExceptionType.badResponse,
       );
 
-      when(mockProfileApiService.editProfile(any))
-          .thenThrow(dioException);
+      when(mockProfileApiService.editProfile(any)).thenThrow(dioException);
 
       // Act
       final result = await remoteDataSource.editProfile(requestEntity);
@@ -319,8 +353,7 @@ void main() {
         message: 'Failed to connect to server',
       );
 
-      when(mockProfileApiService.editProfile(any))
-          .thenThrow(dioException);
+      when(mockProfileApiService.editProfile(any)).thenThrow(dioException);
 
       // Act
       final result = await remoteDataSource.editProfile(requestEntity);
@@ -338,8 +371,7 @@ void main() {
         message: 'Request cancelled',
       );
 
-      when(mockProfileApiService.editProfile(any))
-          .thenThrow(dioException);
+      when(mockProfileApiService.editProfile(any)).thenThrow(dioException);
 
       // Act
       final result = await remoteDataSource.editProfile(requestEntity);
@@ -362,8 +394,7 @@ void main() {
         type: DioExceptionType.badResponse,
       );
 
-      when(mockProfileApiService.editProfile(any))
-          .thenThrow(dioException);
+      when(mockProfileApiService.editProfile(any)).thenThrow(dioException);
 
       // Act
       final result = await remoteDataSource.editProfile(requestEntity);
@@ -381,40 +412,44 @@ void main() {
       mockFile = File('test_assets/test_photo.jpg');
     });
 
-    test('should return ApiSuccessResult with photo URL when upload succeeds', () async {
-      // Arrange
-      final mockDto = UploadPhotoResponseDto(
-        message: 'Photo uploaded successfully',
-      );
+    test(
+      'should return ApiSuccessResult with photo URL when upload succeeds',
+      () async {
+        // Arrange
+        final mockDto = UploadPhotoResponseDto(
+          message: 'Photo uploaded successfully',
+        );
 
-      when(mockProfileApiService.uploadProfilePhoto(any))
-          .thenAnswer((_) async => mockDto);
+        when(
+          mockProfileApiService.uploadProfilePhoto(any),
+        ).thenAnswer((_) async => mockDto);
 
-      // Act
-      final result = await remoteDataSource.uploadProfilePhoto(mockFile);
+        // Act
+        final result = await remoteDataSource.uploadProfilePhoto(mockFile);
 
-      // Assert
-      expect(result, isA<ApiSuccessResult<UploadPhotoResponseEntity>>());
-      final successResult = result as ApiSuccessResult<UploadPhotoResponseEntity>;
+        // Assert
+        expect(result, isA<ApiSuccessResult<UploadPhotoResponseEntity>>());
+        final successResult =
+            result as ApiSuccessResult<UploadPhotoResponseEntity>;
 
-      expect(successResult.data.message, equals('Photo uploaded successfully'));
+        expect(
+          successResult.data.message,
+          equals('Photo uploaded successfully'),
+        );
 
-
-      verify(mockProfileApiService.uploadProfilePhoto(mockFile)).called(1);
-      verifyNoMoreInteractions(mockProfileApiService);
-    });
+        verify(mockProfileApiService.uploadProfilePhoto(mockFile)).called(1);
+        verifyNoMoreInteractions(mockProfileApiService);
+      },
+    );
 
     test('should pass correct file to API service', () async {
       // Arrange
       final testFile = File('test_photo_123.jpg');
-      final mockDto = UploadPhotoResponseDto(
+      final mockDto = UploadPhotoResponseDto(message: 'Uploaded');
 
-        message: 'Uploaded',
-
-      );
-
-      when(mockProfileApiService.uploadProfilePhoto(any))
-          .thenAnswer((_) async => mockDto);
+      when(
+        mockProfileApiService.uploadProfilePhoto(any),
+      ).thenAnswer((_) async => mockDto);
 
       // Act
       await remoteDataSource.uploadProfilePhoto(testFile);
@@ -423,53 +458,61 @@ void main() {
       verify(mockProfileApiService.uploadProfilePhoto(testFile)).called(1);
     });
 
-    test('should return ApiErrorResult when file size exceeds limit (413)', () async {
-      // Arrange
-      final dioException = DioException(
-        requestOptions: RequestOptions(path: '/upload'),
-        response: Response(
+    test(
+      'should return ApiErrorResult when file size exceeds limit (413)',
+      () async {
+        // Arrange
+        final dioException = DioException(
           requestOptions: RequestOptions(path: '/upload'),
-          statusCode: 413,
-          statusMessage: 'Payload Too Large',
-          data: {'message': 'File size exceeds maximum allowed size of 5MB'},
-        ),
-        type: DioExceptionType.badResponse,
-      );
+          response: Response(
+            requestOptions: RequestOptions(path: '/upload'),
+            statusCode: 413,
+            statusMessage: 'Payload Too Large',
+            data: {'message': 'File size exceeds maximum allowed size of 5MB'},
+          ),
+          type: DioExceptionType.badResponse,
+        );
 
-      when(mockProfileApiService.uploadProfilePhoto(any))
-          .thenThrow(dioException);
+        when(
+          mockProfileApiService.uploadProfilePhoto(any),
+        ).thenThrow(dioException);
 
-      // Act
-      final result = await remoteDataSource.uploadProfilePhoto(mockFile);
+        // Act
+        final result = await remoteDataSource.uploadProfilePhoto(mockFile);
 
-      // Assert
-      expect(result, isA<ApiErrorResult<UploadPhotoResponseEntity>>());
-      verify(mockProfileApiService.uploadProfilePhoto(any)).called(1);
-    });
+        // Assert
+        expect(result, isA<ApiErrorResult<UploadPhotoResponseEntity>>());
+        verify(mockProfileApiService.uploadProfilePhoto(any)).called(1);
+      },
+    );
 
-    test('should return ApiErrorResult when file type is invalid (415)', () async {
-      // Arrange
-      final dioException = DioException(
-        requestOptions: RequestOptions(path: '/upload'),
-        response: Response(
+    test(
+      'should return ApiErrorResult when file type is invalid (415)',
+      () async {
+        // Arrange
+        final dioException = DioException(
           requestOptions: RequestOptions(path: '/upload'),
-          statusCode: 415,
-          statusMessage: 'Unsupported Media Type',
-          data: {'message': 'Only JPG, JPEG, PNG files are allowed'},
-        ),
-        type: DioExceptionType.badResponse,
-      );
+          response: Response(
+            requestOptions: RequestOptions(path: '/upload'),
+            statusCode: 415,
+            statusMessage: 'Unsupported Media Type',
+            data: {'message': 'Only JPG, JPEG, PNG files are allowed'},
+          ),
+          type: DioExceptionType.badResponse,
+        );
 
-      when(mockProfileApiService.uploadProfilePhoto(any))
-          .thenThrow(dioException);
+        when(
+          mockProfileApiService.uploadProfilePhoto(any),
+        ).thenThrow(dioException);
 
-      // Act
-      final result = await remoteDataSource.uploadProfilePhoto(mockFile);
+        // Act
+        final result = await remoteDataSource.uploadProfilePhoto(mockFile);
 
-      // Assert
-      expect(result, isA<ApiErrorResult<UploadPhotoResponseEntity>>());
-      verify(mockProfileApiService.uploadProfilePhoto(any)).called(1);
-    });
+        // Assert
+        expect(result, isA<ApiErrorResult<UploadPhotoResponseEntity>>());
+        verify(mockProfileApiService.uploadProfilePhoto(any)).called(1);
+      },
+    );
 
     test('should return ApiErrorResult on upload timeout', () async {
       // Arrange
@@ -479,8 +522,9 @@ void main() {
         message: 'Upload took too long',
       );
 
-      when(mockProfileApiService.uploadProfilePhoto(any))
-          .thenThrow(dioException);
+      when(
+        mockProfileApiService.uploadProfilePhoto(any),
+      ).thenThrow(dioException);
 
       // Act
       final result = await remoteDataSource.uploadProfilePhoto(mockFile);
@@ -503,8 +547,9 @@ void main() {
         type: DioExceptionType.badResponse,
       );
 
-      when(mockProfileApiService.uploadProfilePhoto(any))
-          .thenThrow(dioException);
+      when(
+        mockProfileApiService.uploadProfilePhoto(any),
+      ).thenThrow(dioException);
 
       // Act
       final result = await remoteDataSource.uploadProfilePhoto(mockFile);
@@ -527,8 +572,9 @@ void main() {
         type: DioExceptionType.badResponse,
       );
 
-      when(mockProfileApiService.uploadProfilePhoto(any))
-          .thenThrow(dioException);
+      when(
+        mockProfileApiService.uploadProfilePhoto(any),
+      ).thenThrow(dioException);
 
       // Act
       final result = await remoteDataSource.uploadProfilePhoto(mockFile);
@@ -546,8 +592,9 @@ void main() {
         message: 'No internet connection',
       );
 
-      when(mockProfileApiService.uploadProfilePhoto(any))
-          .thenThrow(dioException);
+      when(
+        mockProfileApiService.uploadProfilePhoto(any),
+      ).thenThrow(dioException);
 
       // Act
       final result = await remoteDataSource.uploadProfilePhoto(mockFile);
@@ -559,8 +606,9 @@ void main() {
 
     test('should return ApiErrorResult when file does not exist', () async {
       // Arrange
-      when(mockProfileApiService.uploadProfilePhoto(any))
-          .thenThrow(FileSystemException('File not found'));
+      when(
+        mockProfileApiService.uploadProfilePhoto(any),
+      ).thenThrow(FileSystemException('File not found'));
 
       // Act
       final result = await remoteDataSource.uploadProfilePhoto(mockFile);
@@ -572,11 +620,11 @@ void main() {
   });
 
   group('ProfileRemoteDataSourceImpl - Edge Cases', () {
-    test('getLoggedDriverData should handle null driver data gracefully', () async {
+    test('getLoggedDriverData should handle empty driver data gracefully', () async {
       // Arrange
       final mockDto = DriverProfileResponseDto(
         message: 'No driver data',
-        driver: null,
+        driver: DriverDto(), // Empty DTO
       );
 
       when(mockProfileApiService.getLoggedDriverData())
@@ -585,35 +633,37 @@ void main() {
       // Act
       final result = await remoteDataSource.getLoggedDriverData();
 
-      // Assert
+      // Assert - Expect empty entity, not null
       expect(result, isA<ApiSuccessResult<DriverProfileResponseEntity>>());
       final successResult = result as ApiSuccessResult<DriverProfileResponseEntity>;
-      expect(successResult.data.driver, isNull);
+      expect(successResult.data.driver, isA<DriverEntity>());
+      // Add assertions for empty properties
+      expect(successResult.data.driver.id, '');
     });
 
     test('editProfile should handle empty response data', () async {
       // Arrange
-      final mockDto = EditProfileResponseDto(
-        message: '',
-        driver: null,
-      );
+      final mockDto = EditProfileResponseDto(message: '', driver: null);
 
       final requestEntity = EditProfileRequestEntity(
         firstName: 'Test',
         lastName: 'User',
         email: 'test@example.com',
         phone: '+1234567890',
+        gender: '',
       );
 
-      when(mockProfileApiService.editProfile(any))
-          .thenAnswer((_) async => mockDto);
+      when(
+        mockProfileApiService.editProfile(any),
+      ).thenAnswer((_) async => mockDto);
 
       // Act
       final result = await remoteDataSource.editProfile(requestEntity);
 
       // Assert
       expect(result, isA<ApiSuccessResult<EditProfileResponseEntity>>());
-      final successResult = result as ApiSuccessResult<EditProfileResponseEntity>;
+      final successResult =
+          result as ApiSuccessResult<EditProfileResponseEntity>;
       expect(successResult.data.message, isEmpty);
     });
   });

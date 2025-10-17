@@ -1,9 +1,9 @@
 class UploadPhotoResponseEntity {
   UploadPhotoResponseEntity ({
-    this.message,
+    required this.message,
   });
 
-  final String? message;
+  final String message;
 }
 
 

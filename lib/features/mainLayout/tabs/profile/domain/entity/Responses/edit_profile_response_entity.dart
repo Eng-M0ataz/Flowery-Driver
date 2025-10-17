@@ -2,12 +2,12 @@ import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entity/
 
 class EditProfileResponseEntity {
   EditProfileResponseEntity ({
-    this.message,
-    this.driver,
+    required this.message,
+    required this.driver,
   });
 
-  final String? message;
-  final EditDriverEntity? driver;
+  final String message;
+  final EditDriverEntity driver;
 }
 
 

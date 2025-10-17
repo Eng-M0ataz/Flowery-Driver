@@ -24,11 +24,11 @@ void main() {
   setUpAll(() {
     // Provide dummy values for ApiResult types
     provideDummy<ApiResult<DriverProfileResponseEntity>>(
-      ApiSuccessResult(data: DriverProfileResponseEntity(driver: null)),
+      ApiSuccessResult(data: DriverProfileResponseEntity(driver: DriverEntity(role: '', id: '', country: '', firstName: '', lastName: '', vehicleType: '', vehicleNumber: '', vehicleLicense: '', nID: '', nIDImg: '', email: '', gender: '', phone: '', photo: '', createdAt: ''), message: '')),
     );
     provideDummy<ApiResult<EditProfileResponseEntity>>(
-      ApiSuccessResult(data: EditProfileResponseEntity(message: '', driver: null)),
-    );
+      ApiSuccessResult(data: EditProfileResponseEntity(message: '', driver: EditDriverEntity(role: '', id: '', country: '', firstName: '', lastName: '', vehicleType: '', vehicleNumber: '', vehicleLicense: '', nID: '', nIDImg: '', email: '', gender: '', phone: '', photo: '', createdAt: '', password: '')),
+    ));
     provideDummy<ApiResult<UploadPhotoResponseEntity>>(
       ApiSuccessResult(data: UploadPhotoResponseEntity(message: '')),
     );
@@ -46,13 +46,13 @@ void main() {
       // Arrange
       final driverEntity = DriverProfileResponseEntity(
         driver: DriverEntity(
-          Id: '1',
+          id: '1',
           firstName: 'John',
           lastName: 'Doe',
           email: 'john@example.com',
           phone: '+1234567890',
-          photo: 'https://example.com/photo.jpg',
-        ),
+          photo: 'https://example.com/photo.jpg', role: '', country: '', vehicleType: '', vehicleNumber: '', vehicleLicense: '', nID: '', nIDImg: '', gender: '', createdAt: '',
+        ), message: '',
       );
       final successResult = ApiSuccessResult<DriverProfileResponseEntity>(data: driverEntity);
 
@@ -95,17 +95,17 @@ void main() {
         firstName: 'John',
         lastName: 'Doe',
         email: 'john@example.com',
-        phone: '+1234567890',
+        phone: '+1234567890', gender: '',
       );
       final responseEntity = EditProfileResponseEntity(
         message: 'Profile updated successfully',
         driver: EditDriverEntity(
-          Id: '1',
+          id: '1',
           firstName: 'John',
           lastName: 'Doe',
           email: 'john@example.com',
           phone: '+1234567890',
-          photo: null,
+          photo: '', role: '', country: '', vehicleType: '', vehicleNumber: '', vehicleLicense: '', nID: '', nIDImg: '', password: '', gender: '', createdAt: '',
         ),
       );
       final successResult = ApiSuccessResult<EditProfileResponseEntity>(data: responseEntity);
@@ -129,7 +129,7 @@ void main() {
         firstName: 'John',
         lastName: 'Doe',
         email: 'john@example.com',
-        phone: '+1234567890',
+        phone: '+1234567890', gender: '',
       );
       final failure = Failure(errorMessage: 'Network error');
       final errorResult = ApiErrorResult<EditProfileResponseEntity>(failure: failure);

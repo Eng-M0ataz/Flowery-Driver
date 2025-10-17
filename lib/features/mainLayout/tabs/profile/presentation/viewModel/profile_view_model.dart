@@ -60,7 +60,7 @@ class ProfileViewModel extends Cubit<ProfileState> {
       case ApiSuccessResult<DriverProfileResponseEntity>():
         final response = result.data;
         _onDriverDataLoaded(response);
-        await getVehicle(response.driver!.vehicleType!);
+        await getVehicle(response.driver.vehicleType);
         emit(
           state.copyWith(
             isLoading: false,
@@ -97,11 +97,11 @@ class ProfileViewModel extends Cubit<ProfileState> {
   }
 
   void _onDriverDataLoaded(DriverProfileResponseEntity response) {
-    firstNameController.text = response.driver?.firstName ?? '';
-    lastNameController.text = response.driver?.lastName ?? '';
-    emailController.text = response.driver?.email ?? '';
-    phoneNumberController.text = response.driver?.phone ?? '';
-    initialImage = response.driver?.photo;
+    firstNameController.text = response.driver.firstName;
+    lastNameController.text = response.driver.lastName;
+    emailController.text = response.driver.email;
+    phoneNumberController.text = response.driver.phone;
+    initialImage = response.driver.photo;
   }
 
   Future<void> _updateProfileWithOptionalImage() async {
@@ -112,7 +112,6 @@ class ProfileViewModel extends Cubit<ProfileState> {
     try {
       final uploadSuccess = await _handleImageUploadIfNeeded();
       if (!uploadSuccess) return;
-
       await _updateProfileData();
     } catch (e) {
       emit(state.copyWith(isLoading: false, failure: null, editSuccess: false));
@@ -146,7 +145,7 @@ class ProfileViewModel extends Cubit<ProfileState> {
       email: emailController.text.trim(),
       phone: phoneNumberController.text
           .replaceAll(RegExp(r'[^\d+]'), '')
-          .trim(),
+          .trim(), gender: '',
     );
 
     final result = await _editProfileUseCase.call(request);

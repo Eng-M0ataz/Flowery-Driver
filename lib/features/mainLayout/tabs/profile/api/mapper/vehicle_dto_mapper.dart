@@ -4,11 +4,11 @@ import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entity/
 extension VehicleDtoMapper on VehicleDto{
   VehicleEntity toEntity(){
     return VehicleEntity(
-      createdAt: createdAt,
-      Id: Id,
-      image: image,
-      type: type,
-      updatedAt: updatedAt,
+      createdAt: createdAt ?? '',
+      id: id ?? '',
+      image: image ?? '',
+      type: type ?? '',
+      updatedAt: updatedAt ?? '',
     );
   }
 }

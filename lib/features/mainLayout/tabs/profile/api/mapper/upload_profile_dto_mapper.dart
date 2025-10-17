@@ -4,7 +4,7 @@ import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entity/
 extension UploadProfileDtoMapper on UploadPhotoResponseDto{
   UploadPhotoResponseEntity toEntity(){
     return UploadPhotoResponseEntity(
-      message: message
+      message: message ?? ''
     );
   }
 }
