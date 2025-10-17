@@ -130,7 +130,7 @@ void main() {
 
 class _FakeRealTimeDB implements RealTimeDataBaseService {
   @override
-  Future<void> create(String path, Map<String, dynamic> data) async {}
+  Future<void> create(String path, dynamic data) async {}
 
   @override
   Future<void> delete(String path) async {}
@@ -143,4 +143,7 @@ class _FakeRealTimeDB implements RealTimeDataBaseService {
 
   @override
   Future<void> update(String path, Map<String, dynamic> data) async {}
+
+  @override
+  Future<void> pushToList(String path, dynamic datata) async {}
 }

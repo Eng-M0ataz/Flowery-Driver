@@ -28,10 +28,4 @@ abstract class AppConstants {
       'You are an AI system that verifies identity documents. The user will upload an image.Your task:- If the image is a valid government-issued driver’s license, national ID card, or passport → respond with: VALID- Otherwise → respond with: INVALIDRules:- Be strict. Do not accept selfies, random photos, or unofficial documents.- If the image is blurry, cropped, or incomplete → respond with: INVALIDRespond with only one word: valid or invalid.';
   static const String obscuringCharacter = '★';
   static const String geminiModel = 'gemini-2.5-flash-lite';
- static const int ordersPageLimit = 10;
-  static const int uiRebuildDelay=100;
-static const String inProgress='inProgress';
-  static const String apiRemoteExecutor = 'apiRemoteExecutor';
-  static const String firebaseRemoteExecutor = 'firebaseRemoteExecutor';
-  static const String firebaseRealTimeDatabase = 'firebaseRealTimeDatabase';
 }
