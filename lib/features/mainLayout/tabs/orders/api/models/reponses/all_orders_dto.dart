@@ -12,7 +12,7 @@ class AllOrdersDto {
   }
 
   AllOrdersDto ({
-    this.Id,
+    this.id,
     this.driver,
     this.order,
     this.createdAt,
@@ -20,7 +20,7 @@ class AllOrdersDto {
     this.store,
   });
   @JsonKey(name: '_id')
-  final String? Id;
+  final String? id;
   @JsonKey(name: 'driver')
   final String? driver;
   @JsonKey(name: 'order')

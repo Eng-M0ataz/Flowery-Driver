@@ -1,8 +1,8 @@
+import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/response/product_data_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flowery_tracking/core/errors/api_results.dart';
 import 'package:flowery_tracking/core/errors/failure.dart';
-import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/reponses/product_data_entity.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/repositories/orders_repo.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/useCases/get_product_use_case.dart';
 
@@ -19,7 +19,7 @@ class MockOrdersRepo extends Mock implements OrdersRepo {
               slug: 'default',
               imgCover: '',
               description: '',
-              Id: 'default',
+              id: 'default',
               price: 0,
             ),
           ),
@@ -31,7 +31,7 @@ class MockOrdersRepo extends Mock implements OrdersRepo {
               slug: 'default',
               imgCover: '',
               description: '',
-              Id: 'default',
+              id: 'default',
               price: 0,
             ),
           ),
@@ -51,7 +51,7 @@ void main() {
         slug: 'test-product',
         imgCover: 'test.png',
         description: 'Test Description',
-        Id: '123',
+        id: '123',
         price: 12,
       ),
     );
@@ -84,7 +84,7 @@ void main() {
         expect(successResult.data.product!.slug, expectedEntity.product!.slug);
         expect(successResult.data.product!.imgCover, expectedEntity.product!.imgCover);
         expect(successResult.data.product!.description, expectedEntity.product!.description);
-        expect(successResult.data.product!.Id, expectedEntity.product!.Id);
+        expect(successResult.data.product!.id, expectedEntity.product!.id);
         expect(successResult.data.product!.price, expectedEntity.product!.price);
 
         verify(mockOrdersRepo.getProduct(productId));
@@ -241,7 +241,7 @@ void main() {
             slug: 'minimal',
             imgCover: '',
             description: '',
-            Id: 'minimal_123',
+            id: 'minimal_123',
             price: 0,
           ),
         );

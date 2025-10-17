@@ -1,11 +1,11 @@
+import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/response/driver_orders_response_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/response/meta_data_entity.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/useCases/driver_orders_use_case.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flowery_tracking/core/errors/api_results.dart';
 import 'package:flowery_tracking/core/errors/failure.dart';
-import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/reponses/driver_orders_response_entity.dart';
-import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/reponses/meta_data_entity.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/repositories/orders_repo.dart';
 import 'driver_orders_use_case_test.mocks.dart';
 

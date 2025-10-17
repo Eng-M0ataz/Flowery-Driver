@@ -9,7 +9,7 @@ class OrderDto {
 
 
   OrderDto ({
-    this.Id,
+    this.id,
     this.user,
     this.orderItems,
     this.totalPrice,
@@ -26,7 +26,7 @@ class OrderDto {
     return _$OrderDtoFromJson(json);
   }
   @JsonKey(name: '_id')
-  final String? Id;
+  final String? id;
   @JsonKey(name: 'user')
   final UserDto? user;
   @JsonKey(name: 'orderItems')

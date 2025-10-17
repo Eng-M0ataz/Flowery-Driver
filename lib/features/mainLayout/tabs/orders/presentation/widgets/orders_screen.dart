@@ -33,10 +33,9 @@ class _OrdersState extends State<Orders> {
   Widget build(BuildContext context) {
     return BlocBuilder<OrdersViewModel, OrdersStates>(
       builder: (context, state) {
-        if(state.isLoading){
+        if (state.isLoading) {
           return const Center(child: CircularProgressIndicator());
-        }
-        else if(state.failure != null){
+        } else if (state.failure != null) {
           return Center(child: Text(state.failure!.errorMessage));
         }
         return Scaffold(
@@ -65,65 +64,20 @@ class _OrdersState extends State<Orders> {
                           onTap: () {
                             context.pushNamed(
                               AppRoutes.orderDetailsRoute,
-                              arguments: state.driverOrdersResponseEntity!.orders![index],
+                              arguments: state.driverOrdersResponseEntity!.orders[index],
                             );
                           },
-                          orderNumber:
-                              state
-                                  .driverOrdersResponseEntity!
-                                  .orders![index]
-                                  .order!
-                                  .orderNumber ??
-                              '',
-                          status:
-                              state
-                                  .driverOrdersResponseEntity!
-                                  .orders![index]
-                                  .order!
-                                  .state ??
-                              '',
-                          storeAddress:
-                              state
-                                  .driverOrdersResponseEntity!
-                                  .orders![index]
-                                  .store!
-                                  .address ??
-                              '',
-                          storeImage:
-                              state
-                                  .driverOrdersResponseEntity!
-                                  .orders![index]
-                                  .store!
-                                  .image ??
-                              '',
-                          storeName:
-                              state
-                                  .driverOrdersResponseEntity!
-                                  .orders![index]
-                                  .store!
-                                  .name ??
-                              '',
-                          userAddress:
-                              LocaleKeys.userAddress.tr(),
-                          userImage:
-                          state
-                              .driverOrdersResponseEntity!
-                              .orders![index]
-                              .store!
-                              .image ??
-                              '',
-                          userName:
-                              state
-                                  .driverOrdersResponseEntity!
-                                  .orders![index]
-                                  .order!
-                                  .user!
-                                  .firstName ??
-                              '',
+                          orderNumber: state.driverOrdersResponseEntity!.orders[index].order.orderNumber,
+                          status: state.driverOrdersResponseEntity!.orders[index].order.state,
+                          storeAddress: state.driverOrdersResponseEntity!.orders[index].store.address,
+                          storeImage: state.driverOrdersResponseEntity!.orders[index].store.image,
+                          storeName: state.driverOrdersResponseEntity!.orders[index].store.name,
+                          userAddress: LocaleKeys.userAddress.tr(),
+                          userImage: state.driverOrdersResponseEntity!.orders[index].store.image,
+                          userName: '${state.driverOrdersResponseEntity!.orders[index].order.user.firstName} ${state.driverOrdersResponseEntity!.orders[index].order.user.lastName}',
                         );
                       },
-                      itemCount:
-                          state.driverOrdersResponseEntity!.orders!.length,
+                      itemCount: state.driverOrdersResponseEntity!.orders.length,
                     ),
                   ),
               ],

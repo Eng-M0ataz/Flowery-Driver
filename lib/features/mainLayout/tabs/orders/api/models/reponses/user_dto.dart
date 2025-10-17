@@ -6,7 +6,7 @@ part 'user_dto.g.dart';
 class UserDto {
 
   UserDto ({
-    this.Id,
+    this.id,
     this.firstName,
     this.lastName,
     this.email,
@@ -20,7 +20,7 @@ class UserDto {
     return _$UserDtoFromJson(json);
   }
   @JsonKey(name: '_id')
-  final String? Id;
+  final String? id;
   @JsonKey(name: 'firstName')
   final String? firstName;
   @JsonKey(name: 'lastName')

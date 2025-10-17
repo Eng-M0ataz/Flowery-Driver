@@ -27,7 +27,7 @@ class ProductDataDto {
 class ProductItemDto {
 
   ProductItemDto ({
-    this.Id,
+    this.id,
     this.title,
     this.slug,
     this.description,
@@ -39,7 +39,7 @@ class ProductItemDto {
     return _$ProductItemDtoFromJson(json);
   }
   @JsonKey(name: '_id')
-  final String? Id;
+  final String? id;
   @JsonKey(name: 'title')
   final String? title;
   @JsonKey(name: 'slug')

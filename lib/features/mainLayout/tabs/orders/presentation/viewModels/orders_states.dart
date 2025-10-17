@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flowery_tracking/core/errors/failure.dart';
-import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/reponses/driver_orders_response_entity.dart';
-import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/reponses/product_data_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/response/driver_orders_response_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/response/product_data_entity.dart';
 
 
 class OrdersStates extends Equatable {

@@ -3,7 +3,9 @@ import 'package:flowery_tracking/features/mainLayout/tabs/orders/api/dataSource/
 import 'package:flowery_tracking/features/mainLayout/tabs/orders/api/models/reponses/meta_data_dto.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/orders/api/models/reponses/product_data_dto.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/orders/api/models/reponses/product_dto.dart';
-import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/reponses/meta_data_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/response/driver_orders_response_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/response/meta_data_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/response/product_data_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -11,8 +13,6 @@ import 'package:flowery_tracking/core/errors/api_results.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/orders/api/client/orders_api_service.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/orders/api/models/reponses/driver_orders_response_dto.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/orders/data/dataSources/orders_remote_data_source.dart';
-import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/reponses/driver_orders_response_entity.dart';
-import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/reponses/product_data_entity.dart';
 
 import 'orders_remote_data_source_impl_test.mocks.dart';
 
@@ -56,7 +56,7 @@ void main() {
      message: 'Success',
       product: ProductItemDto(
         price: 22,
-        Id: '1232',
+        id: '1232',
         description: 'test',
         imgCover: 'test.png',
         slug: 'test',
@@ -70,7 +70,7 @@ void main() {
         message: 'Success',
         product: ProductItemEntity(
           price: 22,
-          Id: '1232',
+          id: '1232',
           description: 'test',
           imgCover: 'test.png',
           slug: 'test',
@@ -155,7 +155,7 @@ void main() {
       final successResult = result as ApiSuccessResult<ProductDataEntity>;
 
       // Compare individual properties of the ProductItemEntity
-      expect(successResult.data.product!.Id, expectedEntity.product!.Id);
+      expect(successResult.data.product!.id, expectedEntity.product!.id);
       expect(successResult.data.product!.title, expectedEntity.product!.title);
       expect(successResult.data.product!.description, expectedEntity.product!.description);
       // Add any other properties your ProductItemEntity has
@@ -232,10 +232,10 @@ void main() {
       final successResult = result as ApiSuccessResult<DriverOrdersResponseEntity>;
       expect(successResult.data.orders, isEmpty);
       expect(successResult.data.message, '');
-      expect(successResult.data.metadata!.currentPage, 1);
-      expect(successResult.data.metadata!.limit, 10);
-      expect(successResult.data.metadata!.totalItems, 0);
-      expect(successResult.data.metadata!.totalPages, 0);
+      expect(successResult.data.metadata.currentPage, 1);
+      expect(successResult.data.metadata.limit, 10);
+      expect(successResult.data.metadata.totalItems, 0);
+      expect(successResult.data.metadata.totalPages, 0);
     });
 
   });

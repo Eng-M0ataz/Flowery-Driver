@@ -5,8 +5,8 @@ import 'package:flowery_tracking/features/mainLayout/tabs/orders/api/mapper/driv
 import 'package:flowery_tracking/features/mainLayout/tabs/orders/api/mapper/product_data_dto_mapper.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/orders/api/models/reponses/driver_orders_response_dto.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/orders/data/dataSources/orders_remote_data_source.dart';
-import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/reponses/driver_orders_response_entity.dart';
-import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/reponses/product_data_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/response/driver_orders_response_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/response/product_data_entity.dart';
 import 'package:injectable/injectable.dart';
 
 @Injectable(as: OrdersRemoteDataSource)

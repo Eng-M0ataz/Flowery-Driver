@@ -6,7 +6,7 @@ part 'product_dto.g.dart';
 class ProductDto {
 
   ProductDto ({
-    this.Id,
+    this.id,
     this.price,
   });
 
@@ -14,7 +14,7 @@ class ProductDto {
     return _$ProductDtoFromJson(json);
   }
   @JsonKey(name: '_id')
-  final String? Id;
+  final String? id;
   @JsonKey(name: 'price')
   final int? price;
 

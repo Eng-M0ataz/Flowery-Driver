@@ -1,12 +1,14 @@
-import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/reponses/all_orders_entity.dart';
-import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/reponses/order_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/response/all_orders_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/response/driver_orders_response_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/response/meta_data_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/response/order_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/response/product_data_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/response/store_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/response/user_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flowery_tracking/core/errors/api_results.dart';
 import 'package:flowery_tracking/core/errors/failure.dart';
-import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/reponses/driver_orders_response_entity.dart';
-import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/reponses/meta_data_entity.dart';
-import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/reponses/product_data_entity.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/useCases/driver_orders_use_case.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/useCases/get_product_use_case.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/orders/presentation/viewModels/orders_event.dart';
@@ -59,7 +61,7 @@ class MockGetProductUseCase extends Mock implements GetProductUseCase {
             slug: 'default',
             imgCover: '',
             description: '',
-            Id: 'default',
+            id: 'default',
             price: 0,
           ),
         ),
@@ -71,7 +73,7 @@ class MockGetProductUseCase extends Mock implements GetProductUseCase {
             slug: 'default',
             imgCover: '',
             description: '',
-            Id: 'default',
+            id: 'default',
             price: 0,
           ),
         ),
@@ -104,9 +106,23 @@ void main() {
 
   AllOrdersEntity createOrderEntity(String state, String id) {
     return AllOrdersEntity(
+      createdAt: '',
+      driver: '',
+      id: '',
+      store: StoreEntity(name: '', image: '', address: '', phoneNumber: '', latLong: ''),
+      updatedAt: '',
       order: OrderEntity(
+        updatedAt: '',
+        createdAt: '',
+        orderNumber: '',
+        isDelivered: false,
+        isPaid: false,
+        orderItems: [],
+        paymentType: '',
+        totalPrice: 0,
+        user: UserEntity(id: '', firstName: '', lastName: '', email: '', gender: '', phone: '', photo: '', passwordChangedAt: ''),
         state: state,
-        Id: id,
+        id: id,
       ),
     );
   }
@@ -118,7 +134,7 @@ void main() {
         slug: 'test-product',
         imgCover: 'test.png',
         description: 'Test Description',
-        Id: '123',
+        id: '123',
         price: 12,
       ),
     );
