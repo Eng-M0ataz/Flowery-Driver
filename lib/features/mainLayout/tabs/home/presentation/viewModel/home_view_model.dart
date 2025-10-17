@@ -1,8 +1,13 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flowery_tracking/core/errors/api_results.dart';
 import 'package:flowery_tracking/core/utils/constants/app_constants.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/home/api/models/request/order_details_request_model.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/entities/pending_order_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/entities/response/driver_response_entity.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/entities/response/pending_orders_response_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/useCases/create_order_use_case.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/useCases/get_driver_data_use_case.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/useCases/get_pending_orders_use_case.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/useCases/start_order_use_case.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/presentation/viewModel/home_event.dart';
@@ -12,17 +17,20 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class HomeViewModel extends Cubit<HomeState> {
-  HomeViewModel(this._getPendingOrdersUseCase, this._startOrderUseCase)
-    : super(HomeState());
+  HomeViewModel(
+    this._getPendingOrdersUseCase,
+    this._startOrderUseCase,
+    this._createOrderUseCase,
+    this._getDriverDataUseCase,
+  ) : super(HomeState());
   final GetPendingOrdersUseCase _getPendingOrdersUseCase;
   final StartOrderUseCase _startOrderUseCase;
+  final CreateOrderUseCase _createOrderUseCase;
+  final GetDriverDataUseCase _getDriverDataUseCase;
+
   final _uiEventsController = StreamController<HomeEvent>();
 
   Stream<HomeEvent> get uiEvents => _uiEventsController.stream;
-
-  void _emitUiEvent(HomeEvent event) {
-    _uiEventsController.add(event);
-  }
 
   @override
   Future<void> close() {
@@ -43,29 +51,77 @@ class HomeViewModel extends Cubit<HomeState> {
       case RefreshOrdersEvent():
         await _loadOrders(page: 1, isRefresh: true);
         break;
-      case NavigateToOrderDetailsUiEvent(args: final args):
-        _emitUiEvent(NavigateToOrderDetailsUiEvent(args));
-        break;
+
       case RejectOrderEvent():
         _rejectOrder(event.orderId);
         break;
       case StartOrderEvent():
-        await  _startOrder(event.orderId);
+        await _startOrder(event.orderId);
+        break;
+      case GetDriverDataEvent():
+        await _getDriverData();
+        break;
+      case CreateOrderEvent(
+        orderDetailsRequestModel: final orderDetailsRequestModel,
+        path: final path,
+      ):
+        await _createOrder(
+          orderDetailsRequestModel: orderDetailsRequestModel,
+          path: path,
+        );
         break;
     }
   }
 
+  Future<void> _createOrder({
+    required OrderDetailsRequestModel orderDetailsRequestModel,
+    required String path,
+  }) async {
+    final result = await _createOrderUseCase.invoke(
+      orderDetailsRequestModel: orderDetailsRequestModel,
+      path: path,
+    );
+    switch (result) {
+      case ApiSuccessResult<void>():
+        return;
+      case ApiErrorResult<void>():
+        emit(state.copyWith(createOrderFailure: result.failure));
+        log(result.failure.errorMessage);
+    }
+  }
+
+  Future<void> _getDriverData() async {
+    final result = await _getDriverDataUseCase.invoke();
+    switch (result) {
+      case ApiSuccessResult<DriverResponseEntity>():
+        emit(state.copyWith(driverData: result.data));
+
+      case ApiErrorResult<DriverResponseEntity>():
+        emit(state.copyWith(driverDataFailure: result.failure));
+    }
+  }
+
   Future<void> _startOrder(String orderId) async {
-    emit(state.copyWith(loadingProducts: {orderId: true},));
+    emit(state.copyWith(loadingProducts: {orderId: true}));
     final result = await _startOrderUseCase.invoke(orderId: orderId);
 
     switch (result) {
       case ApiSuccessResult():
-        emit(state.copyWith(loadingProducts: {orderId: false}, startOrderEntity: result.data));
+        emit(
+          state.copyWith(
+            loadingProducts: {orderId: false},
+            startOrderEntity: result.data,
+          ),
+        );
         break;
 
       case ApiErrorResult():
-        emit(state.copyWith(loadingProducts: {orderId: false}, failure: result.failure));
+        emit(
+          state.copyWith(
+            loadingProducts: {orderId: false},
+            startOrderFailure: result.failure,
+          ),
+        );
         break;
     }
   }

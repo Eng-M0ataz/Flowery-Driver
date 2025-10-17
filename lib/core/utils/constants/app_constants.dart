@@ -22,4 +22,7 @@ abstract class AppConstants {
  static const int ordersPageLimit = 10;
   static const int uiRebuildDelay=100;
 static const String inProgress='inProgress';
+  static const String apiRemoteExecutor = 'apiRemoteExecutor';
+  static const String firebaseRemoteExecutor = 'firebaseRemoteExecutor';
+  static const String firebaseRealTimeDatabase = 'firebaseRealTimeDatabase';
 }

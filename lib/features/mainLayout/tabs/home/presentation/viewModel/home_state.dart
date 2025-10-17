@@ -1,5 +1,6 @@
 import 'package:flowery_tracking/core/errors/failure.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/entities/pending_order_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/entities/response/driver_response_entity.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/entities/response/start_order_response_entity.dart';
 
 class HomeState {
@@ -13,6 +14,10 @@ class HomeState {
     this.orderRejected = false,
     this.startOrderEntity,
     this.loadingProducts = const {},
+    this.driverDataFailure,
+    this.driverData,
+    this.createOrderFailure,
+    this.startOrderFailure,
   });
 
   final bool isLoading;
@@ -24,6 +29,10 @@ class HomeState {
   final bool orderRejected;
   final Map<String, bool>? loadingProducts;
   final StartOrderResponseEntity? startOrderEntity;
+  final Failure? driverDataFailure;
+  final Failure? createOrderFailure;
+  final Failure? startOrderFailure;
+  final DriverResponseEntity? driverData;
 
   HomeState copyWith({
     StartOrderResponseEntity? startOrderEntity,
@@ -35,6 +44,10 @@ class HomeState {
     bool? isLoadingMore,
     bool? orderRejected,
     Map<String, bool>? loadingProducts,
+    Failure? driverDataFailure,
+    DriverResponseEntity? driverData,
+    Failure? createOrderFailure,
+    Failure? startOrderFailure,
   }) {
     return HomeState(
       startOrderEntity: startOrderEntity ?? this.startOrderEntity,
@@ -46,6 +59,10 @@ class HomeState {
       isLoadingMore: isLoadingMore ?? this.isLoadingMore,
       orderRejected: orderRejected ?? this.orderRejected,
       loadingProducts: loadingProducts ?? this.loadingProducts,
+      driverData: driverData ?? this.driverData,
+      driverDataFailure: driverDataFailure ?? this.driverDataFailure,
+      createOrderFailure: createOrderFailure ?? this.createOrderFailure,
+      startOrderFailure: startOrderFailure ?? this.startOrderFailure,
     );
   }
 }

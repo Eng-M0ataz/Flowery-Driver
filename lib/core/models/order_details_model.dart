@@ -28,12 +28,16 @@ class StoreInfo {
     required this.address,
     required this.imageUrl,
     required this.phone,
+    required this.lat,
+    required this.long,
   });
 
   final String name;
   final String address;
   final String imageUrl;
   final String phone;
+  final double lat;
+  final double long;
 }
 
 class UserInfo {
