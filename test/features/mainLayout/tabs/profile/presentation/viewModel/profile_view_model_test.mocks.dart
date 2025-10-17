@@ -15,10 +15,14 @@ import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entity/
     as _i8;
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entity/Responses/upload_photo_response_entity.dart'
     as _i11;
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entity/Responses/vehicle_response_entity.dart'
+    as _i14;
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/use_cases/edit_profile_use_case.dart'
     as _i7;
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/use_cases/get_logged_user_use_case.dart'
     as _i2;
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/use_cases/get_vehicle_use_case.dart'
+    as _i13;
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/use_cases/upload_photo_use_case.dart'
     as _i10;
 import 'package:mockito/mockito.dart' as _i1;
@@ -113,4 +117,29 @@ class MockUploadPhotoUseCase extends _i1.Mock
                 ),
           )
           as _i3.Future<_i4.ApiResult<_i11.UploadPhotoResponseEntity>>);
+}
+
+/// A class which mocks [GetVehicleUseCase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGetVehicleUseCase extends _i1.Mock implements _i13.GetVehicleUseCase {
+  MockGetVehicleUseCase() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.Future<_i4.ApiResult<_i14.VehicleResponseEntity>> call(
+    String? vehicleId,
+  ) =>
+      (super.noSuchMethod(
+            Invocation.method(#call, [vehicleId]),
+            returnValue:
+                _i3.Future<_i4.ApiResult<_i14.VehicleResponseEntity>>.value(
+                  _i6.dummyValue<_i4.ApiResult<_i14.VehicleResponseEntity>>(
+                    this,
+                    Invocation.method(#call, [vehicleId]),
+                  ),
+                ),
+          )
+          as _i3.Future<_i4.ApiResult<_i14.VehicleResponseEntity>>);
 }

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flowery_tracking/core/errors/failure.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entity/Responses/driver_response_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/use_cases/get_vehicle_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -52,9 +53,11 @@ class _MockFormState extends FormState {
   GetLoggedUserUseCase,
   EditProfileUseCase,
   UploadPhotoUseCase,
+  GetVehicleUseCase
 ])
 void main() {
   late ProfileViewModel profileViewModel;
+  late MockGetVehicleUseCase mockGetVehicleUseCase;
   late MockGetLoggedUserUseCase mockGetLoggedUserUseCase;
   late MockEditProfileUseCase mockEditProfileUseCase;
   late MockUploadPhotoUseCase mockUploadPhotoUseCase;
@@ -64,15 +67,12 @@ void main() {
   });
 
   setUp(() {
+    mockGetVehicleUseCase = MockGetVehicleUseCase();
     mockGetLoggedUserUseCase = MockGetLoggedUserUseCase();
     mockEditProfileUseCase = MockEditProfileUseCase();
     mockUploadPhotoUseCase = MockUploadPhotoUseCase();
 
-    profileViewModel = ProfileViewModel(
-      mockGetLoggedUserUseCase,
-      mockEditProfileUseCase,
-      mockUploadPhotoUseCase,
-    );
+    profileViewModel = ProfileViewModel(mockGetVehicleUseCase,mockGetLoggedUserUseCase,mockEditProfileUseCase,mockUploadPhotoUseCase);
   });
 
   tearDown(() {
