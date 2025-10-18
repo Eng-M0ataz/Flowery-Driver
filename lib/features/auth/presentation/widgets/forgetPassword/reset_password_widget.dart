@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flowery_tracking/core/Functions/validators.dart';
-import 'package:flowery_tracking/core/Widgets/custom_elevated_button.dart';
 import 'package:flowery_tracking/core/functions/custom_password_text_form_field.dart';
+import 'package:flowery_tracking/core/functions/validators.dart';
 import 'package:flowery_tracking/core/localization/locale_keys.g.dart';
 import 'package:flowery_tracking/core/utils/constants/sizes.dart';
+import 'package:flowery_tracking/core/widgets/custom_elevated_button.dart';
 import 'package:flowery_tracking/features/auth/presentation/viewModel/forgetPassword/forget_password_event.dart';
 import 'package:flowery_tracking/features/auth/presentation/viewModel/forgetPassword/forget_password_states.dart';
 import 'package:flowery_tracking/features/auth/presentation/viewModel/forgetPassword/forget_password_view_model.dart';
@@ -46,7 +46,6 @@ class ResetPasswordWidget extends StatelessWidget {
                   hint: LocaleKeys.confirmPassword.tr(),
                   label: LocaleKeys.confirmPassword.tr(),
                 ),
-
                 const SizedBox(height: AppSizes.spaceBetweenItems_48),
                 BlocBuilder<ForgetPasswordViewModel, ForgetPasswordState>(
                   builder: (context, state) {

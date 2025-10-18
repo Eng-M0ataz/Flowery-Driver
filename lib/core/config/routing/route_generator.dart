@@ -5,6 +5,9 @@ import 'package:flowery_tracking/features/auth/presentation/widgets/apply_succes
 import 'package:flowery_tracking/features/mainLayout/main_layout.dart';
 import 'package:flowery_tracking/features/auth/presentation/pages/sign_up_screen.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/presentation/pages/home_screen.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/orders/presentation/pages/orders_screen.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/pages/edit_profile_screen.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/pages/profile_screen.dart';
 import 'package:flowery_tracking/features/orderDetails/presentation/pages/order_details_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -15,12 +18,18 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => ForgetPasswordScreen());
       case AppRoutes.mainLayoutRoute:
         return MaterialPageRoute(builder: (_) => const MainLayout());
+      case AppRoutes.homeRoute:
+        return MaterialPageRoute(builder: (_) => const HomeScreen());
+      case AppRoutes.ordersRoute:
+        return MaterialPageRoute(builder: (_) => const OrdersScreen());
+      case AppRoutes.profileRoute:
+        return MaterialPageRoute(builder: (_) => const ProfileScreen());
+      case AppRoutes.editProfileRoute:
+        return MaterialPageRoute(builder: (_) =>  EditProfileScreen());
       case AppRoutes.applySuccessRoute:
         return MaterialPageRoute(builder: (_) => const ApplySuccessScreen());
       case AppRoutes.signUpRoute:
         return MaterialPageRoute(builder: (context) => const SignUpScreen());
-      case AppRoutes.homeRoute:
-        return MaterialPageRoute(builder: (_) => const HomeScreen());
       case AppRoutes.orderDetailsRoute:
         final arg = settings.arguments as OrderDetailsModel;
         return MaterialPageRoute(

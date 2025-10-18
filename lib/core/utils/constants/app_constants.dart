@@ -9,6 +9,8 @@ abstract class AppConstants {
   static const String assetsPath = 'assets/translations';
   static const String token = 'token';
   static const String rememberMe = 'remember_me';
+  static const String passwordCharacters = '★★★★★★';
+  static const String gender = 'gender';
   static const int ordersPageLimit = 10;
   static const int uiRebuildDelay = 100;
   static const String inProgress = 'inProgress';
@@ -20,6 +22,8 @@ abstract class AppConstants {
   static const String orderCompleted = 'completed';
   static const String male = 'male';
   static const String female = 'female';
+  static const String femaleValue = 'Female';
+  static const int imageQuality = 80;
   static const String chatgpt = 'chatgpt';
   static const String gemini = 'gemini';
   static const String imageDataType = 'image/jpeg';
