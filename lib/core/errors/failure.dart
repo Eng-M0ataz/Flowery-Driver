@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
 
 class Failure {
   Failure({required this.errorMessage, this.code = 'No Status Code Found'});
@@ -61,6 +62,30 @@ class ServerFailure extends Failure {
           errorMessage: response.data['message'] ?? response.data['error'],
           code: response.data['code'].toString(),
         );
+    }
+  }
+}
+
+class SecureStorageFailure extends Failure {
+  SecureStorageFailure({required super.errorMessage, super.code});
+
+  factory SecureStorageFailure.fromException(dynamic exception) {
+    if (exception is PlatformException) {
+      return SecureStorageFailure(
+        errorMessage: exception.message ?? 'Secure Storage operation failed.',
+        code: exception.code,
+      );
+    } else if (exception is ArgumentError) {
+      return SecureStorageFailure(
+        errorMessage: 'Invalid key or value provided.',
+        code: 'argument_error',
+      );
+    } else {
+      return SecureStorageFailure(
+        errorMessage:
+        'Unexpected error occurred while accessing Secure Storage.',
+        code: 'unknown_error',
+      );
     }
   }
 }

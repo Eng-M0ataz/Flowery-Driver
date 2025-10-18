@@ -1,5 +1,5 @@
 import 'package:flowery_tracking/core/utils/constants/api_constants.dart';
-import 'package:flowery_tracking/features/mainLayout/profile/logout/api/models/response/logout_response_dto.dart';
+import 'package:flowery_tracking/features/logout/api/models/response/logout_response_dto.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/http.dart';
 import 'package:dio/dio.dart';
