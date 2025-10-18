@@ -4,6 +4,8 @@ import 'package:flowery_tracking/core/errors/failure.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/entities/pending_order_entity.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/entities/response/pending_orders_response_entity.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/entities/response/start_order_response_entity.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/useCases/create_order_use_case.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/useCases/get_driver_data_use_case.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/useCases/get_pending_orders_use_case.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/useCases/start_order_use_case.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/presentation/viewModel/home_event.dart';
@@ -15,10 +17,17 @@ import 'package:mockito/mockito.dart';
 
 import 'home_view_model_test.mocks.dart';
 
-@GenerateMocks([GetPendingOrdersUseCase, StartOrderUseCase])
+@GenerateMocks([
+  GetPendingOrdersUseCase,
+  StartOrderUseCase,
+  CreateOrderUseCase,
+  GetDriverDataUseCase,
+])
 void main() {
   late MockGetPendingOrdersUseCase mockGetPendingOrdersUseCase;
   late MockStartOrderUseCase mockStartOrderUseCase;
+  late MockCreateOrderUseCase mockCreateOrderUseCase;
+  late MockGetDriverDataUseCase mockGetDriverDataUseCase;
 
   const expectedLimit = 10;
 
@@ -44,6 +53,8 @@ void main() {
   setUp(() {
     mockGetPendingOrdersUseCase = MockGetPendingOrdersUseCase();
     mockStartOrderUseCase = MockStartOrderUseCase();
+    mockCreateOrderUseCase = MockCreateOrderUseCase();
+    mockGetDriverDataUseCase = MockGetDriverDataUseCase();
   });
 
   group('HomeViewModel Tests', () {
@@ -56,6 +67,8 @@ void main() {
         return HomeViewModel(
           mockGetPendingOrdersUseCase,
           mockStartOrderUseCase,
+          mockCreateOrderUseCase,
+          mockGetDriverDataUseCase,
         );
       },
       act: (bloc) => bloc.doIntend(LoadInitialOrdersEvent()),
@@ -82,6 +95,8 @@ void main() {
         return HomeViewModel(
           mockGetPendingOrdersUseCase,
           mockStartOrderUseCase,
+          mockCreateOrderUseCase,
+          mockGetDriverDataUseCase,
         );
       },
       act: (bloc) => bloc.doIntend(LoadInitialOrdersEvent()),
@@ -89,7 +104,11 @@ void main() {
         isA<HomeState>().having((s) => s.isLoading, 'isLoading', true),
         isA<HomeState>()
             .having((s) => s.isLoading, 'isLoading', false)
-            .having((s) => s.failure?.errorMessage, 'error message', 'Server Error'),
+            .having(
+              (s) => s.failure?.errorMessage,
+              'error message',
+              'Server Error',
+            ),
       ],
     );
 
@@ -100,6 +119,8 @@ void main() {
         return HomeViewModel(
           mockGetPendingOrdersUseCase,
           mockStartOrderUseCase,
+          mockCreateOrderUseCase,
+          mockGetDriverDataUseCase,
         );
       },
       act: (bloc) => bloc.doIntend(RejectOrderEvent('1')),
@@ -117,22 +138,40 @@ void main() {
     blocTest<HomeViewModel, HomeState>(
       'emits [loadingProducts true → false + success entity] when StartOrderEvent succeeds',
       build: () {
-        when(
-          mockStartOrderUseCase.invoke(orderId: '1'),
-        ).thenAnswer((_) async => ApiSuccessResult(data: dummyStartOrderResponse));
+        when(mockStartOrderUseCase.invoke(orderId: '1')).thenAnswer(
+          (_) async => ApiSuccessResult(data: dummyStartOrderResponse),
+        );
 
         return HomeViewModel(
           mockGetPendingOrdersUseCase,
           mockStartOrderUseCase,
+          mockCreateOrderUseCase,
+          mockGetDriverDataUseCase,
         );
       },
       act: (bloc) => bloc.doIntend(StartOrderEvent(orderId: '1')),
       expect: () => [
-        isA<HomeState>().having((s) => s.loadingProducts?['1'], 'loadingProducts["1"]', true),
+        isA<HomeState>().having(
+          (s) => s.loadingProducts?['1'],
+          'loadingProducts["1"]',
+          true,
+        ),
         isA<HomeState>()
-            .having((s) => s.loadingProducts?['1'], 'loadingProducts["1"]', false)
-            .having((s) => s.startOrderEntity?.message, 'message', 'Order started successfully')
-            .having((s) => s.startOrderEntity?.updatedAt, 'updatedAt', '2025-10-08T22:15:38.753Z'),
+            .having(
+              (s) => s.loadingProducts?['1'],
+              'loadingProducts["1"]',
+              false,
+            )
+            .having(
+              (s) => s.startOrderEntity?.message,
+              'message',
+              'Order started successfully',
+            )
+            .having(
+              (s) => s.startOrderEntity?.updatedAt,
+              'updatedAt',
+              '2025-10-08T22:15:38.753Z',
+            ),
       ],
       verify: (_) {
         verify(mockStartOrderUseCase.invoke(orderId: '1')).called(1);
@@ -149,14 +188,28 @@ void main() {
         return HomeViewModel(
           mockGetPendingOrdersUseCase,
           mockStartOrderUseCase,
+          mockCreateOrderUseCase,
+          mockGetDriverDataUseCase,
         );
       },
       act: (bloc) => bloc.doIntend(StartOrderEvent(orderId: '1')),
       expect: () => [
-        isA<HomeState>().having((s) => s.loadingProducts?['1'], 'loadingProducts["1"]', true),
+        isA<HomeState>().having(
+          (s) => s.loadingProducts?['1'],
+          'loadingProducts["1"]',
+          true,
+        ),
         isA<HomeState>()
-            .having((s) => s.loadingProducts?['1'], 'loadingProducts["1"]', false)
-            .having((s) => s.failure?.errorMessage, 'error message', 'Server Error'),
+            .having(
+              (s) => s.loadingProducts?['1'],
+              'loadingProducts["1"]',
+              false,
+            )
+            .having(
+              (s) => s.startOrderFailure?.errorMessage,
+              'error message',
+              'Server Error',
+            ),
       ],
     );
   });

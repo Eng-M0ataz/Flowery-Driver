@@ -5,11 +5,24 @@ import 'package:flowery_tracking/features/mainLayout/tabs/home/domain/entities/p
 
 extension PendingStoreDtoMapper on PendingStoreDto {
   PendingStoreEntity toEntity() {
+    double? lat;
+    double? lng;
+
+    if (latLong != null && latLong!.isNotEmpty) {
+      final parts = latLong!.split(',');
+      if (parts.length == 2) {
+        lat = double.tryParse(parts[0].trim());
+        lng = double.tryParse(parts[1].trim());
+      }
+    }
+
     return PendingStoreEntity(
       name: name ?? LocaleKeys.unknown_user.tr(),
       address: address ?? LocaleKeys.unknown_address.tr(),
       image: image ?? '',
-      phone: phoneNumber??'',
+      phone: phoneNumber ?? '',
+      lat: lat,
+      long: lng,
     );
   }
 }

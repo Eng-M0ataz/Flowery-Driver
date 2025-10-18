@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:flowery_tracking/core/classes/remote_executor.dart';
 import 'package:flowery_tracking/core/errors/api_results.dart';
+import 'package:flowery_tracking/core/services/real_time_database_service.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/api/client/home_api_service.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/api/dataSources/home_remote_data_source_impl.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/api/mappers/pending_orders_response_dto_mapper.dart';
@@ -15,10 +17,21 @@ import 'home_remote_data_source_impl_test.mocks.dart';
 void main() {
   late HomeRemoteDataSourceImpl dataSource;
   late MockHomeApiService mockApiService;
+  late RealTimeDataBaseService fakeRealTimeDb;
+  late FirebaseRemoteExecutor firebaseRemoteExecutor;
+  late ApiRemoteExecutor apiRemoteExecutor;
 
   setUp(() {
     mockApiService = MockHomeApiService();
-    dataSource = HomeRemoteDataSourceImpl(mockApiService);
+    fakeRealTimeDb = _FakeRealTimeDB();
+    firebaseRemoteExecutor = FirebaseRemoteExecutor();
+    apiRemoteExecutor = ApiRemoteExecutor();
+    dataSource = HomeRemoteDataSourceImpl(
+      mockApiService,
+      fakeRealTimeDb,
+      firebaseRemoteExecutor,
+      apiRemoteExecutor,
+    );
   });
 
   group('getPendingOrders', () {
@@ -113,4 +126,24 @@ void main() {
       },
     );
   });
+}
+
+class _FakeRealTimeDB implements RealTimeDataBaseService {
+  @override
+  Future<void> create(String path, dynamic data) async {}
+
+  @override
+  Future<void> delete(String path) async {}
+
+  @override
+  Stream<Map<String, dynamic>> listenData(String path) async* {}
+
+  @override
+  Future<Map<String, dynamic>?> read(String path) async => <String, dynamic>{};
+
+  @override
+  Future<void> update(String path, Map<String, dynamic> data) async {}
+
+  @override
+  Future<void> pushToList(String path, dynamic datata) async {}
 }
