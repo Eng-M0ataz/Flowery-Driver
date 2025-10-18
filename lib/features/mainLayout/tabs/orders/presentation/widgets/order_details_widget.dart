@@ -12,6 +12,7 @@ import 'package:flowery_tracking/features/mainLayout/tabs/orders/presentation/wi
 import 'package:flowery_tracking/features/mainLayout/tabs/orders/presentation/widgets/order_state_widget.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/orders/presentation/widgets/payment_data.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/orders/presentation/widgets/product_card.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/orders/presentation/widgets/product_item_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -80,7 +81,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                   return BlocBuilder<OrdersViewModel, OrdersStates>(
                     builder: (context, state) {
                       if (state.isLoading) {
-                        return const Center(child: CircularProgressIndicator());
+                        return const Expanded(child: ProductItemShimmer());
                       }
                       else if (state.failure != null) {
                         return Center(child: Text(state.failure!.errorMessage));
