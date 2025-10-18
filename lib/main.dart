@@ -59,7 +59,7 @@ class FloweryDirver extends StatelessWidget {
                 ).value,
                 child: child!,
               ),
-              initialRoute: AppRoutes.onboardingRoute,
+              initialRoute: initialRoute,
             ),
           );
         },

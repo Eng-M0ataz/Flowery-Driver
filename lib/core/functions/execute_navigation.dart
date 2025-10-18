@@ -6,9 +6,10 @@ import 'package:flowery_tracking/core/utils/constants/app_constants.dart';
 Future<String> getInitialRoute() async {
   final storage = getIt<Storage>(instanceName: AppConstants.secureStorage);
   final rememberMeValue = await storage.read(key: AppConstants.rememberMe);
+  final token = await storage.read(key: AppConstants.token);
 
-  if (rememberMeValue.toLowerCase() == 'true') {
+  if (rememberMeValue.toLowerCase() == 'true' && token != '') {
     return AppRoutes.mainLayoutRoute;
   }
-  return AppRoutes.signInRoute;
+  return AppRoutes.onboardingRoute;
 }
