@@ -1,4 +1,3 @@
-//import 'package:flowery_tracking/core/utils/constants/device_type.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 abstract class AppSizes {
@@ -17,7 +16,6 @@ abstract class AppSizes {
   static const double padding_100 = 100.0;
 
   // icon sizes
-
   static const double icon_8 = 8.0;
   static const double icon_12 = 12.0;
   static const double icon_16 = 16.0;
@@ -54,6 +52,15 @@ abstract class AppSizes {
   static const double buttonHigh_48 = 48;
   static const double buttonHigh_36 = 36;
   static const double buttonWidth_80 = 80;
+
+
+  // pick Image
+  static const double pickImageHeight = 800.0;
+  static const double pickImageWidth = 800.0;
+
+  //image handler bar
+  static const double imageHandlerBarWidth = 40.0;
+  static const double imageHandlerBarHeight = 4.0;
 
   // AppBar High
 
@@ -146,6 +153,9 @@ abstract class AppSizes {
 
   static const double shimmerButtonHeight_40 = 40.0;
   static const double shimmerButtonWidth_80 = 80.0;
+
+  // profile image size
+  static const double profileImageSize_85 = 85.0;
 
   // break points
 

@@ -46,7 +46,6 @@ class ResetPasswordWidget extends StatelessWidget {
                   hint: LocaleKeys.confirmPassword.tr(),
                   label: LocaleKeys.confirmPassword.tr(),
                 ),
-
                 const SizedBox(height: AppSizes.spaceBetweenItems_48),
                 BlocBuilder<ForgetPasswordViewModel, ForgetPasswordState>(
                   builder: (context, state) {
