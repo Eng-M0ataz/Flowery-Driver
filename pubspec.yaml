@@ -118,7 +118,7 @@ flutter:
            weight: 600
 flutter_assets:
   assets_path: assets/images/
-  output_path: lib\core\utils\Constants\
+  output_path: lib\core\utils\constants\
   filename: app_assets.dart
 
  

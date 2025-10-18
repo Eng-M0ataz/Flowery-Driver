@@ -6,6 +6,7 @@ import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/p
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/viewModel/profile_event.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/viewModel/profile_state.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/viewModel/profile_view_model.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/widgets/profile_widgets/language_buttom_sheet.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/widgets/profile_widgets/profile_app_bar.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/widgets/profile_widgets/profile_edit_card.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/widgets/profile_widgets/profile_footer.dart';
@@ -47,16 +48,18 @@ class _ProfileState extends State<Profile> {
                 if (state.failure != null) {
                   return Container(
                     margin: const EdgeInsets.symmetric(
-                        vertical: AppSizes.spaceBetweenItems_32),
+                      vertical: AppSizes.spaceBetweenItems_32,
+                    ),
                     padding: const EdgeInsets.symmetric(
-                        vertical: AppSizes.paddingXl_64),
+                      vertical: AppSizes.paddingXl_64,
+                    ),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(
-                            AppSizes.borderRadiusMd_10),
-                        border: Border.all(color: Theme
-                            .of(context)
-                            .colorScheme
-                            .onSurface)
+                      borderRadius: BorderRadius.circular(
+                        AppSizes.borderRadiusMd_10,
+                      ),
+                      border: Border.all(
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
                     ),
                     child: Center(
                       child: Column(
@@ -70,10 +73,7 @@ class _ProfileState extends State<Profile> {
                           ),
                           Text(
                             state.failure!.errorMessage,
-                            style: Theme
-                                .of(context)
-                                .textTheme
-                                .bodySmall,
+                            style: Theme.of(context).textTheme.bodySmall,
                           ),
                         ],
                       ),
@@ -84,45 +84,43 @@ class _ProfileState extends State<Profile> {
                   children: [
                     ProfileEditCard(
                       onTap: () async {
-                        // Navigate to second screen and wait for result
                         final shouldRefresh = await Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => const EditProfileScreen(),
                           ),
                         );
 
-                        // If we got a result and it's true, refresh data
                         if (shouldRefresh == true) {
                           viewModel.doIntend(LoadDriverDataEvent());
                         }
-
                       },
                       imagePath:
-                      state.driverProfileResponseEntity!.driver.photo,
+                          state.driverProfileResponseEntity!.driver.photo,
                       title:
-                      '${state.driverProfileResponseEntity!.driver
-                          .firstName} ${state.driverProfileResponseEntity!
-                          .driver.lastName}',
-                      subtitle:
-                      state.driverProfileResponseEntity!.driver.email,
+                          '${state.driverProfileResponseEntity!.driver.firstName} ${state.driverProfileResponseEntity!.driver.lastName}',
+                      subtitle: state.driverProfileResponseEntity!.driver.email,
                       vehicleOrPhoneNumber:
-                      state.driverProfileResponseEntity!.driver.phone,
+                          state.driverProfileResponseEntity!.driver.phone,
                     ),
                     VehicleEditCard(
-                      vehicleType: state
-                          .vehicleResponseEntity!.vehicle.type,
+                      vehicleType: state.vehicleResponseEntity!.vehicle.type,
                       vehicleNumber: state
                           .driverProfileResponseEntity!
                           .driver
                           .vehicleNumber,
                       onTap: () {},
-                    )
+                    ),
                   ],
                 );
               },
             ),
             ProfileFooter(
-              onTap: () {},
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) => const LanguageBottomSheet(),
+                );
+              },
               trailing: Icons.language,
               title: LocaleKeys.language.tr(),
               leading: Icons.translate,

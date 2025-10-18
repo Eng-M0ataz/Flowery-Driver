@@ -37,8 +37,7 @@ class _OrdersState extends State<Orders> {
       builder: (context, state) {
         if (state.isLoading) {
           return const Expanded(child: Center(child: OrderDetailsShimmer()));
-        }
-        else if (state.failure != null) {
+        } else if (state.failure != null) {
           return Center(child: Text(state.failure!.errorMessage));
         }
         return Scaffold(
@@ -66,21 +65,45 @@ class _OrdersState extends State<Orders> {
                         return OrderDetailsCard(
                           onTap: () {
                             context.pushNamed(
-                              AppRoutes.orderDetailsRoute,
-                              arguments: state.driverOrdersResponseEntity!.orders[index],
+                              AppRoutes.ordersOrderDetailsRoute,
+                              arguments: state
+                                  .driverOrdersResponseEntity!
+                                  .orders[index],
                             );
                           },
-                          orderNumber: state.driverOrdersResponseEntity!.orders[index].order.orderNumber,
-                          status: state.driverOrdersResponseEntity!.orders[index].order.state,
-                          storeAddress: state.driverOrdersResponseEntity!.orders[index].store.address,
-                          storeImage: state.driverOrdersResponseEntity!.orders[index].store.image,
-                          storeName: state.driverOrdersResponseEntity!.orders[index].store.name,
-                          userAddress: LocaleKeys.userAddress.tr(),
+                          orderNumber: state
+                              .driverOrdersResponseEntity!
+                              .orders[index]
+                              .order
+                              .orderNumber,
+                          status: state
+                              .driverOrdersResponseEntity!
+                              .orders[index]
+                              .order
+                              .state,
+                          storeAddress: state
+                              .driverOrdersResponseEntity!
+                              .orders[index]
+                              .store
+                              .address,
+                          storeImage: state
+                              .driverOrdersResponseEntity!
+                              .orders[index]
+                              .store
+                              .image,
+                          storeName: state
+                              .driverOrdersResponseEntity!
+                              .orders[index]
+                              .store
+                              .name,
+                          userAddress: LocaleKeys.user_address.tr(),
                           userImage: AppConstants.imagePath,
-                          userName: '${state.driverOrdersResponseEntity!.orders[index].order.user.firstName} ${state.driverOrdersResponseEntity!.orders[index].order.user.lastName}',
+                          userName:
+                              '${state.driverOrdersResponseEntity!.orders[index].order.user.firstName} ${state.driverOrdersResponseEntity!.orders[index].order.user.lastName}',
                         );
                       },
-                      itemCount: state.driverOrdersResponseEntity!.orders.length,
+                      itemCount:
+                          state.driverOrdersResponseEntity!.orders.length,
                     ),
                   ),
               ],

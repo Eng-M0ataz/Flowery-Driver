@@ -14,15 +14,12 @@ class VehicleEditCard extends StatelessWidget {
     required this.vehicleNumber,
   });
 
-
   final void Function()? onTap;
   final String vehicleType;
   final String vehicleNumber;
 
-
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -31,7 +28,6 @@ class VehicleEditCard extends StatelessWidget {
         ),
         padding: const EdgeInsets.all(AppSizes.paddingMd_16),
         width: double.infinity,
-        height: height * 0.14,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSizes.borderRadiusMd_10),
           color: Theme.of(context).colorScheme.onPrimary,
@@ -51,17 +47,20 @@ class VehicleEditCard extends StatelessWidget {
             Expanded(
               flex: 9,
               child: Column(
-                spacing:AppSizes.spaceBetweenItems_8,
+                spacing: AppSizes.spaceBetweenItems_8,
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text( LocaleKeys.vehicleInfo.tr(), style: Theme.of(context).textTheme.displaySmall),
+                  Text(
+                    LocaleKeys.vehicleInfo.tr(),
+                    style: Theme.of(context).textTheme.displaySmall,
+                  ),
                   MiddleEllipsisText(text: vehicleType),
                   MiddleEllipsisText(text: vehicleNumber),
-                  ],
+                ],
               ),
             ),
-            const Expanded(flex: 1,child: Icon(Icons.arrow_forward_ios)),
+            const Expanded(flex: 1, child: Icon(Icons.arrow_forward_ios)),
           ],
         ),
       ),

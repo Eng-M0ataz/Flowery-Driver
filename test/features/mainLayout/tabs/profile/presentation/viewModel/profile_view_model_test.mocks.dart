@@ -52,16 +52,16 @@ class MockGetLoggedUserUseCase extends _i1.Mock
   }
 
   @override
-  _i3.Future<_i4.ApiResult<_i5.DriverProfileResponseEntity>> call() =>
+  _i3.Future<_i4.ApiResult<_i5.DriverProfileResponseEntity>> invoke() =>
       (super.noSuchMethod(
-            Invocation.method(#call, []),
+            Invocation.method(#invoke, []),
             returnValue:
                 _i3.Future<
                   _i4.ApiResult<_i5.DriverProfileResponseEntity>
                 >.value(
                   _i6.dummyValue<
                     _i4.ApiResult<_i5.DriverProfileResponseEntity>
-                  >(this, Invocation.method(#call, [])),
+                  >(this, Invocation.method(#invoke, [])),
                 ),
           )
           as _i3.Future<_i4.ApiResult<_i5.DriverProfileResponseEntity>>);
@@ -77,16 +77,16 @@ class MockEditProfileUseCase extends _i1.Mock
   }
 
   @override
-  _i3.Future<_i4.ApiResult<_i8.EditProfileResponseEntity>> call(
+  _i3.Future<_i4.ApiResult<_i8.EditProfileResponseEntity>> invoke(
     _i9.EditProfileRequestEntity? editProfileRequestEntity,
   ) =>
       (super.noSuchMethod(
-            Invocation.method(#call, [editProfileRequestEntity]),
+            Invocation.method(#invoke, [editProfileRequestEntity]),
             returnValue:
                 _i3.Future<_i4.ApiResult<_i8.EditProfileResponseEntity>>.value(
                   _i6.dummyValue<_i4.ApiResult<_i8.EditProfileResponseEntity>>(
                     this,
-                    Invocation.method(#call, [editProfileRequestEntity]),
+                    Invocation.method(#invoke, [editProfileRequestEntity]),
                   ),
                 ),
           )
@@ -103,16 +103,16 @@ class MockUploadPhotoUseCase extends _i1.Mock
   }
 
   @override
-  _i3.Future<_i4.ApiResult<_i11.UploadPhotoResponseEntity>> call(
+  _i3.Future<_i4.ApiResult<_i11.UploadPhotoResponseEntity>> invoke(
     _i12.File? imageFile,
   ) =>
       (super.noSuchMethod(
-            Invocation.method(#call, [imageFile]),
+            Invocation.method(#invoke, [imageFile]),
             returnValue:
                 _i3.Future<_i4.ApiResult<_i11.UploadPhotoResponseEntity>>.value(
                   _i6.dummyValue<_i4.ApiResult<_i11.UploadPhotoResponseEntity>>(
                     this,
-                    Invocation.method(#call, [imageFile]),
+                    Invocation.method(#invoke, [imageFile]),
                   ),
                 ),
           )
@@ -128,16 +128,16 @@ class MockGetVehicleUseCase extends _i1.Mock implements _i13.GetVehicleUseCase {
   }
 
   @override
-  _i3.Future<_i4.ApiResult<_i14.VehicleResponseEntity>> call(
+  _i3.Future<_i4.ApiResult<_i14.VehicleResponseEntity>> invoke(
     String? vehicleId,
   ) =>
       (super.noSuchMethod(
-            Invocation.method(#call, [vehicleId]),
+            Invocation.method(#invoke, [vehicleId]),
             returnValue:
                 _i3.Future<_i4.ApiResult<_i14.VehicleResponseEntity>>.value(
                   _i6.dummyValue<_i4.ApiResult<_i14.VehicleResponseEntity>>(
                     this,
-                    Invocation.method(#call, [vehicleId]),
+                    Invocation.method(#invoke, [vehicleId]),
                   ),
                 ),
           )

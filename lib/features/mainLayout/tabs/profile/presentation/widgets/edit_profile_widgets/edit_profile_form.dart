@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flowery_tracking/core/config/routing/app_routes.dart';
 import 'package:flowery_tracking/core/config/theme/app_colors.dart';
 import 'package:flowery_tracking/core/functions/validators.dart';
 import 'package:flowery_tracking/core/helpers/dialogue_utils.dart';
@@ -145,7 +146,9 @@ class _EditProfileFormState extends State<EditProfileForm> {
                             labelText: LocaleKeys.password.tr(),
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             suffixIcon: TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                context.pushNamed(AppRoutes.resetPasswordRoute);
+                              },
                               child: Text(
                                 LocaleKeys.change.tr(),
                                 style: Theme.of(context).textTheme.titleMedium,
@@ -224,7 +227,6 @@ class _EditProfileFormState extends State<EditProfileForm> {
             posAction: () {
               viewModel.doIntend(ResetSuccessStateEvent());
               Navigator.of(context).pop(true);
-
             },
           );
         }

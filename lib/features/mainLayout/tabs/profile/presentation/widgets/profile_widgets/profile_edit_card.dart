@@ -21,7 +21,6 @@ class ProfileEditCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -30,7 +29,6 @@ class ProfileEditCard extends StatelessWidget {
         ),
         padding: const EdgeInsets.all(AppSizes.paddingMd_16),
         width: double.infinity,
-        height: height * 0.14,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSizes.borderRadiusMd_10),
           color: Theme.of(context).colorScheme.onPrimary,
@@ -66,7 +64,7 @@ class ProfileEditCard extends StatelessWidget {
                 ],
               ),
             ),
-            const Expanded(flex: 1,child: Icon(Icons.arrow_forward_ios)),
+            const Expanded(flex: 1, child: Icon(Icons.arrow_forward_ios)),
           ],
         ),
       ),

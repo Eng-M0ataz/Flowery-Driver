@@ -40,7 +40,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: LocaleKeys.orderDetails.tr()),
+      appBar: CustomAppBar(title: LocaleKeys.order_details.tr()),
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: AppSizes.paddingMd_16,
@@ -59,19 +59,19 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                 state: widget.order.order.state,
               ),
             ),
-            OrderDetailsTextWidget(title: LocaleKeys.pickupAddress.tr()),
+            OrderDetailsTextWidget(title: LocaleKeys.pickup_address.tr()),
             AddressCard(
               name: widget.order.store.name,
               imagePath: widget.order.store.image,
               address: widget.order.store.address,
             ),
-            OrderDetailsTextWidget(title: LocaleKeys.userAddress.tr()),
+            OrderDetailsTextWidget(title: LocaleKeys.user_address.tr()),
             AddressCard(
               name: widget.order.order.user.firstName,
               imagePath: AppConstants.imagePath,
               address: widget.order.order.user.email,
             ),
-            OrderDetailsTextWidget(title: LocaleKeys.orderDetails.tr()),
+            OrderDetailsTextWidget(title: LocaleKeys.order_details.tr()),
             Expanded(
               child: ListView.separated(
                 separatorBuilder: (context, index) {
@@ -82,8 +82,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                     builder: (context, state) {
                       if (state.isLoading) {
                         return const Expanded(child: ProductItemShimmer());
-                      }
-                      else if (state.failure != null) {
+                      } else if (state.failure != null) {
                         return Center(child: Text(state.failure!.errorMessage));
                       }
                       return ProductCard(
@@ -102,10 +101,10 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
             PaymentData(
               title: LocaleKeys.total.tr(),
               paymentMethod:
-                  '${LocaleKeys.egp.tr()} ${widget.order.order.totalPrice}',
+                  '${LocaleKeys.currency.tr()} ${widget.order.order.totalPrice}',
             ),
             PaymentData(
-              title: LocaleKeys.paymentMethod.tr(),
+              title: LocaleKeys.payment_method.tr(),
               paymentMethod: widget.order.order.paymentType,
             ),
           ],

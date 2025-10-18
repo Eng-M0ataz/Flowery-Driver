@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flowery_tracking/core/config/routing/app_routes.dart';
 import 'package:flowery_tracking/core/di/di.dart';
 import 'package:flowery_tracking/core/functions/validators.dart';
 import 'package:flowery_tracking/core/helpers/dialogue_utils.dart';
+import 'package:flowery_tracking/core/helpers/routing_extensions.dart';
 import 'package:flowery_tracking/core/localization/locale_keys.g.dart';
 import 'package:flowery_tracking/core/utils/constants/sizes.dart';
 import 'package:flowery_tracking/core/widgets/custom_elevated_button.dart';
@@ -213,6 +215,7 @@ class _SignUpFormState extends State<SignUpForm> {
                       event: SignUpEvent(),
                       signUpRequest: signUpRequest,
                     );
+                    context.pushNamed(AppRoutes.applySuccessRoute);
                   }
                 },
               ),

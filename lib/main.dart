@@ -51,7 +51,7 @@ class FloweryDirver extends StatelessWidget {
               locale: localeState,
               theme: AppThemeLight.lightTheme,
               onGenerateRoute: RouteGenerator.getRoute,
-              initialRoute: AppRoutes.mainLayoutRoute,
+              initialRoute: AppRoutes.approvedApplicationRoute,
               builder: (context, child) => ResponsiveScaledBox(
                 width: ResponsiveValue<double>(
                   context,

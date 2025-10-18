@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flowery_tracking/core/config/routing/app_routes.dart';
 import 'package:flowery_tracking/core/functions/initialize_order_data.dart';
 import 'package:flowery_tracking/core/functions/snack_bar.dart';
 import 'package:flowery_tracking/core/helpers/routing_extensions.dart';
@@ -27,10 +28,10 @@ class AcceptOrderButton extends StatelessWidget {
       listenWhen: (previous, current) {
         final isStartOrderFailed =
             previous.startOrderFailure != current.startOrderFailure &&
-                current.startOrderFailure != null;
+            current.startOrderFailure != null;
         final isCreateOrderFailed =
             previous.createOrderFailure != current.createOrderFailure &&
-                current.createOrderFailure != null;
+            current.createOrderFailure != null;
         return isStartOrderFailed || isCreateOrderFailed;
       },
       listener: (context, state) {
@@ -81,9 +82,16 @@ class AcceptOrderButton extends StatelessWidget {
               if (homeViewModel.state.createOrderFailure != null) return;
 
               final finalState = homeViewModel.state;
-              if (finalState.startOrderEntity != null && finalState.startOrderEntity!.id == order.id) {
-                final args = buildOrderDetailsModel(order: order, state: finalState);
-                context.pushReplacementNamed('orderDetails', arguments: args);
+              if (finalState.startOrderEntity != null &&
+                  finalState.startOrderEntity!.id == order.id) {
+                final args = buildOrderDetailsModel(
+                  order: order,
+                  state: finalState,
+                );
+                context.pushReplacementNamed(
+                  AppRoutes.orderDetailsRoute,
+                  arguments: args,
+                );
               }
             },
           ),
