@@ -103,5 +103,6 @@
   "passwordValidation": "Password must not be empty and must\n contain 6 characters with",
   "passwordResetSuccessfully":"Password Reset Successfully",
   "codeVerifiedSuccessfully": "Code Verified Successfully",
-  "forgetPassword":"Forget Password"
+  "forgetPassword":"Forget Password",
+  "x": "X"
 }

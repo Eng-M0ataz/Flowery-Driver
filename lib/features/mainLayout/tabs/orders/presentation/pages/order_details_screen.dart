@@ -13,11 +13,8 @@ class OrderDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final order = ModalRoute.of(context)?.settings.arguments;
+    final order = ModalRoute.of(context)?.settings.arguments as AllOrdersEntity;
 
-    if (order == null || order is! AllOrdersEntity) {
-      return Scaffold(body: Center(child: Text(LocaleKeys.noOrders.tr())));
-    }
     return BlocProvider(
       create: (context) =>
           getIt.get<OrdersViewModel>()

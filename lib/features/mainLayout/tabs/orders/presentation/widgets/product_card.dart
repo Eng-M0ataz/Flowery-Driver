@@ -63,7 +63,7 @@ class ProductCard extends StatelessWidget {
             ),
           ),
           Text(
-            'X$quantity',
+            '${LocaleKeys.x.tr()}$quantity',
             style: Theme.of(
               context,
             ).textTheme.labelSmall!.copyWith(color: AppColorsLight.pink),

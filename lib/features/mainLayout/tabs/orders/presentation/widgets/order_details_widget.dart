@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flowery_tracking/core/localization/locale_keys.g.dart';
+import 'package:flowery_tracking/core/utils/constants/app_constants.dart';
 import 'package:flowery_tracking/core/utils/constants/sizes.dart';
 import 'package:flowery_tracking/core/widgets/custom_app_bar.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/orders/domain/entity/response/all_orders_entity.dart';
@@ -66,7 +67,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
             OrderDetailsTextWidget(title: LocaleKeys.userAddress.tr()),
             AddressCard(
               name: widget.order.order.user.firstName,
-              imagePath: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkAJEkJQ1WumU0hXNpXdgBt9NUKc0QDVIiaw&s',
+              imagePath: AppConstants.imagePath,
               address: widget.order.order.user.email,
             ),
             OrderDetailsTextWidget(title: LocaleKeys.orderDetails.tr()),
@@ -80,17 +81,16 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                     builder: (context, state) {
                       if (state.isLoading) {
                         return const Center(child: CircularProgressIndicator());
-                      } else if (state.productDataEntity != null) {
-                        return ProductCard(
-                          imagePath: state.productDataEntity!.product!.imgCover,
-                          title: state.productDataEntity!.product!.title,
-                          price: widget.order.order.orderItems[index].price,
-                          quantity:
-                              widget.order.order.orderItems[index].quantity,
-                        );
-                      } else {
-                        return Container();
                       }
+                      else if (state.failure != null) {
+                        return Center(child: Text(state.failure!.errorMessage));
+                      }
+                      return ProductCard(
+                        imagePath: state.productDataEntity!.product!.imgCover,
+                        title: state.productDataEntity!.product!.title,
+                        price: widget.order.order.orderItems[index].price,
+                        quantity: widget.order.order.orderItems[index].quantity,
+                      );
                     },
                   );
                 },

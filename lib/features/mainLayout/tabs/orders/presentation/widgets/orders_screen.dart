@@ -2,12 +2,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flowery_tracking/core/config/routing/app_routes.dart';
 import 'package:flowery_tracking/core/helpers/routing_extensions.dart';
 import 'package:flowery_tracking/core/localization/locale_keys.g.dart';
+import 'package:flowery_tracking/core/utils/constants/app_constants.dart';
 import 'package:flowery_tracking/core/utils/constants/sizes.dart';
 import 'package:flowery_tracking/core/widgets/custom_app_bar.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/orders/presentation/viewModels/orders_event.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/orders/presentation/viewModels/orders_states.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/orders/presentation/viewModels/orders_view_model.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/orders/presentation/widgets/order_details_card.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/orders/presentation/widgets/order_details_shimmer.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/orders/presentation/widgets/orders_status_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,8 +36,9 @@ class _OrdersState extends State<Orders> {
     return BlocBuilder<OrdersViewModel, OrdersStates>(
       builder: (context, state) {
         if (state.isLoading) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (state.failure != null) {
+          return const Expanded(child: Center(child: OrderDetailsShimmer()));
+        }
+        else if (state.failure != null) {
           return Center(child: Text(state.failure!.errorMessage));
         }
         return Scaffold(
@@ -73,7 +76,7 @@ class _OrdersState extends State<Orders> {
                           storeImage: state.driverOrdersResponseEntity!.orders[index].store.image,
                           storeName: state.driverOrdersResponseEntity!.orders[index].store.name,
                           userAddress: LocaleKeys.userAddress.tr(),
-                          userImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkAJEkJQ1WumU0hXNpXdgBt9NUKc0QDVIiaw&s',
+                          userImage: AppConstants.imagePath,
                           userName: '${state.driverOrdersResponseEntity!.orders[index].order.user.firstName} ${state.driverOrdersResponseEntity!.orders[index].order.user.lastName}',
                         );
                       },

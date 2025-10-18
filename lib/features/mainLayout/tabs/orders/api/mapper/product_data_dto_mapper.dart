@@ -6,7 +6,8 @@ extension ProductDataDtoMapper on ProductDataDto{
   ProductDataEntity toEntity(){
     return ProductDataEntity(
       message: message ?? '',
-      product: product?.toEntity(),
+      product: product?.toEntity() ?? ProductItemEntity(id: '',price: 0,description: '',imgCover: '',slug: '',title: '')
+,
     );
   }
 }
