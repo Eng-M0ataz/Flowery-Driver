@@ -23,6 +23,24 @@ class OrderDetailsShimmer extends StatelessWidget {
     );
   }
 
+  Widget _buildContainer({
+    double? height,
+    double? width,
+    bool isCircle = false,
+  }) {
+    return Container(
+      height: height,
+      width: width,
+      decoration: BoxDecoration(
+        color: Colors.grey.shade300,
+        shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
+        borderRadius: isCircle
+            ? null
+            : BorderRadius.circular(AppSizes.borderRadiusMd_8),
+      ),
+    );
+  }
+
   Widget _buildSingleShimmerCard() {
     return Container(
       margin: const EdgeInsets.all(AppSizes.borderRadiusXl_16),
@@ -97,7 +115,7 @@ class OrderDetailsShimmer extends StatelessWidget {
                 width: AppSizes.shimmerCircleSize_50,
                 isCircle: true,
               ),
-              const SizedBox(width: AppSizes.spaceBetweenItems_16),
+              const SizedBox(width: AppSizes.spaceBetweenItems_8),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -129,7 +147,34 @@ class OrderDetailsShimmer extends StatelessWidget {
       child: ListView(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
-        children: [_buildSingleShimmerCard(), _buildSingleShimmerCard()],
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Container(
+                  margin: const EdgeInsets.all(AppSizes.borderRadiusXl_16),
+                  padding: const EdgeInsets.symmetric(vertical: AppSizes.borderRadiusXl_16),
+                  child: _buildContainer(
+                    height: AppSizes.shimmerFooterWidth_80,
+                    isCircle: false,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  margin: const EdgeInsets.all(AppSizes.borderRadiusXl_16),
+                  padding: const EdgeInsets.symmetric(vertical: AppSizes.borderRadiusXl_16),
+                  child: _buildContainer(
+                    height: AppSizes.shimmerFooterWidth_80,
+                    isCircle: false,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          _buildSingleShimmerCard(),
+          _buildSingleShimmerCard(),
+        ],
       ),
     );
   }
