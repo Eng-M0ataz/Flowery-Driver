@@ -5,6 +5,10 @@ import 'package:flowery_tracking/features/auth/presentation/widgets/apply_succes
 import 'package:flowery_tracking/features/mainLayout/main_layout.dart';
 import 'package:flowery_tracking/features/auth/presentation/pages/sign_up_screen.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/presentation/pages/home_screen.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/orders/presentation/pages/order_details_screen.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/orders/presentation/pages/orders_screen.dart';
+import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/pages/profile_screen.dart';
+import 'package:flowery_tracking/features/orderDetails/presentation/pages/order_details_screen.dart'
 import 'package:flowery_tracking/features/mainLayout/tabs/orders/presentation/pages/orders_screen.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/pages/edit_profile_screen.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/profile/presentation/pages/profile_screen.dart';
@@ -15,7 +19,7 @@ class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
     switch (settings.name) {
       case AppRoutes.forgetPasswordRoute:
-        return MaterialPageRoute(builder: (_) => ForgetPasswordScreen());
+        return MaterialPageRoute(builder: (_) => const ForgetPasswordScreen());
       case AppRoutes.mainLayoutRoute:
         return MaterialPageRoute(builder: (_) => const MainLayout());
       case AppRoutes.homeRoute:
@@ -31,10 +35,7 @@ class RouteGenerator {
       case AppRoutes.signUpRoute:
         return MaterialPageRoute(builder: (context) => const SignUpScreen());
       case AppRoutes.orderDetailsRoute:
-        final arg = settings.arguments as OrderDetailsModel;
-        return MaterialPageRoute(
-          builder: (_) => OrderDetailsScreen(orderDetailsModel: arg),
-        );
+        return MaterialPageRoute(builder: (_) => const OrderDetailsScreen(),settings: settings, );
       default:
         return unDefinedRoute();
     }
