@@ -3,14 +3,29 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i8;
 
+import 'package:dio/dio.dart' as _i13;
 import 'package:flowery_tracking/features/auth/api/client/auth_api_service.dart'
+    as _i7;
+import 'package:flowery_tracking/features/auth/api/model/forgetPassword/request/forget_password_request.dart'
+    as _i10;
+import 'package:flowery_tracking/features/auth/api/model/forgetPassword/request/reset_password_request.dart'
+    as _i12;
+import 'package:flowery_tracking/features/auth/api/model/forgetPassword/request/verify_reset_code_request.dart'
+    as _i11;
+import 'package:flowery_tracking/features/auth/api/model/forgetPassword/response/forget_password_response_dto.dart'
     as _i3;
-import 'package:flowery_tracking/features/auth/api/model/signIn/request/sign_in_request_dto.dart'
+import 'package:flowery_tracking/features/auth/api/model/forgetPassword/response/reset_password_response_dto.dart'
     as _i5;
+import 'package:flowery_tracking/features/auth/api/model/forgetPassword/response/verify_reset_code_response_dto.dart'
+    as _i4;
+import 'package:flowery_tracking/features/auth/api/model/signIn/request/sign_in_request_dto.dart'
+    as _i9;
 import 'package:flowery_tracking/features/auth/api/model/signIn/response/sign_in_response_dto.dart'
     as _i2;
+import 'package:flowery_tracking/features/auth/api/model/signUp/response/vehicle/vehicle_types_response_model.dart'
+    as _i6;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -33,26 +48,117 @@ class _FakeSignInResponseDto_0 extends _i1.SmartFake
     : super(parent, parentInvocation);
 }
 
+class _FakeForgetPasswordResponseDto_1 extends _i1.SmartFake
+    implements _i3.ForgetPasswordResponseDto {
+  _FakeForgetPasswordResponseDto_1(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
+class _FakeVerifyResetCodeResponseDto_2 extends _i1.SmartFake
+    implements _i4.VerifyResetCodeResponseDto {
+  _FakeVerifyResetCodeResponseDto_2(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
+class _FakeResetPasswordResponseDto_3 extends _i1.SmartFake
+    implements _i5.ResetPasswordResponseDto {
+  _FakeResetPasswordResponseDto_3(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
+class _FakeVehicleTypesResponseDto_4 extends _i1.SmartFake
+    implements _i6.VehicleTypesResponseDto {
+  _FakeVehicleTypesResponseDto_4(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
 /// A class which mocks [AuthApiService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAuthApiService extends _i1.Mock implements _i3.AuthApiService {
+class MockAuthApiService extends _i1.Mock implements _i7.AuthApiService {
   MockAuthApiService() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<_i2.SignInResponseDto> signIn({
-    required _i5.SignInRequestDto? requestDto,
+  _i8.Future<_i2.SignInResponseDto> signIn({
+    required _i9.SignInRequestDto? requestDto,
   }) =>
       (super.noSuchMethod(
             Invocation.method(#signIn, [], {#requestDto: requestDto}),
-            returnValue: _i4.Future<_i2.SignInResponseDto>.value(
+            returnValue: _i8.Future<_i2.SignInResponseDto>.value(
               _FakeSignInResponseDto_0(
                 this,
                 Invocation.method(#signIn, [], {#requestDto: requestDto}),
               ),
             ),
           )
-          as _i4.Future<_i2.SignInResponseDto>);
+          as _i8.Future<_i2.SignInResponseDto>);
+
+  @override
+  _i8.Future<_i3.ForgetPasswordResponseDto> forgetPassword(
+    _i10.ForgetPasswordRequest? forgetPasswordRequest,
+  ) =>
+      (super.noSuchMethod(
+            Invocation.method(#forgetPassword, [forgetPasswordRequest]),
+            returnValue: _i8.Future<_i3.ForgetPasswordResponseDto>.value(
+              _FakeForgetPasswordResponseDto_1(
+                this,
+                Invocation.method(#forgetPassword, [forgetPasswordRequest]),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.ForgetPasswordResponseDto>);
+
+  @override
+  _i8.Future<_i4.VerifyResetCodeResponseDto> verifyResetCode(
+    _i11.VerifyResetCodeRequest? verifyResetCodeRequest,
+  ) =>
+      (super.noSuchMethod(
+            Invocation.method(#verifyResetCode, [verifyResetCodeRequest]),
+            returnValue: _i8.Future<_i4.VerifyResetCodeResponseDto>.value(
+              _FakeVerifyResetCodeResponseDto_2(
+                this,
+                Invocation.method(#verifyResetCode, [verifyResetCodeRequest]),
+              ),
+            ),
+          )
+          as _i8.Future<_i4.VerifyResetCodeResponseDto>);
+
+  @override
+  _i8.Future<_i5.ResetPasswordResponseDto> resetPassword(
+    _i12.ResetPasswordRequest? resetPasswordRequest,
+  ) =>
+      (super.noSuchMethod(
+            Invocation.method(#resetPassword, [resetPasswordRequest]),
+            returnValue: _i8.Future<_i5.ResetPasswordResponseDto>.value(
+              _FakeResetPasswordResponseDto_3(
+                this,
+                Invocation.method(#resetPassword, [resetPasswordRequest]),
+              ),
+            ),
+          )
+          as _i8.Future<_i5.ResetPasswordResponseDto>);
+
+  @override
+  _i8.Future<void> signUp(_i13.FormData? formData) =>
+      (super.noSuchMethod(
+            Invocation.method(#signUp, [formData]),
+            returnValue: _i8.Future<void>.value(),
+            returnValueForMissingStub: _i8.Future<void>.value(),
+          )
+          as _i8.Future<void>);
+
+  @override
+  _i8.Future<_i6.VehicleTypesResponseDto> getVehicleTypes() =>
+      (super.noSuchMethod(
+            Invocation.method(#getVehicleTypes, []),
+            returnValue: _i8.Future<_i6.VehicleTypesResponseDto>.value(
+              _FakeVehicleTypesResponseDto_4(
+                this,
+                Invocation.method(#getVehicleTypes, []),
+              ),
+            ),
+          )
+          as _i8.Future<_i6.VehicleTypesResponseDto>);
 }

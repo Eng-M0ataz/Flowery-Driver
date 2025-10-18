@@ -3,17 +3,33 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i3;
+import 'dart:async' as _i4;
 
-import 'package:flowery_tracking/core/errors/api_results.dart' as _i4;
+import 'package:flowery_tracking/core/errors/api_results.dart' as _i5;
+import 'package:flowery_tracking/features/auth/api/model/signUp/request/sign_up_request_model.dart'
+    as _i15;
+import 'package:flowery_tracking/features/auth/domain/entity/forgetPassword/request/forget_password_request_entity.dart'
+    as _i10;
+import 'package:flowery_tracking/features/auth/domain/entity/forgetPassword/request/reset_password_request_entity.dart'
+    as _i14;
+import 'package:flowery_tracking/features/auth/domain/entity/forgetPassword/request/verify_reset_code_request_entity.dart'
+    as _i12;
+import 'package:flowery_tracking/features/auth/domain/entity/forgetPassword/response/forget_password_response_entity.dart'
+    as _i9;
+import 'package:flowery_tracking/features/auth/domain/entity/forgetPassword/response/reset_password_response_entity.dart'
+    as _i13;
+import 'package:flowery_tracking/features/auth/domain/entity/forgetPassword/response/verify_reset_code_response_entity.dart'
+    as _i11;
 import 'package:flowery_tracking/features/auth/domain/entity/signIn/sign_in_request_entity.dart'
-    as _i6;
+    as _i7;
 import 'package:flowery_tracking/features/auth/domain/entity/signIn/sign_in_response_entity.dart'
-    as _i5;
-import 'package:flowery_tracking/features/auth/domain/repositories/auth_repo.dart'
+    as _i6;
+import 'package:flowery_tracking/features/auth/domain/entity/signUp/vehicle_type_entity.dart'
     as _i2;
+import 'package:flowery_tracking/features/auth/domain/repositories/auth_repo.dart'
+    as _i3;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i7;
+import 'package:mockito/src/dummies.dart' as _i8;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -29,17 +45,23 @@ import 'package:mockito/src/dummies.dart' as _i7;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
+class _FakeVehicleTypesResponsEntity_0 extends _i1.SmartFake
+    implements _i2.VehicleTypesResponsEntity {
+  _FakeVehicleTypesResponsEntity_0(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
 /// A class which mocks [AuthRepo].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAuthRepo extends _i1.Mock implements _i2.AuthRepo {
+class MockAuthRepo extends _i1.Mock implements _i3.AuthRepo {
   MockAuthRepo() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<_i4.ApiResult<_i5.SignInResponseEntity>> signIn({
-    required _i6.SignInRequestEntity? requestEntity,
+  _i4.Future<_i5.ApiResult<_i6.SignInResponseEntity>> signIn({
+    required _i7.SignInRequestEntity? requestEntity,
     bool? rememberMeChecked,
   }) =>
       (super.noSuchMethod(
@@ -48,8 +70,8 @@ class MockAuthRepo extends _i1.Mock implements _i2.AuthRepo {
               #rememberMeChecked: rememberMeChecked,
             }),
             returnValue:
-                _i3.Future<_i4.ApiResult<_i5.SignInResponseEntity>>.value(
-                  _i7.dummyValue<_i4.ApiResult<_i5.SignInResponseEntity>>(
+                _i4.Future<_i5.ApiResult<_i6.SignInResponseEntity>>.value(
+                  _i8.dummyValue<_i5.ApiResult<_i6.SignInResponseEntity>>(
                     this,
                     Invocation.method(#signIn, [], {
                       #requestEntity: requestEntity,
@@ -58,5 +80,98 @@ class MockAuthRepo extends _i1.Mock implements _i2.AuthRepo {
                   ),
                 ),
           )
-          as _i3.Future<_i4.ApiResult<_i5.SignInResponseEntity>>);
+          as _i4.Future<_i5.ApiResult<_i6.SignInResponseEntity>>);
+
+  @override
+  _i4.Future<_i5.ApiResult<_i9.ForgetPasswordResponseEntity>> forgetPassword(
+    _i10.ForgetPasswordRequestEntity? request,
+  ) =>
+      (super.noSuchMethod(
+            Invocation.method(#forgetPassword, [request]),
+            returnValue:
+                _i4.Future<
+                  _i5.ApiResult<_i9.ForgetPasswordResponseEntity>
+                >.value(
+                  _i8.dummyValue<
+                    _i5.ApiResult<_i9.ForgetPasswordResponseEntity>
+                  >(this, Invocation.method(#forgetPassword, [request])),
+                ),
+          )
+          as _i4.Future<_i5.ApiResult<_i9.ForgetPasswordResponseEntity>>);
+
+  @override
+  _i4.Future<_i5.ApiResult<_i11.VerifyResetCodeResponseEntity>> verifyResetCode(
+    _i12.VerifyResetCodeRequestEntity? request,
+  ) =>
+      (super.noSuchMethod(
+            Invocation.method(#verifyResetCode, [request]),
+            returnValue:
+                _i4.Future<
+                  _i5.ApiResult<_i11.VerifyResetCodeResponseEntity>
+                >.value(
+                  _i8.dummyValue<
+                    _i5.ApiResult<_i11.VerifyResetCodeResponseEntity>
+                  >(this, Invocation.method(#verifyResetCode, [request])),
+                ),
+          )
+          as _i4.Future<_i5.ApiResult<_i11.VerifyResetCodeResponseEntity>>);
+
+  @override
+  _i4.Future<_i5.ApiResult<_i13.ResetPasswordResponseEntity>> resetPassword(
+    _i14.ResetPasswordRequestEntity? request,
+  ) =>
+      (super.noSuchMethod(
+            Invocation.method(#resetPassword, [request]),
+            returnValue:
+                _i4.Future<
+                  _i5.ApiResult<_i13.ResetPasswordResponseEntity>
+                >.value(
+                  _i8.dummyValue<
+                    _i5.ApiResult<_i13.ResetPasswordResponseEntity>
+                  >(this, Invocation.method(#resetPassword, [request])),
+                ),
+          )
+          as _i4.Future<_i5.ApiResult<_i13.ResetPasswordResponseEntity>>);
+
+  @override
+  _i4.Future<_i5.ApiResult<void>> signUp(
+    _i15.SignUpRequestModel? signUpRequest,
+  ) =>
+      (super.noSuchMethod(
+            Invocation.method(#signUp, [signUpRequest]),
+            returnValue: _i4.Future<_i5.ApiResult<void>>.value(
+              _i8.dummyValue<_i5.ApiResult<void>>(
+                this,
+                Invocation.method(#signUp, [signUpRequest]),
+              ),
+            ),
+          )
+          as _i4.Future<_i5.ApiResult<void>>);
+
+  @override
+  _i4.Future<_i5.ApiResult<_i2.VehicleTypesResponsEntity>> getVehicleTypes() =>
+      (super.noSuchMethod(
+            Invocation.method(#getVehicleTypes, []),
+            returnValue:
+                _i4.Future<_i5.ApiResult<_i2.VehicleTypesResponsEntity>>.value(
+                  _i8.dummyValue<_i5.ApiResult<_i2.VehicleTypesResponsEntity>>(
+                    this,
+                    Invocation.method(#getVehicleTypes, []),
+                  ),
+                ),
+          )
+          as _i4.Future<_i5.ApiResult<_i2.VehicleTypesResponsEntity>>);
+
+  @override
+  _i4.Future<_i2.VehicleTypesResponsEntity> getVehicleTypesFromLocal() =>
+      (super.noSuchMethod(
+            Invocation.method(#getVehicleTypesFromLocal, []),
+            returnValue: _i4.Future<_i2.VehicleTypesResponsEntity>.value(
+              _FakeVehicleTypesResponsEntity_0(
+                this,
+                Invocation.method(#getVehicleTypesFromLocal, []),
+              ),
+            ),
+          )
+          as _i4.Future<_i2.VehicleTypesResponsEntity>);
 }

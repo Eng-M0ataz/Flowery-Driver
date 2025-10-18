@@ -153,12 +153,12 @@ void main() {
           message: '',
         );
 
-        when(mockGetLoggedUserUseCase()).thenAnswer(
+        when(mockGetLoggedUserUseCase.invoke()).thenAnswer(
           (_) async => ApiSuccessResult(data: mockDriverProfileResponse),
         );
 
         // Also mock the getVehicleUseCase since it will be called
-        when(mockGetVehicleUseCase('vehicle_123')).thenAnswer(
+        when(mockGetVehicleUseCase.invoke('vehicle_123')).thenAnswer(
           (_) async => ApiSuccessResult(
             data: VehicleResponseEntity(
               message: '',
@@ -191,9 +191,9 @@ void main() {
           mockDriverProfileResponse,
         );
 
-        verify(mockGetLoggedUserUseCase()).called(1);
+        verify(mockGetLoggedUserUseCase.invoke()).called(1);
         verify(
-          mockGetVehicleUseCase('vehicle_123'),
+          mockGetVehicleUseCase.invoke('vehicle_123'),
         ).called(1); // Also verify this is called
       });
 
@@ -201,7 +201,7 @@ void main() {
         // Arrange
         final failure = ServerFailure(errorMessage: 'Failed to load profile');
         when(
-          mockGetLoggedUserUseCase(),
+          mockGetLoggedUserUseCase.invoke(),
         ).thenAnswer((_) async => ApiErrorResult(failure: failure));
 
         // Act
@@ -211,12 +211,11 @@ void main() {
         expect(profileViewModel.state.failure, equals(failure));
         expect(profileViewModel.state.isLoading, false);
 
-        verify(mockGetLoggedUserUseCase()).called(1);
+        verify(mockGetLoggedUserUseCase.invoke()).called(1);
       });
     });
 
     group('LoadDriverDataEvent', () {
-      // Define these at the group level so they're available to all tests
 
       test(
         'should load driver data when LoadDriverDataEvent is called',
@@ -255,11 +254,11 @@ void main() {
             ),
           );
 
-          when(mockGetLoggedUserUseCase()).thenAnswer(
+          when(mockGetLoggedUserUseCase.invoke()).thenAnswer(
             (_) async => ApiSuccessResult(data: mockDriverProfileResponse),
           );
 
-          when(mockGetVehicleUseCase('vehicle_1')).thenAnswer(
+          when(mockGetVehicleUseCase.invoke('vehicle_1')).thenAnswer(
             // Use the same ID here
             (_) async => ApiSuccessResult(data: mockVehicleResponse),
           );
@@ -275,9 +274,9 @@ void main() {
           expect(profileViewModel.state.isLoading, false);
           expect(profileViewModel.state.failure, isNull);
 
-          verify(mockGetLoggedUserUseCase()).called(1);
+          verify(mockGetLoggedUserUseCase.invoke()).called(1);
           verify(
-            mockGetVehicleUseCase('vehicle_1'),
+            mockGetVehicleUseCase.invoke('vehicle_1'),
           ).called(1); // Verify with the same ID
         },
       );
@@ -306,7 +305,7 @@ void main() {
         );
 
         when(
-          mockGetLoggedUserUseCase(),
+          mockGetLoggedUserUseCase.invoke(),
         ).thenAnswer((_) async => ApiSuccessResult(data: driverWithoutVehicle));
 
         // Since the ViewModel uses ! operator, this will throw an error
@@ -317,7 +316,7 @@ void main() {
         );
 
         // We can still verify the first call was made
-        verify(mockGetLoggedUserUseCase()).called(1);
+        verify(mockGetLoggedUserUseCase.invoke()).called(1);
       });
 
       test('should handle empty vehicle type string', () async {
@@ -343,12 +342,12 @@ void main() {
           message: '',
         );
 
-        when(mockGetLoggedUserUseCase()).thenAnswer(
+        when(mockGetLoggedUserUseCase.invoke()).thenAnswer(
           (_) async => ApiSuccessResult(data: driverWithEmptyVehicle),
         );
 
         // Mock the empty string case that the ViewModel will call
-        when(mockGetVehicleUseCase('')).thenAnswer(
+        when(mockGetVehicleUseCase.invoke('')).thenAnswer(
           (_) async => ApiSuccessResult(
             data: VehicleResponseEntity(
               message: '',
@@ -372,13 +371,12 @@ void main() {
         expect(profileViewModel.state.isLoading, false);
         expect(profileViewModel.state.failure, isNull);
 
-        verify(mockGetLoggedUserUseCase()).called(1);
+        verify(mockGetLoggedUserUseCase.invoke()).called(1);
         verify(
-          mockGetVehicleUseCase(''),
+          mockGetVehicleUseCase.invoke(''),
         ).called(1); // Should call with empty string
       });
 
-      // Add a test for when both driver and vehicleType are null
       test('should handle completely null driver data', () async {
         // Arrange - completely null driver
         final nullDriverResponse = DriverProfileResponseEntity(
@@ -403,7 +401,7 @@ void main() {
         );
 
         when(
-          mockGetLoggedUserUseCase(),
+          mockGetLoggedUserUseCase.invoke(),
         ).thenAnswer((_) async => ApiSuccessResult(data: nullDriverResponse));
 
         // This will throw because of response.driver! in the ViewModel
@@ -412,7 +410,7 @@ void main() {
           throwsA(isA<Error>()), // Expect the null check error
         );
 
-        verify(mockGetLoggedUserUseCase()).called(1);
+        verify(mockGetLoggedUserUseCase.invoke()).called(1);
       });
     });
 

@@ -26,7 +26,7 @@ class _SignInFormState extends State<SignInForm> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<SignInViewModel>(),
-      child: _SignInFormContent(),
+      child: const _SignInFormContent(),
     );
   }
 }
@@ -110,7 +110,7 @@ class _SignInFormContentState extends State<_SignInFormContent> {
                         ),
                       );
                     },
-                    child: Text(LocaleKeys.forgot_password.tr()),
+                    child: Text(LocaleKeys.forgot_password.tr(), style: Theme.of(context).textTheme.labelSmall!.copyWith(decoration: TextDecoration.underline),),
                   ),
                 ],
               ),

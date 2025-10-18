@@ -17,14 +17,12 @@ import 'package:flowery_tracking/features/auth/api/mapper/signIn/sigin_in_dto_ma
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:flowery_tracking/core/errors/api_results.dart';
-import 'package:flowery_tracking/core/errors/failure.dart';
 import 'package:flowery_tracking/features/auth/api/client/auth_api_service.dart';
 import 'package:flowery_tracking/features/auth/api/model/signIn/response/sign_in_response_dto.dart';
 import 'package:flowery_tracking/features/auth/domain/entity/signIn/sign_in_request_entity.dart';
 import 'package:flowery_tracking/features/auth/domain/entity/signIn/sign_in_response_entity.dart';
 import '../../api/dataSources/auth_remote_data_source_impl_test.mocks.dart';
-import 'auth_repo_impl_test.mocks.dart';
+import 'auth_repo_impl_test.mocks.dart' hide MockAuthApiService;
 
 @GenerateMocks([AuthRemoteDataSource, AuthLocalDataSource,AuthApiService,])
 void main() {
