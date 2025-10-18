@@ -9,7 +9,7 @@ class UploadPhotoUseCase{
   UploadPhotoUseCase({required ProfileRepo profileRepo}) : _profileRepo = profileRepo;
   final ProfileRepo _profileRepo;
 
-  Future<ApiResult<UploadPhotoResponseEntity>> call (File imageFile){
+  Future<ApiResult<UploadPhotoResponseEntity>> invoke (File imageFile){
     return _profileRepo.uploadProfilePhoto(imageFile);
   }
 

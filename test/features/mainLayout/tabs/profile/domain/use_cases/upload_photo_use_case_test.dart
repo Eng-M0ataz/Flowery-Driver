@@ -47,7 +47,7 @@ void main() {
           .thenAnswer((_) async => successResult);
 
       // Act
-      final result = await useCase.call(imageFile);
+      final result = await useCase.invoke(imageFile);
 
       // Assert
       expect(result, isA<ApiSuccessResult<UploadPhotoResponseEntity>>());
@@ -67,7 +67,7 @@ void main() {
           .thenAnswer((_) async => errorResult);
 
       // Act
-      final result = await useCase.call(imageFile);
+      final result = await useCase.invoke(imageFile);
 
       // Assert
       expect(result, isA<ApiErrorResult<UploadPhotoResponseEntity>>());
@@ -86,7 +86,7 @@ void main() {
           .thenAnswer((_) async => errorResult);
 
       // Act
-      final result = await useCase.call(imageFile);
+      final result = await useCase.invoke(imageFile);
 
       // Assert
       expect(result, isA<ApiErrorResult<UploadPhotoResponseEntity>>());
@@ -105,7 +105,7 @@ void main() {
           .thenAnswer((_) async => errorResult);
 
       // Act
-      final result = await useCase.call(imageFile);
+      final result = await useCase.invoke(imageFile);
 
       // Assert
       expect(result, isA<ApiErrorResult<UploadPhotoResponseEntity>>());
@@ -124,7 +124,7 @@ void main() {
           .thenAnswer((_) async => errorResult);
 
       // Act
-      final result = await useCase.call(imageFile);
+      final result = await useCase.invoke(imageFile);
 
       // Assert
       expect(result, isA<ApiErrorResult<UploadPhotoResponseEntity>>());
@@ -146,7 +146,7 @@ void main() {
           .thenAnswer((_) async => successResult);
 
       // Act
-      await useCase.call(imageFile);
+      await useCase.invoke(imageFile);
 
       // Assert
       final captured = verify(mockProfileRepo.uploadProfilePhoto(captureAny)).captured;
@@ -168,7 +168,7 @@ void main() {
           .thenAnswer((_) async => successResult);
 
       // Act
-      final result = await useCase.call(pngFile);
+      final result = await useCase.invoke(pngFile);
 
       // Assert
       expect(result, isA<ApiSuccessResult<UploadPhotoResponseEntity>>());
@@ -185,7 +185,7 @@ void main() {
           .thenAnswer((_) async => errorResult);
 
       // Act
-      final result = await useCase.call(imageFile);
+      final result = await useCase.invoke(imageFile);
 
       // Assert
       expect(result, isA<ApiErrorResult<UploadPhotoResponseEntity>>());
@@ -205,7 +205,7 @@ void main() {
           .thenAnswer((_) async => errorResult);
 
       // Act
-      final result = await useCase.call(imageFile);
+      final result = await useCase.invoke(imageFile);
 
       // Assert
       expect(result, isA<ApiErrorResult<UploadPhotoResponseEntity>>());

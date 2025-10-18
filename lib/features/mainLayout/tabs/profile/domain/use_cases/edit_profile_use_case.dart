@@ -10,7 +10,7 @@ class EditProfileUseCase{
   EditProfileUseCase({required ProfileRepo profileRepo}) : _profileRepo = profileRepo;
   final ProfileRepo _profileRepo;
 
-  Future<ApiResult<EditProfileResponseEntity>> call(EditProfileRequestEntity editProfileRequestEntity){
+  Future<ApiResult<EditProfileResponseEntity>> invoke(EditProfileRequestEntity editProfileRequestEntity){
     return _profileRepo.editProfile(editProfileRequestEntity);
   }
 

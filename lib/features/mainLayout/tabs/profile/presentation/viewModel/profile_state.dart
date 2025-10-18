@@ -7,7 +7,7 @@ import 'package:flowery_tracking/features/mainLayout/tabs/profile/domain/entity/
 
 class ProfileState extends Equatable {
   const ProfileState({
-    this.isLoading = true,
+    this.isLoading = false,
     this.failure,
     this.driverProfileResponseEntity,
     this.editProfileResponseEntity,

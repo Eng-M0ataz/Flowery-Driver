@@ -85,7 +85,7 @@ void main() {
         ).thenAnswer((_) async => successResult);
 
         // Act
-        final result = await useCase.call();
+        final result = await useCase.invoke();
 
         // Assert
         expect(result, isA<ApiSuccessResult<DriverProfileResponseEntity>>());
@@ -111,7 +111,7 @@ void main() {
         ).thenAnswer((_) async => errorResult);
 
         // Act
-        final result = await useCase.call();
+        final result = await useCase.invoke();
 
         // Assert
         expect(result, isA<ApiErrorResult<DriverProfileResponseEntity>>());
@@ -136,7 +136,7 @@ void main() {
         ).thenAnswer((_) async => errorResult);
 
         // Act
-        final result = await useCase.call();
+        final result = await useCase.invoke();
 
         // Assert
         expect(result, isA<ApiErrorResult<DriverProfileResponseEntity>>());
@@ -160,7 +160,7 @@ void main() {
         ).thenAnswer((_) async => errorResult);
 
         // Act
-        final result = await useCase.call();
+        final result = await useCase.invoke();
 
         // Assert
         expect(result, isA<ApiErrorResult<DriverProfileResponseEntity>>());
@@ -206,7 +206,7 @@ void main() {
         ).thenAnswer((_) async => successResult);
 
         // Act
-        final result = await useCase.call();
+        final result = await useCase.invoke();
 
         // Assert
         expect(result, isA<ApiSuccessResult<DriverProfileResponseEntity>>());
@@ -248,7 +248,7 @@ void main() {
       ).thenAnswer((_) async => successResult);
 
       // Act
-      final result = await useCase.call();
+      final result = await useCase.invoke();
 
       // Assert
       expect(result, isA<ApiSuccessResult<DriverProfileResponseEntity>>());
@@ -308,7 +308,7 @@ void main() {
         ).thenAnswer((_) async => successResult);
 
         // Act
-        await useCase.call();
+        await useCase.invoke();
 
         // Assert
         verify(mockProfileRepo.getLoggedDriverData()).called(1);

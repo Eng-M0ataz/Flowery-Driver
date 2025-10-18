@@ -8,7 +8,7 @@ class GetVehicleUseCase{
   GetVehicleUseCase(this._profileRepo);
   final ProfileRepo _profileRepo;
 
-  Future<ApiResult<VehicleResponseEntity>> call(String vehicleId) async {
+  Future<ApiResult<VehicleResponseEntity>> invoke(String vehicleId) async {
     return await _profileRepo.getVehicle(vehicleId);
   }
 

@@ -55,7 +55,7 @@ class ProfileViewModel extends Cubit<ProfileState> {
 
   Future<void> _getLoggedDriverData() async {
     emit(state.copyWith(isLoading: true, failure: null));
-    final result = await _getLoggedUserUseCase();
+    final result = await _getLoggedUserUseCase.invoke();
     switch (result) {
       case ApiSuccessResult<DriverProfileResponseEntity>():
         final response = result.data;
@@ -78,7 +78,7 @@ class ProfileViewModel extends Cubit<ProfileState> {
 
   Future<void> getVehicle(String vehicleId) async {
     emit(state.copyWith(isLoading: true, failure: null));
-    final result = await _getVehicleUseCase(vehicleId);
+    final result = await _getVehicleUseCase.invoke(vehicleId);
     switch (result) {
       case ApiSuccessResult<VehicleResponseEntity>():
         final response = result.data;
@@ -121,7 +121,7 @@ class ProfileViewModel extends Cubit<ProfileState> {
   Future<bool> _handleImageUploadIfNeeded() async {
     if (selectedImageFile == null) return true;
 
-    final uploadResult = await _uploadPhotoUseCase.call(selectedImageFile!);
+    final uploadResult = await _uploadPhotoUseCase.invoke(selectedImageFile!);
     switch (uploadResult) {
       case ApiErrorResult<UploadPhotoResponseEntity>():
         emit(
@@ -148,7 +148,7 @@ class ProfileViewModel extends Cubit<ProfileState> {
           .trim(), gender: '',
     );
 
-    final result = await _editProfileUseCase.call(request);
+    final result = await _editProfileUseCase.invoke(request);
 
     switch (result) {
       case ApiSuccessResult<EditProfileResponseEntity>():

@@ -70,7 +70,7 @@ void main() {
           .thenAnswer((_) async => successResult);
 
       // Act
-      final result = await useCase.call(requestEntity);
+      final result = await useCase.invoke(requestEntity);
 
       // Assert
       expect(result, isA<ApiSuccessResult<EditProfileResponseEntity>>());
@@ -95,7 +95,7 @@ void main() {
           .thenAnswer((_) async => errorResult);
 
       // Act
-      final result = await useCase.call(requestEntity);
+      final result = await useCase.invoke(requestEntity);
 
       // Assert
       expect(result, isA<ApiErrorResult<EditProfileResponseEntity>>());
@@ -120,7 +120,7 @@ void main() {
           .thenAnswer((_) async => errorResult);
 
       // Act
-      final result = await useCase.call(requestEntity);
+      final result = await useCase.invoke(requestEntity);
 
       // Assert
       expect(result, isA<ApiErrorResult<EditProfileResponseEntity>>());
@@ -156,7 +156,7 @@ void main() {
           .thenAnswer((_) async => successResult);
 
       // Act
-      await useCase.call(requestEntity);
+      await useCase.invoke(requestEntity);
 
       // Assert
       final captured = verify(mockProfileRepo.editProfile(captureAny)).captured;
@@ -184,7 +184,7 @@ void main() {
           .thenAnswer((_) async => errorResult);
 
       // Act
-      final result = await useCase.call(requestEntity);
+      final result = await useCase.invoke(requestEntity);
 
       // Assert
       expect(result, isA<ApiErrorResult<EditProfileResponseEntity>>());

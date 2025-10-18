@@ -8,7 +8,7 @@ class GetLoggedUserUseCase {
   GetLoggedUserUseCase(this._profileRepo);
   final ProfileRepo _profileRepo;
 
-  Future<ApiResult<DriverProfileResponseEntity>> call() async {
+  Future<ApiResult<DriverProfileResponseEntity>> invoke() async {
     return await _profileRepo.getLoggedDriverData();
   }
 }
