@@ -1,12 +1,13 @@
-import 'package:flowery_tracking/core/errors/api_results.dart';
-import 'package:flowery_tracking/features/pickupLocation/domain/entities/response/location_response_entity.dart';
+import 'package:flowery_tracking/features/pickupLocation/domain/entities/requests/order_details_entity.dart';
 import 'package:flowery_tracking/features/pickupLocation/domain/repositories/location_repo.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class GetLocationsUseCase{
   GetLocationsUseCase(this._repo);
   final LocationRepo _repo;
 
-  Future<ApiResult<LocationResponseEntity>> invoke({required String path}){
-    return _repo.getLocationsFromServer(path: path);
+  Stream<OrderDetailsEntity> listenData(String path){
+    return _repo.listenData(path);
   }
 }

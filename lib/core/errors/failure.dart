@@ -61,7 +61,7 @@ class FirebaseFailure extends Failure {
       case 'unavailable':
         return FirebaseFailure(
           errorMessage:
-          'Service temporarily unavailable. Please try again later.',
+              'Service temporarily unavailable. Please try again later.',
           code: 'unavailable',
         );
       case 'not-found':
@@ -108,7 +108,7 @@ class FirebaseFailure extends Failure {
       default:
         return FirebaseFailure(
           errorMessage:
-          exception.message ?? 'Unexpected Firebase error occurred.',
+              exception.message ?? 'Unexpected Firebase error occurred.',
           code: exception.code,
         );
     }

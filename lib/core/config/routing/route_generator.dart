@@ -1,6 +1,6 @@
 import 'package:flowery_tracking/core/config/routing/app_routes.dart';
 import 'package:flowery_tracking/features/mainLayout/tabs/home/presentation/pages/home_screen.dart';
-import 'package:flowery_tracking/features/pickupLocation/presentation/pages/delivery_map_screen.dart';
+import 'package:flowery_tracking/features/pickupLocation/presentation/pages/integrated_delivery_map_screen.dart';
 import 'package:flutter/material.dart';
 
 class RouteGenerator {
@@ -9,7 +9,10 @@ class RouteGenerator {
       case AppRoutes.homeRoute:
         return MaterialPageRoute(builder: (_) => const HomeScreen());
       case AppRoutes.DeliveryMapRoute:
-        return MaterialPageRoute(builder: (_) => const CustomMapScreen());
+        return MaterialPageRoute(
+          builder: (_) =>
+              const DeliveryMapScreen(path: '68f1067a7fee68a4c2ec99a7'),
+        );
       default:
         return unDefinedRoute();
     }

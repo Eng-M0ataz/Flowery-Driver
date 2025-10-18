@@ -57,14 +57,17 @@ dependencies:
   equatable: ^2.0.7
   cupertino_icons: ^1.0.8
   awesome_snackbar_content: ^0.1.8
-  url_launcher: ^6.2.1
+  url_launcher: ^6.3.2
   google_maps_flutter_web: ^0.5.1
   firebase_database: ^12.0.2
   intl: ^0.20.2
   step_progress: ^2.7.0
   flutter_polyline_points: ^3.1.0
-  http: ^1.1.0
+  http: ^1.2.1
   google_maps_flutter_platform_interface: ^2.4.1
+  timeline_tile: ^2.0.0
+  location: ^8.0.1
+  flutter_dotenv: ^5.1.0
 
 
 dev_dependencies:
@@ -87,6 +90,7 @@ flutter:
     - assets/images/
     - assets/translations/
     - assets/jsons/
+    - .env
    fonts:
      - family: Inter
        fonts:

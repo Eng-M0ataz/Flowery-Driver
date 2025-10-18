@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flowery_tracking/core/config/routing/app_routes.dart';
 import 'package:flowery_tracking/core/config/routing/route_generator.dart';
 import 'package:flowery_tracking/core/config/theme/app_theme.dart';
 import 'package:flowery_tracking/core/di/di.dart';
@@ -11,9 +12,11 @@ import 'package:flowery_tracking/core/utils/constants/sizes.dart';
 import 'package:flowery_tracking/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 void main() async {
+  await dotenv.load(fileName: '.env');
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -50,6 +53,7 @@ class FloweryDirver extends StatelessWidget {
               locale: localeState,
               theme: AppThemeLight.lightTheme,
               onGenerateRoute: RouteGenerator.getRoute,
+              initialRoute: AppRoutes.DeliveryMapRoute,
               builder: (context, child) => ResponsiveScaledBox(
                 width: ResponsiveValue<double>(
                   context,

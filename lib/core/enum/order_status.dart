@@ -1,0 +1,1 @@
+enum OrderStatus { accepted, picked, outfordelivery, arrived, delivered }

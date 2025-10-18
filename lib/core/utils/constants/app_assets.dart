@@ -151,4 +151,12 @@ class Assets {
   /// Assets for assetsImagesUserLocation
   /// assets/images/user-location.svg
   static const String assetsImagesUserLocation = "assets/images/user-location.svg";
+
+  /// Assets for assetsImagesUserLocation
+  /// assets/images/store-location.png
+  static const String assetsImagesStoreLocation = "assets/images/store-location.png";
+
+  /// Assets for assetsImagesUserLocation
+  /// assets/images/driver-location.svg
+  static const String assetsImagesDriverLocation = "assets/images/driver-location.png";
 }

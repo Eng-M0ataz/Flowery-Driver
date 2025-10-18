@@ -115,13 +115,13 @@ class FlowerOrderCard extends StatelessWidget {
                     storeInfo: StoreInfo(
                       name: order.store!.name!,
                       address: order.store!.address!,
-                      imageUrl: order.store!.image!,
+                      imageUrl: order.store!.image!, phone:'r.st',lat: 1, long: 9,
                     ),
                     userInfo: UserInfo(
                       name: order.user!.name!,
                       photoUrl: order.user!.photo!,
                       address:
-                          '${order.shippingAddress!.street!}, ${order.shippingAddress!.city!}',
+                          '${order.shippingAddress!.street!}, ${order.shippingAddress!.city!}', phone: '',
                     ),
                     totalPrice: order.totalPrice!,
                     status: order.state!,
@@ -137,7 +137,7 @@ class FlowerOrderCard extends StatelessWidget {
                             quantity: product.quantity!,
                           ),
                         )
-                        .toList(),
+                        .toList(), orderNumber: '', updatedAt: '',
                   );
 
                   context.read<HomeViewModel>().doIntend(

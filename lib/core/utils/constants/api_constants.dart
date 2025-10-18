@@ -10,6 +10,8 @@ abstract class ApiConstants {
   static const String queryLimit = 'limit';
   static const String orderId = 'orderId';
   static const String updateOrderState = 'orders/state';
-  static const String googleApiKey = 'AIzaSyBaSUcdyoFHuqaf5o-9Medd_n8uixSRKWA';
-  static const String computeRouteUrl = 'https://routes.googleapis.com/directions/v2:computeRoutes';
+  static const String googleDirectionsBaseUrl = 'https://routes.googleapis.com/directions/v2:';
+  static const String computeRoutes = 'computeRoutes';
+  static const String xGoogApiKey = 'X-Goog-Api-Key';
+  static const String xGoogFieldMask = 'X-Goog-FieldMask';
 }
