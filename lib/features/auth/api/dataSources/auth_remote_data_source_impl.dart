@@ -14,7 +14,11 @@ import 'package:flowery_tracking/features/auth/api/model/forgetPassword/response
 import 'package:flowery_tracking/features/auth/api/model/forgetPassword/response/verify_reset_code_response_dto.dart';
 import 'package:flowery_tracking/features/auth/api/model/signUp/request/sign_up_request_model.dart';
 import 'package:flowery_tracking/features/auth/api/model/signUp/response/vehicle/vehicle_types_response_model.dart';
+import 'package:flowery_tracking/features/auth/api/mapper/signIn/sigin_in_dto_mapper.dart';
+import 'package:flowery_tracking/features/auth/api/model/signIn/response/sign_in_response_dto.dart';
 import 'package:flowery_tracking/features/auth/data/dataSources/auth_remote_data_source.dart';
+import 'package:flowery_tracking/features/auth/domain/entity/signIn/sign_in_request_entity.dart';
+import 'package:flowery_tracking/features/auth/domain/entity/signIn/sign_in_response_entity.dart';
 import 'package:flowery_tracking/features/auth/domain/entity/forgetPassword/request/forget_password_request_entity.dart';
 import 'package:flowery_tracking/features/auth/domain/entity/forgetPassword/request/reset_password_request_entity.dart';
 import 'package:flowery_tracking/features/auth/domain/entity/forgetPassword/request/verify_reset_code_request_entity.dart';
@@ -29,6 +33,15 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   AuthRemoteDataSourceImpl(this._apiServices);
   // ignore: unused_field
   final AuthApiService _apiServices;
+
+
+  @override
+  Future<ApiResult<SignInResponseEntity>> signIn({required SignInRequestEntity requestEntity}) async {
+    return executeApi<SignInResponseDto, SignInResponseEntity>(
+      request: () => _apiServices.signIn(requestDto: requestEntity.toDto()),
+      mapper: (data) => data.toEntity(),
+    );
+  }
   @override
   Future<ApiResult<ForgetPasswordResponseEntity>> forgetPassword(
     ForgetPasswordRequestEntity request,

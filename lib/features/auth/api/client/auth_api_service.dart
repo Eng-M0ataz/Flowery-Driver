@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flowery_tracking/core/utils/constants/api_constants.dart';
+import 'package:flowery_tracking/features/auth/api/model/signIn/request/sign_in_request_dto.dart';
+import 'package:flowery_tracking/features/auth/api/model/signIn/response/sign_in_response_dto.dart';
 import 'package:flowery_tracking/features/auth/api/model/forgetPassword/request/forget_password_request.dart';
 import 'package:flowery_tracking/features/auth/api/model/forgetPassword/request/reset_password_request.dart';
 import 'package:flowery_tracking/features/auth/api/model/forgetPassword/request/verify_reset_code_request.dart';
@@ -18,6 +20,9 @@ part 'auth_api_service.g.dart';
 abstract class AuthApiService {
   @factoryMethod
   factory AuthApiService(Dio dio) = _AuthApiService;
+
+  @POST(ApiConstants.signIn)
+  Future<SignInResponseDto>signIn({@Body() required SignInRequestDto requestDto});
 
   @POST(ApiConstants.forgotPassword)
   Future<ForgetPasswordResponseDto> forgetPassword(

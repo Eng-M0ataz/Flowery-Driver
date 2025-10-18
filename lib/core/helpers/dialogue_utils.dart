@@ -9,7 +9,8 @@ abstract class DialogueUtils {
     Function? posAction,
     String? ngeActionName,
     Function? ngeAction,
-  }) {
+  })
+  {
     final List<Widget> actions = [];
     if (posActionName != null) {
       actions.add(
@@ -54,4 +55,5 @@ abstract class DialogueUtils {
       },
     );
   }
+
 }

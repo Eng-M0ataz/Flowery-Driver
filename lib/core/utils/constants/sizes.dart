@@ -4,10 +4,12 @@ abstract class AppSizes {
   // padding and margin sizes
   static const double paddingXs_4 = 4.0;
   static const double paddingSm_8 = 8.0;
+  static const double paddingSm_10 = 10.0;
   static const double paddingSm_12 = 12.0;
   static const double paddingMd_10 = 10.0;
   static const double paddingMd_12 = 12.0;
   static const double paddingMd_16 = 16.0;
+  static const double paddingMd_18 = 18.0;
   static const double paddingMd_20 = 20.0;
   static const double paddingLg_24 = 24.0;
   static const double paddingXl_32 = 32.0;
@@ -123,8 +125,11 @@ abstract class AppSizes {
   static const double sizedBoxWidth_8 = 8.0;
   static const double sizedBoxWidth_16 = 16.0;
   static const double sizedBoxHeight_8 = 8.0;
+  static const double sizedBoxHeight_11 = 11.0;
   static const double sizedBoxHeight_16 = 16.0;
-  static const double sizedBoxHeight_30 = 30.0;
+  static const double sizedBoxHeight_24 = 24.0;
+  static const double sizedBoxHeight_27 = 27.0;
+  static const double sizedBoxHeight_32 = 32.0;
 
   // image sizes
   static const double imageLogoWidth_113 = 113.0;
