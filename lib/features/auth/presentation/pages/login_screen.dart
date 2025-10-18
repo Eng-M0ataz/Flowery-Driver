@@ -12,7 +12,6 @@ import 'package:flowery_tracking/features/auth/presentation/viewModel/signin/sig
 import 'package:flowery_tracking/features/auth/presentation/viewModel/signin/sign_in_view_model.dart';
 import 'package:flowery_tracking/features/auth/presentation/widgets/signIn/sign_in_form.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -28,9 +27,9 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: LocaleKeys.login.tr()),
-      body: SafeArea(
+      body:const SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(
+          padding: EdgeInsets.symmetric(
             horizontal: AppSizes.paddingMd_16,
           ),
           child: SignInForm(),

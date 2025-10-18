@@ -12,9 +12,8 @@ import 'package:flowery_tracking/core/utils/constants/sizes.dart';
 import 'package:flowery_tracking/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-final storage = const FlutterSecureStorage();
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
@@ -22,6 +21,8 @@ void main() async {
   await configureDependencies();
   final initialRoute = await getInitialRoute();
   Bloc.observer = MyBlocObserver();
+
+
   runApp(
     EasyLocalization(
       supportedLocales: AppConstants.supportedLocales,

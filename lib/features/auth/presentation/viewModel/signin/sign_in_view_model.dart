@@ -14,58 +14,54 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 final storage = const FlutterSecureStorage();
 
 @injectable
-class SignInViewModel extends Cubit<SignInState>{
+class SignInViewModel extends Cubit<SignInState> {
   SignInViewModel(this._signInUseCase) : super(SignInState());
   final SignInUseCase _signInUseCase;
 
-  TextEditingController emailController = TextEditingController(text: 'abdoaswani@gmail.com');
-  TextEditingController passwordController = TextEditingController(text: 'Ahmed@123');
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  bool obscureText = true;
   bool rememberMe = false;
 
-  void doIntent({required SignInEvents event,}) async {
+  void doIntent({required SignInEvents event}) async {
     switch (event) {
       case SignInEvent():
-        await _signIn();
+        await _signIn(event.email, event.password);
+      case TogglePasswordEvent():
+        _togglePasswordVisibility();
+      case ToggleRememberMeEvent():
+        _toggleRememberMe(event.isRememberMe);
+      case NavigationEvent():
+        _navigateToRouteScreen(event.context, event.appRoute);
     }
   }
 
-  Future<void> _signIn() async {
-    if(formKey.currentState!.validate()){
-      emit(state.copyWith(isLoading: true));
-      final result = await _signInUseCase.invoke(
-        requestEntity: SignInRequestEntity(
-          email: emailController.text,
-          password: passwordController.text,
-        ),
-        rememberMeChecked:rememberMe
-      );
+  Future<void> _signIn(String email, String password) async {
+    emit(state.copyWith(isLoading: true));
+    final result = await _signInUseCase.invoke(
+      requestEntity: SignInRequestEntity(email: email, password: password),
+      rememberMeChecked: rememberMe,
+    );
 
-      switch(result){
-        case ApiSuccessResult<SignInResponseEntity>():
-          emit(state.copyWith(
-            response: result.data,
+    switch (result) {
+      case ApiSuccessResult<SignInResponseEntity>():
+        emit(state.copyWith(response: result.data, isLoading: false));
+      case ApiErrorResult<SignInResponseEntity>():
+        emit(
+          state.copyWith(
+            failure: Failure(errorMessage: result.failure.errorMessage),
             isLoading: false,
-          ));
-        case ApiErrorResult<SignInResponseEntity>():
-          emit(state.copyWith(
-              failure: Failure(errorMessage: result.failure.errorMessage),
-              isLoading: false
-          ));
-      }
+          ),
+        );
     }
   }
 
-  navigateToRouteScreen(BuildContext context, String appRoute){
+  _navigateToRouteScreen(BuildContext context, String appRoute) {
     context.pushNamed(appRoute);
   }
 
-  void togglePasswordVisibility() {
+  void _togglePasswordVisibility() {
     emit(state.copyWith(obscureText: !state.obscureText));
   }
 
-  void toggleRememberMe(bool value) {
+  void _toggleRememberMe(bool value) {
     emit(state.copyWith(isRememberMe: value));
   }
 }

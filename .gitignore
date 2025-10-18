@@ -47,4 +47,3 @@ app.*.map.json
 *.freezed.dart
 *.config.dart
 *.mocks
-lib/core/di/di.config.dart

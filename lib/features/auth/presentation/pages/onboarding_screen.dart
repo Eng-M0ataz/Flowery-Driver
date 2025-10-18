@@ -6,6 +6,7 @@ import 'package:flowery_tracking/core/localization/locale_keys.g.dart';
 import 'package:flowery_tracking/core/utils/constants/app_assets.dart';
 import 'package:flowery_tracking/core/utils/constants/sizes.dart';
 import 'package:flowery_tracking/core/widgets/custom_elevated_button.dart';
+import 'package:flowery_tracking/features/auth/presentation/viewModel/signin/sign_in_events.dart';
 import 'package:flowery_tracking/features/auth/presentation/viewModel/signin/sign_in_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -52,7 +53,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       ),
                       const SizedBox(height: AppSizes.sizedBoxHeight_27),
                       CustomElevatedButton(
-                        onPressed: () { _viewModel.navigateToRouteScreen(context, AppRoutes.signInRoute);},
+                        onPressed: () { _viewModel.doIntent(event: NavigationEvent(context: context, appRoute: AppRoutes.signInRoute));},
                         isLoading: false,
                         widget: Text(
                           LocaleKeys.login.tr(),
@@ -77,7 +78,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         ),
                         child: CustomElevatedButton(
                           onPressed: () {
-                            _viewModel.navigateToRouteScreen(context, AppRoutes.signUpRoute);
+                            _viewModel.doIntent(event: NavigationEvent(context: context, appRoute: AppRoutes.signUpRoute));
                           },
                           isLoading: false,
                           widget: Text(

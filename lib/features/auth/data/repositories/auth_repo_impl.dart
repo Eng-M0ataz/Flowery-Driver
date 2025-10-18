@@ -25,7 +25,6 @@ class AuthRepoImpl implements AuthRepo {
       if (token != null && token.isNotEmpty) {
         await _authLocalDataSource.writeToken(token: token);
 
-        // If user checked "Remember Me"
         if (rememberMeChecked!) {
           await _authLocalDataSource.setRememberMe(rememberMe: true);
         }

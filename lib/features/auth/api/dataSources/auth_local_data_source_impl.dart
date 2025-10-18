@@ -13,31 +13,36 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
 
   @override
   Future<ApiResult<void>> writeToken({required String token}) async {
-    try {
-      await _storage.write(key: AppConstants.token, value: token);
-
-      return ApiSuccessResult<void>(data: null);
-    } catch (e) {
-      return ApiErrorResult<void>(failure: Failure(errorMessage: e.toString()));
-    }
+    return _executeStorageOperation(
+          () => _storage.write(key: AppConstants.token, value: token),
+    );
   }
 
   @override
   Future<ApiResult<void>> setRememberMe({required bool rememberMe}) async {
-    try {
-      await _storage.write(
+    return _executeStorageOperation(
+          () => _storage.write(
         key: AppConstants.rememberMe,
         value: rememberMe.toString(),
-      );
-      return ApiSuccessResult<void>(data: null);
-    } catch (e) {
-      return ApiErrorResult<void>(failure: Failure(errorMessage: e.toString()));
-    }
+      ),
+    );
   }
 
   @override
   Future<bool> getRememberMe() async {
     final String value = await _storage.read(key: AppConstants.rememberMe);
     return value.toLowerCase() == 'true';
+  }
+
+
+  Future<ApiResult<T>> _executeStorageOperation<T>(
+      Future<T> Function() operation,
+      ) async {
+    try {
+      final result = await operation();
+      return ApiSuccessResult<T>(data: result);
+    } catch (e) {
+      return ApiErrorResult<T>(failure: Failure(errorMessage: e.toString()));
+    }
   }
 }
