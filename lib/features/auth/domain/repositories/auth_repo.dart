@@ -5,6 +5,6 @@ import 'package:flowery_tracking/features/auth/domain/entity/signIn/sign_in_resp
 abstract interface class AuthRepo {
   Future<ApiResult<SignInResponseEntity>> signIn({
     required SignInRequestEntity requestEntity,
-    bool rememberMeChecked = false,
+    bool? rememberMeChecked,
   });
 }

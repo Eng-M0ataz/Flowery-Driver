@@ -22,20 +22,18 @@ void main() async {
   await configureDependencies();
   final initialRoute = await getInitialRoute();
   Bloc.observer = MyBlocObserver();
-  final token = await storage.read(key: 'token');
   runApp(
     EasyLocalization(
       supportedLocales: AppConstants.supportedLocales,
       path: AppConstants.assetsPath,
       fallbackLocale: const Locale(AppConstants.en),
-      child: FloweryDirver(initialRoute: initialRoute, token: token),
+      child: FloweryDirver(initialRoute: initialRoute),
     ),
   );
 }
 
 class FloweryDirver extends StatelessWidget {
-  const FloweryDirver({super.key, required this.initialRoute, required this.token});
-  final String? token;
+  const FloweryDirver({super.key, required this.initialRoute});
   final String initialRoute;
   @override
   Widget build(BuildContext context) {
@@ -60,7 +58,7 @@ class FloweryDirver extends StatelessWidget {
                 ).value,
                 child: child!,
               ),
-              initialRoute: (token != null && token!.isNotEmpty) ? AppRoutes.mainLayoutRoute : AppRoutes.onboardingRoute,
+              initialRoute: AppRoutes.onboardingRoute,
             ),
           );
         },

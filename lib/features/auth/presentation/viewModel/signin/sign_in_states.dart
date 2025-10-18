@@ -5,6 +5,7 @@ class SignInState {
   SignInState({
     this.response,
     this.failure,
+    this.obscureText = true,
     this.isLoading = false,
     this.isRememberMe = false
   });
@@ -12,6 +13,8 @@ class SignInState {
   Failure? failure;
   bool isLoading;
   bool isRememberMe;
+  bool obscureText;
+
 
 
   SignInState copyWith({
@@ -19,12 +22,14 @@ class SignInState {
     Failure? failure,
     bool? isLoading,
     bool? isRememberMe,
+    bool? obscureText,
   }) {
     return SignInState(
         response: response ?? this.response,
         failure: failure ?? this.failure,
         isLoading: isLoading ?? this.isLoading,
-        isRememberMe: isRememberMe ?? this.isRememberMe
+        isRememberMe: isRememberMe ?? this.isRememberMe,
+        obscureText: obscureText ?? this.obscureText,
     );
   }
 }

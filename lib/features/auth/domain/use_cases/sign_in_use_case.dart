@@ -11,10 +11,11 @@ class SignInUseCase {
   final AuthRepo _authRepo;
 
   Future<ApiResult<SignInResponseEntity>> invoke({
-    required SignInRequestEntity requestEntity, bool rememberMeChecked = false,
+    required SignInRequestEntity requestEntity, bool? rememberMeChecked = false,
   }) async {
     return await _authRepo.signIn(
       requestEntity: requestEntity,
+      rememberMeChecked: rememberMeChecked,
     );
   }
 }

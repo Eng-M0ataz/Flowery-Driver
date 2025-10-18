@@ -40,7 +40,7 @@ class MockAuthRepo extends _i1.Mock implements _i2.AuthRepo {
   @override
   _i3.Future<_i4.ApiResult<_i5.SignInResponseEntity>> signIn({
     required _i6.SignInRequestEntity? requestEntity,
-    bool? rememberMeChecked = false,
+    bool? rememberMeChecked,
   }) =>
       (super.noSuchMethod(
             Invocation.method(#signIn, [], {

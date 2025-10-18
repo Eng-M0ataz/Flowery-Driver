@@ -4,6 +4,7 @@ import 'package:flowery_tracking/core/helpers/routing_extensions.dart';
 import 'package:flowery_tracking/features/auth/domain/entity/signIn/sign_in_request_entity.dart';
 import 'package:flowery_tracking/features/auth/domain/entity/signIn/sign_in_response_entity.dart';
 import 'package:flowery_tracking/features/auth/domain/use_cases/sign_in_use_case.dart';
+import 'package:flowery_tracking/features/auth/presentation/viewModel/signin/sign_in_events.dart';
 import 'package:flowery_tracking/features/auth/presentation/viewModel/signin/sign_in_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,15 +17,21 @@ final storage = const FlutterSecureStorage();
 class SignInViewModel extends Cubit<SignInState>{
   SignInViewModel(this._signInUseCase) : super(SignInState());
   final SignInUseCase _signInUseCase;
+
   TextEditingController emailController = TextEditingController(text: 'abdoaswani@gmail.com');
   TextEditingController passwordController = TextEditingController(text: 'Ahmed@123');
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool obscureText = true;
   bool rememberMe = false;
 
-  static SignInViewModel get(context) => BlocProvider.of<SignInViewModel>(context);
+  void doIntent({required SignInEvents event,}) async {
+    switch (event) {
+      case SignInEvent():
+        await _signIn();
+    }
+  }
 
-  Future<void> signIn() async {
+  Future<void> _signIn() async {
     if(formKey.currentState!.validate()){
       emit(state.copyWith(isLoading: true));
       final result = await _signInUseCase.invoke(
@@ -32,24 +39,20 @@ class SignInViewModel extends Cubit<SignInState>{
           email: emailController.text,
           password: passwordController.text,
         ),
+        rememberMeChecked:rememberMe
       );
 
       switch(result){
         case ApiSuccessResult<SignInResponseEntity>():
-          if(rememberMe){
-            await storage.write(key: 'email', value: emailController.text);
-            await storage.write(key: 'password', value: passwordController.text);
-            await storage.write(key: 'token', value: result.data.token);
-          }else{
-            await storage.delete(key: 'email');
-            await storage.delete(key: 'password');
-            await storage.delete(key: 'token');
-
-          }
-          emit(state.copyWith(response: result.data, isLoading: false));
-
+          emit(state.copyWith(
+            response: result.data,
+            isLoading: false,
+          ));
         case ApiErrorResult<SignInResponseEntity>():
-          emit(state.copyWith(failure: Failure(errorMessage: result.failure.errorMessage,), isLoading: false));
+          emit(state.copyWith(
+              failure: Failure(errorMessage: result.failure.errorMessage),
+              isLoading: false
+          ));
       }
     }
   }
@@ -58,8 +61,11 @@ class SignInViewModel extends Cubit<SignInState>{
     context.pushNamed(appRoute);
   }
 
+  void togglePasswordVisibility() {
+    emit(state.copyWith(obscureText: !state.obscureText));
+  }
+
   void toggleRememberMe(bool value) {
-    rememberMe = value;
-    emit(SignInState(isRememberMe: rememberMe));
+    emit(state.copyWith(isRememberMe: value));
   }
 }
