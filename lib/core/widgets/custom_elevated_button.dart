@@ -12,7 +12,7 @@ class CustomElevatedButton extends StatelessWidget {
     this.containerColor,
   });
 
-  final void Function() onPressed;
+  final void Function()? onPressed;
   final bool isLoading;
   final Widget widget;
   final Color? textColor;

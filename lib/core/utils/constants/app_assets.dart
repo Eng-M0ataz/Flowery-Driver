@@ -137,8 +137,8 @@ class Assets {
   static const String assetsImagesUpload = "assets/images/upload.svg";
 
   /// Assets for assetsImagesVector
-  /// assets/images/vector.svg
-  static const String assetsImagesVector = "assets/images/vector.svg";
+  /// assets/images/Vector.svg
+  static const String assetsImagesVector = "assets/images/Vector.svg";
 
   /// Assets for assetsImagesWhatsapp
   /// assets/images/whatsapp.svg

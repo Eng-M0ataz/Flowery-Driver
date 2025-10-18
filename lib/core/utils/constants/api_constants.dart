@@ -6,4 +6,26 @@ abstract class ApiConstants {
   static const String bearer = 'Bearer';
   static const String authorization = 'Authorization';
   static const String signIn = 'drivers/signin';
+  static const String driverOrders = 'orders/driver-orders';
+  static const String getProductItem = 'products/{id}';
+  static const String getLoggedDriverData = 'drivers/profile-data';
+  static const String editProfile = 'drivers/editProfile';
+  static const String uploadPhoto = 'drivers/upload-photo';
+  static const String getVehicle = 'vehicles/{id}';
+  static const String forgotPassword = 'drivers/forgotPassword';
+  static const String verifyResetCode = 'drivers/verifyResetCode';
+  static const String resetPassword = 'drivers/resetPassword';
+  static const String signUp = 'drivers/apply';
+  static const String vehicles = 'vehicles';
+  static const String changePassword = 'drivers/change-password';
+  static const String pendingOrders = 'orders/pending-orders';
+  static const String queryPage = 'page';
+  static const String queryLimit = 'limit';
+  static const String orderId = 'orderId';
+  static const String startOrder = 'orders/start';
+  static const String id = 'id';
+  static const String updateOrderState = 'orders/state/{id}';
+  static const String orderStatusPath = '/statusHistory/';
+  static const String driverLocationPath = '/driver/location';
+  static const String driverData = 'drivers/profile-data';
 }
