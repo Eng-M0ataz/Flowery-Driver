@@ -30,7 +30,7 @@ class SignUpCubit extends Cubit<SignUpCubitState> {
   final ValidateDataUseCase _validateDataUseCase;
   final GetLocalVehicleTypesUseCase _getLocalVehicleTypesUseCase;
 
-  void doIntent({
+  Future<void> doIntent({
     required SignUpCubitEvents event,
     SignUpRequestModel? signUpRequest,
   }) async {

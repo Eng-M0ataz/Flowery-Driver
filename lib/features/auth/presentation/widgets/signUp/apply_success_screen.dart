@@ -70,7 +70,7 @@ class ApprovedAppScreen extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {
-                          context.pushNamed(AppRoutes.signUpRoute);
+                          context.pushReplacementNamed(AppRoutes.signInRoute);
                         },
                         child: Text(
                           LocaleKeys.login.tr(),

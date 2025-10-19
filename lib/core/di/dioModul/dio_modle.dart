@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flowery_tracking/core/di/di.dart';
+import 'package:flowery_tracking/core/services/storage_interface.dart';
 import 'package:flowery_tracking/core/utils/constants/api_constants.dart';
+import 'package:flowery_tracking/core/utils/constants/app_constants.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
@@ -22,11 +24,9 @@ abstract class DioModule {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          final String token =
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkcml2ZXIiOiI2OGYzNmVlMDdmZWU2OGE0YzJlZGEyODgiLCJpYXQiOjE3NjA3ODQwOTd9.n3h84BcCwzz9QsyG5LwVWFZrBwWRs06qy3nN-MzemuM';
-          //  await getIt
-          //     .get<Storage>(instanceName: AppConstants.secureStorage)
-          //     .read(key: ApiConstants.token);
+          final String token = await getIt
+              .get<Storage>(instanceName: AppConstants.secureStorage)
+              .read(key: ApiConstants.token);
           if (token.isNotEmpty) {
             options.headers[ApiConstants.authorization] =
                 '${ApiConstants.bearer} $token';

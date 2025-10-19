@@ -211,11 +211,11 @@ class _SignUpFormState extends State<SignUpForm> {
                   );
 
                   if (_formKey.currentState!.validate()) {
-                    _signUpCubit.doIntent(
+                    await _signUpCubit.doIntent(
                       event: SignUpEvent(),
                       signUpRequest: signUpRequest,
                     );
-                    context.pushNamed(AppRoutes.applySuccessRoute);
+                    context.pushReplacementNamed(AppRoutes.applySuccessRoute);
                   }
                 },
               ),
