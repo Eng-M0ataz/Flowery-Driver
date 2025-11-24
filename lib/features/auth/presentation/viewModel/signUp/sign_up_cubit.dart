@@ -1,6 +1,6 @@
+import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:bloc/bloc.dart';
 import 'package:flowery_tracking/core/aiLayer/domain/useCases/validate_data_use_case.dart';
 import 'package:flowery_tracking/core/enum/driver_image_type.dart';
@@ -94,19 +94,19 @@ class SignUpCubit extends Cubit<SignUpCubitState> {
     required AiImageType type,
     required Uint8List data,
   }) async {
-    emit(_setLoading(true, type));
+    emit(_setLoading(true, false, type));
     final result = await _validateDataUseCase.invoke(
       prompt: AppConstants.aiValidationPrompt,
       data: data,
       dataType: AppConstants.imageDataType,
     );
-    emit(_setLoading(false, type));
+    emit(_setLoading(false, false, type));
     switch (result) {
       case ApiSuccessResult<String>():
-        emit(_setResponse(result.data, type));
+        emit(_setResponse(result.data, true, type));
 
       case ApiErrorResult<String>():
-        emit(state.copyWith(aiFailure: result.failure));
+        emit(state.copyWith(aiFailure: result.failure, aiSuc: false));
     }
   }
 
@@ -116,7 +116,7 @@ class SignUpCubit extends Cubit<SignUpCubitState> {
     if (imageFile != null) {
       final data = await imageFile.readAsBytes();
       await _validateUserImage(data: data, type: AiImageType.vehicleLicense);
-      if (state.vehicleLicenseImageAiResponse == 'VALID') {
+      if (state.vehicleLicenseImageAiResponse == 'valid') {
         emit(state.copyWith(vehicleLicenseImage: imageFile));
       }
     }
@@ -128,27 +128,34 @@ class SignUpCubit extends Cubit<SignUpCubitState> {
     if (imageFile != null) {
       final data = await imageFile.readAsBytes();
       await _validateUserImage(data: data, type: AiImageType.idCard);
-      if (state.idImageAiResponse == 'VALID') {
+      if (state.idImageAiResponse == 'valid') {
         emit(state.copyWith(idImage: imageFile));
       }
     }
   }
 
-  SignUpCubitState _setLoading(bool value, AiImageType type) {
+  SignUpCubitState _setLoading(
+    bool loadingValue,
+    bool aiSuc,
+    AiImageType type,
+  ) {
     switch (type) {
       case AiImageType.vehicleLicense:
-        return state.copyWith(aiVehicleLoading: value);
+        return state.copyWith(aiVehicleLoading: loadingValue, aiSuc: aiSuc);
       case AiImageType.idCard:
-        return state.copyWith(aiIdImageLoading: value);
+        return state.copyWith(aiIdImageLoading: loadingValue, aiSuc: aiSuc);
     }
   }
 
-  SignUpCubitState _setResponse(String data, AiImageType type) {
+  SignUpCubitState _setResponse(String data, bool aiSuc, AiImageType type) {
     switch (type) {
       case AiImageType.vehicleLicense:
-        return state.copyWith(vehicleLicenseImageAiResponse: data);
+        return state.copyWith(
+          vehicleLicenseImageAiResponse: data,
+          aiSuc: aiSuc,
+        );
       case AiImageType.idCard:
-        return state.copyWith(idImageAiResponse: data);
+        return state.copyWith(idImageAiResponse: data, aiSuc: aiSuc);
     }
   }
 }

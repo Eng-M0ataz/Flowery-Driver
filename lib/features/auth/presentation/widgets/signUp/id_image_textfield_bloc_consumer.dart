@@ -16,22 +16,30 @@ class IdTextFieldBlocConsumer extends StatelessWidget {
     required this.signUpCubit,
     required this.idImageController,
   });
+
   final SignUpCubit signUpCubit;
   final TextEditingController idImageController;
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SignUpCubit, SignUpCubitState>(
+      listenWhen: (p, c) =>
+          p.idImage != c.idImage ||
+          p.aiFailure != c.aiFailure ||
+          p.idImageAiResponse != c.idImageAiResponse ||
+          p.aiSuc != c.aiSuc,
       listener: (context, state) {
         if (state.idImage != null) {
           idImageController.text = state.idImage!.path;
         }
-        if (state.aiFailure != null) {
+        if (state.aiFailure != null && state.aiSuc) {
           DialogueUtils.showMessage(
             context: context,
             message: state.aiFailure!.errorMessage,
           );
         }
-        if (state.idImageAiResponse == AiResponseType.invalid.name) {
+        if (state.idImageAiResponse == AiResponseType.invalid.name &&
+            state.aiSuc) {
           DialogueUtils.showMessage(
             title: LocaleKeys.error.tr(),
             context: context,

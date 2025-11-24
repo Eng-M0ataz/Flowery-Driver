@@ -16,24 +16,31 @@ class VehicleTextFieldBlocConsumer extends StatelessWidget {
     required this.signUpCubit,
     required this.vehicleLicenseController,
   });
+
   final SignUpCubit signUpCubit;
   final TextEditingController vehicleLicenseController;
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SignUpCubit, SignUpCubitState>(
+      listenWhen: (p, c) =>
+          p.idImage != c.idImage ||
+          p.aiFailure != c.aiFailure ||
+          p.idImageAiResponse != c.idImageAiResponse ||
+          p.aiSuc != c.aiSuc,
       listener: (context, state) {
         if (state.vehicleLicenseImage != null) {
           vehicleLicenseController.text = state.vehicleLicenseImage!.path;
         }
-        if (state.aiFailure != null) {
+        if (state.aiFailure != null && !state.aiSuc) {
           DialogueUtils.showMessage(
             context: context,
             message: state.aiFailure!.errorMessage,
           );
         }
         if (state.vehicleLicenseImageAiResponse ==
-            AiResponseType.invalid.name) {
+                AiResponseType.invalid.name &&
+            state.aiSuc) {
           DialogueUtils.showMessage(
             title: LocaleKeys.error.tr(),
             context: context,

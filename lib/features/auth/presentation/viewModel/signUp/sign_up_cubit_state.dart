@@ -18,12 +18,15 @@ class SignUpCubitState extends Equatable {
     this.aiVehicleLoading = false,
     this.aiIdImageLoading = false,
     this.vehicleList = const [],
+    this.aiSuc = false,
   });
+
   final Failure? signUpFailure;
   final Failure? aiFailure;
   final bool isLoading;
   final bool aiVehicleLoading;
   final bool aiIdImageLoading;
+  final bool aiSuc;
   final List<VehicleTypeEntity>? vehicleList;
   final File? vehicleLicenseImage;
   final File? idImage;
@@ -33,19 +36,20 @@ class SignUpCubitState extends Equatable {
   final String? idImageAiResponse;
 
   SignUpCubitState copyWith({
-    final Failure? signUpFailure,
-    final Failure? vehicleTypesFailre,
-    final bool? isLoading,
-    final bool? aiIdImageLoading,
-    final bool? aiVehicleLoading,
-    final List<VehicleTypeEntity>? vehicleList,
-    final File? vehicleLicenseImage,
-    final File? idImage,
-    final String? vehicleLicensePath,
-    final String? idImagePath,
-    final String? vehicleLicenseImageAiResponse,
-    final String? idImageAiResponse,
-    final Failure? aiFailure,
+    Failure? signUpFailure,
+    Failure? vehicleTypesFailre,
+    bool? isLoading,
+    bool? aiIdImageLoading,
+    bool? aiVehicleLoading,
+    List<VehicleTypeEntity>? vehicleList,
+    File? vehicleLicenseImage,
+    File? idImage,
+    String? vehicleLicensePath,
+    String? idImagePath,
+    String? vehicleLicenseImageAiResponse,
+    String? idImageAiResponse,
+    Failure? aiFailure,
+    bool? aiSuc,
   }) {
     return SignUpCubitState(
       signUpFailure: signUpFailure ?? this.signUpFailure,
@@ -61,22 +65,24 @@ class SignUpCubitState extends Equatable {
           vehicleLicenseImageAiResponse ?? this.vehicleLicenseImageAiResponse,
       idImageAiResponse: idImageAiResponse ?? this.idImageAiResponse,
       aiFailure: aiFailure ?? this.aiFailure,
+      aiSuc: aiSuc ?? this.aiSuc,
     );
   }
 
   @override
   List<Object?> get props => [
-        signUpFailure,
-        aiFailure,
-        isLoading,
-        aiVehicleLoading,
-        aiIdImageLoading,
-        vehicleList,
-        vehicleLicenseImage,
-        idImage,
-        vehicleLicensePath,
-        idImagePath,
-        vehicleLicenseImageAiResponse,
-        idImageAiResponse,
-      ];
+    signUpFailure,
+    aiFailure,
+    isLoading,
+    aiVehicleLoading,
+    aiIdImageLoading,
+    vehicleList,
+    vehicleLicenseImage,
+    idImage,
+    vehicleLicensePath,
+    idImagePath,
+    vehicleLicenseImageAiResponse,
+    idImageAiResponse,
+    aiSuc,
+  ];
 }
