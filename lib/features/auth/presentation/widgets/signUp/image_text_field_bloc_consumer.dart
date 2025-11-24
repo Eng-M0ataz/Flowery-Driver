@@ -26,7 +26,7 @@ class VehicleTextFieldBlocConsumer extends StatelessWidget {
       listenWhen: (p, c) =>
           p.idImage != c.idImage ||
           p.aiFailure != c.aiFailure ||
-          p.idImageAiResponse != c.idImageAiResponse ||
+          p.vehicleLicenseImage != c.vehicleLicenseImage ||
           p.aiSuc != c.aiSuc,
       listener: (context, state) {
         if (state.vehicleLicenseImage != null) {
