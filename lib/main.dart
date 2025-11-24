@@ -21,7 +21,6 @@ void main() async {
   final initialRoute = await getInitialRoute();
   Bloc.observer = MyBlocObserver();
 
-
   runApp(
     EasyLocalization(
       supportedLocales: AppConstants.supportedLocales,
@@ -50,6 +49,7 @@ class FloweryDirver extends StatelessWidget {
               supportedLocales: context.supportedLocales,
               locale: localeState,
               theme: AppThemeLight.lightTheme,
+              initialRoute: initialRoute,
               onGenerateRoute: RouteGenerator.getRoute,
               builder: (context, child) => ResponsiveScaledBox(
                 width: ResponsiveValue<double>(
@@ -58,7 +58,6 @@ class FloweryDirver extends StatelessWidget {
                 ).value,
                 child: child!,
               ),
-              initialRoute: initialRoute,
             ),
           );
         },

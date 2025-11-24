@@ -7,14 +7,16 @@ class SignInState {
     this.failure,
     this.obscureText = true,
     this.isLoading = false,
-    this.isRememberMe = false
+    this.isRememberMe = false,
+    this.isSuc = false,
+
   });
   SignInResponseEntity? response;
   Failure? failure;
   bool isLoading;
   bool isRememberMe;
   bool obscureText;
-
+  bool isSuc;
 
 
   SignInState copyWith({
@@ -23,6 +25,7 @@ class SignInState {
     bool? isLoading,
     bool? isRememberMe,
     bool? obscureText,
+    bool? isSuc,
   }) {
     return SignInState(
         response: response ?? this.response,
@@ -30,6 +33,7 @@ class SignInState {
         isLoading: isLoading ?? this.isLoading,
         isRememberMe: isRememberMe ?? this.isRememberMe,
         obscureText: obscureText ?? this.obscureText,
+
     );
   }
 }

@@ -110,12 +110,21 @@ class _SignInFormContentState extends State<_SignInFormContent> {
                         ),
                       );
                     },
-                    child: Text(LocaleKeys.forgot_password.tr(), style: Theme.of(context).textTheme.labelSmall!.copyWith(decoration: TextDecoration.underline),),
+                    child: Text(
+                      LocaleKeys.forgot_password.tr(),
+                      style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
                   ),
                 ],
               ),
               const SizedBox(height: AppSizes.spaceBetweenItems_32),
               BlocConsumer<SignInViewModel, SignInState>(
+                listenWhen: (p, c) =>
+                    p.isSuc != c.isSuc ||
+                    p.failure != c.failure ||
+                    p.response != c.response,
                 listener: (context, state) {
                   if (state.failure != null) {
                     DialogueUtils.showMessage(
@@ -127,9 +136,17 @@ class _SignInFormContentState extends State<_SignInFormContent> {
                     );
                   }
                   if (state.response != null) {
-                    context.pushNamedAndRemoveUntil(
-                      AppRoutes.mainLayoutRoute,
-                      predicate: (route) => false,
+                    DialogueUtils.showMessage(
+                      context: context,
+                      title: LocaleKeys.success.tr(),
+                      message: 'Welcome back',
+                      posActionName: LocaleKeys.ok.tr(),
+                      posAction: () {
+                        context.pushNamedAndRemoveUntil(
+                          AppRoutes.mainLayoutRoute,
+                          predicate: (route) => false,
+                        );
+                      },
                     );
                   }
                 },

@@ -15,7 +15,7 @@ class SignInViewModel extends Cubit<SignInState> {
   SignInViewModel(this._signInUseCase) : super(SignInState());
   final SignInUseCase _signInUseCase;
 
-  bool rememberMe = false;
+
 
   void doIntent({required SignInEvents event}) async {
     switch (event) {
@@ -34,17 +34,20 @@ class SignInViewModel extends Cubit<SignInState> {
     emit(state.copyWith(isLoading: true));
     final result = await _signInUseCase.invoke(
       requestEntity: SignInRequestEntity(email: email, password: password),
-      rememberMeChecked: rememberMe,
+      rememberMeChecked: state.isRememberMe,
     );
 
     switch (result) {
       case ApiSuccessResult<SignInResponseEntity>():
-        emit(state.copyWith(response: result.data, isLoading: false));
+        emit(
+          state.copyWith(response: result.data, isLoading: false, isSuc: true),
+        );
       case ApiErrorResult<SignInResponseEntity>():
         emit(
           state.copyWith(
-            failure: Failure(errorMessage: result.failure.errorMessage),
+            failure: result.failure,
             isLoading: false,
+            isSuc: false,
           ),
         );
     }
