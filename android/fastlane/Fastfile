@@ -1,0 +1,18 @@
+default_platform(:android)
+require 'dotenv'
+Dotenv.load('../.env')
+platform :android do
+  desc "deploy a new version to firebase app distribution beta"
+  lane :firebase_distribution do
+    sh "flutter clean"
+    sh "flutter build apk --release"
+    firebase_app_distribution(
+    app: Env['APP'],
+    firebase_cli_token:Env['FIREBASE_CLI_TOKEN'],
+    android_artifact_type: "APK",
+    apk_path: "../build/app/outputs/flutter-apk/app-release.apk",
+    testers: Env['TESTERS'],
+    release_notes: Env['RELEASE_NOTES']
+  )
+  end
+end

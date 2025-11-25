@@ -47,4 +47,6 @@ app.*.map.json
 *.freezed.dart
 *.config.dart
 *.mocks.dart
+# dotenv environment files
+*.env
 

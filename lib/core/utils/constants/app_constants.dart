@@ -37,4 +37,5 @@ abstract class AppConstants {
   static const String cancelled = 'cancelled';
   static const String imagePath =
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkAJEkJQ1WumU0hXNpXdgBt9NUKc0QDVIiaw&s';
+  static const String envPath = '.env';
 }
