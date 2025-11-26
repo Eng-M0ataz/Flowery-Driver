@@ -6,7 +6,7 @@ on:
       - main
 jobs:
   distribute_to_forebase:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -22,12 +22,11 @@ jobs:
         with:
           channel: 'stable'
           flutter-version: '3.35.4'
-      - name: setup Rupy
+      - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.4.7'
           bundler-cache: true
-          working-directory: 'android'
       - name: build and distribute to firebase app distribution
         env:
           FIREBASE_CLI_TOKEN: ${{ secrets.FIREBASE_CLI_TOKEN }}
