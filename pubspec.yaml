@@ -90,6 +90,7 @@ flutter:
     - assets/images/
     - assets/translations/
     - assets/vehicle_types.json
+    - .env
    fonts:
      - family: Inter
        fonts:
