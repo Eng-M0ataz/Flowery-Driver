@@ -11,28 +11,40 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up JDK 11
+      - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: '11'
+          java-version: '17'
 
       - name: install flutter
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
           flutter-version: '3.35.4'
+      - name: Generate localization files
+        run: |
+          flutter pub run easy_localization:generate -S assets/translations -O lib/core/localization
+          flutter pub run easy_localization:generate -S assets/translations -O lib/core/localization -f keys -o locale_keys.g.dart
+      - name: Clean build_runner cache
+        run: flutter pub run build_runner clean
+      - name: Generate code (json_serializable, retrofit, mockito)
+        run: flutter pub run build_runner build --delete-conflicting-outputs
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.4.7'
           bundler-cache: true
+      - name: Install gems
+        working-directory: android
+        run: bundle install
       - name: build and distribute to firebase app distribution
+        working-directory: 'android'  
         env:
           FIREBASE_CLI_TOKEN: ${{ secrets.FIREBASE_CLI_TOKEN }}
         run: |
           bundle exec fastlane android firebase_distribution
-        working-directory: 'android'
+        
 
           
 
